@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { Suspense } from "react"; // Suspense 임포트 추가
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "styles/GlobalStyle";
+import theme from "styles/theme";
+import Header from "components/common/Header";
+import Footer from "components/common/Footer";
+
+const StartPage = React.lazy(() => import("containers/taste-match/StartPage"));
+const QuestionPage = React.lazy(() =>
+  import("containers/taste-match/QuestionPage")
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router>
+        <Header>러브 매치</Header>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/taste-match" element={<StartPage />} />
+            <Route path="/question-page" element={<QuestionPage />} />
+          </Routes>
+        </Suspense>
+        <Footer>푸터</Footer>
+      </Router>
+    </ThemeProvider>
   );
 }
 
