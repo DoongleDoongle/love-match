@@ -11,6 +11,9 @@ const StartPage = React.lazy(() => import("containers/taste-match/StartPage"));
 const QuestionPage = React.lazy(() =>
   import("containers/taste-match/QuestionPage")
 );
+const ResultPage = React.lazy(() =>
+  import("containers/taste-match/ResultPage")
+);
 
 function App() {
   return (
@@ -21,7 +24,8 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/taste-match" element={<StartPage />} />
-            <Route path="/question-page" element={<QuestionPage />} />
+            <Route path="/taste-match/questions" element={<QuestionPage />} />
+            <Route path="/taste-match/results" element={<ResultPage />} />
           </Routes>
         </Suspense>
         <Footer>푸터</Footer>

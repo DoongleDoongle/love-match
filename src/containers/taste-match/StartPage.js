@@ -21,7 +21,6 @@ const InputContainer = styled.div`
   flex: 1;
   align-items: center;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.background};
 `;
 
 const InputList = styled.div`
@@ -32,7 +31,7 @@ const StartPage = () => {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
-    navigate("/question-page");
+    navigate("/taste-match/questions");
   };
 
   return (
