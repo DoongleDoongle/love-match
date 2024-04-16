@@ -7,13 +7,9 @@ import theme from "styles/theme";
 import Header from "components/common/Header";
 import Footer from "components/common/Footer";
 
-const StartPage = React.lazy(() => import("containers/taste-match/StartPage"));
-const QuestionPage = React.lazy(() =>
-  import("containers/taste-match/QuestionPage")
-);
-const ResultPage = React.lazy(() =>
-  import("containers/taste-match/ResultPage")
-);
+import StartPage from "containers/taste-match/StartPage";
+import QuestionPage from "containers/taste-match/QuestionPage";
+import ResultPage from "containers/taste-match/ResultPage";
 
 function App() {
   return (

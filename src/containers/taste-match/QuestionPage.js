@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Progress } from "rsuite"; // 가이드: https://rsuitejs.com/components/
 import "rsuite/dist/rsuite.min.css";
 
@@ -25,16 +25,39 @@ const TextArea = styled.div`
   height: 100%;
   color: ${({ theme }) => theme.colors.dark};
   cursor: pointer;
+  transition: background-color 0.3s;
+
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: ${theme.colors.lightBlueGrey}; // 선택 시 배경색 변경
+    `}
+`;
+
+const VersusText = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes.large};
+  color: ${({ theme }) => theme.colors.primary};
+  position: fixed; // 위치를 고정시킵니다.
+  top: 50%; // 상단에서 50% 위치
+  left: 50%; // 왼쪽에서 50% 위치
+  transform: translate(-50%, -50%); // 중앙 정렬
+  font-weight: bold;
+  z-index: 100; // 다른 요소 위에 오도록 z-index 설정
 `;
 
 const QuestionPage = () => {
   const navigate = useNavigate();
   const keywords = getKeywords();
   const [keywordIdx, setKeywordIdx] = useState(0);
+  const [selected, setSelected] = useState(null); // 선택된 영역을 추적
 
-  const clickTextArea = () => {
+  const clickTextArea = (type) => {
+    setSelected(type);
     if (keywordIdx + 1 < keywords.length) {
-      setKeywordIdx(keywordIdx + 1);
+      setTimeout(() => {
+        setKeywordIdx(keywordIdx + 1);
+        setSelected(null); // 다음 질문으로 넘어가면 선택 해제
+      }, 500); // 선택 시 시각적 피드백을 제공한 후 다음으로 넘어감
     } else {
       navigate("/taste-match/results"); // keywords를 모두 표시한 후 다음 페이지로 이동
     }
@@ -44,14 +67,26 @@ const QuestionPage = () => {
 
   return (
     <Container>
-      <TextArea onClick={clickTextArea}>{currentKeyword.top}</TextArea>
+      <TextArea
+        onClick={() => clickTextArea("top")}
+        active={selected === "top"}
+      >
+        {currentKeyword.top}
+      </TextArea>
+
+      <VersusText>VS</VersusText>
       <Progress.Line
         percent={((keywordIdx + 1) / keywords.length) * 100}
         strokeColor={theme.colors.softRose}
         showInfo={false}
         strokeWidth={10}
       />
-      <TextArea onClick={clickTextArea}>{currentKeyword.bottom}</TextArea>
+      <TextArea
+        onClick={() => clickTextArea("bottom")}
+        active={selected === "bottom"}
+      >
+        {currentKeyword.bottom}
+      </TextArea>
     </Container>
   );
 };
