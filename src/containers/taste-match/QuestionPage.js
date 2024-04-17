@@ -25,14 +25,11 @@ const TextArea = styled.div`
   height: 100%;
   color: ${({ theme }) => theme.colors.dark};
   cursor: pointer;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-  ${({ active }) =>
-    active &&
-    css`
-      transform: scale(1.1); // 선택 시 더 확대
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); // 선택 시 강조된 그림자
-    `}
+  background-color: ${({ active, theme }) =>
+    active
+      ? theme.colors.softRose
+      : theme.colors.background}; // 클릭 시 배경색 변경
+  transition: background-color 0.3s ease-in-out; // 부드러운 색상 전환 효과
 `;
 
 const VersusText = styled.div`
