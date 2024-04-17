@@ -25,24 +25,27 @@ const TextArea = styled.div`
   height: 100%;
   color: ${({ theme }) => theme.colors.dark};
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   ${({ active }) =>
     active &&
     css`
-      background-color: ${theme.colors.lightBlueGrey}; // 선택 시 배경색 변경
+      transform: scale(1.1); // 선택 시 더 확대
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); // 선택 시 강조된 그림자
     `}
 `;
 
 const VersusText = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.large};
-  color: ${({ theme }) => theme.colors.primary};
-  position: fixed; // 위치를 고정시킵니다.
+  position: fixed;
   top: 50%; // 상단에서 50% 위치
   left: 50%; // 왼쪽에서 50% 위치
   transform: translate(-50%, -50%); // 중앙 정렬
+  padding: 0.5%;
+  font-size: ${({ theme }) => theme.fontSizes.large};
   font-weight: bold;
-  z-index: 100; // 다른 요소 위에 오도록 z-index 설정
+  color: ${({ theme }) => theme.colors.softRose};
+  /* background-color: ${({ theme }) => theme.colors.background}; */
+  z-index: 101; // Progress 위에 오도록 z-index 설정
 `;
 
 const QuestionPage = () => {
@@ -57,7 +60,7 @@ const QuestionPage = () => {
       setTimeout(() => {
         setKeywordIdx(keywordIdx + 1);
         setSelected(null); // 다음 질문으로 넘어가면 선택 해제
-      }, 500); // 선택 시 시각적 피드백을 제공한 후 다음으로 넘어감
+      }, 250); // 선택 시 시각적 피드백을 제공한 후 다음으로 넘어감
     } else {
       navigate("/taste-match/results"); // keywords를 모두 표시한 후 다음 페이지로 이동
     }
@@ -80,6 +83,14 @@ const QuestionPage = () => {
         strokeColor={theme.colors.softRose}
         showInfo={false}
         strokeWidth={10}
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "500px",
+          zIndex: 100,
+        }}
       />
       <TextArea
         onClick={() => clickTextArea("bottom")}
