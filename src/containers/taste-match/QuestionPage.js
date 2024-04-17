@@ -36,16 +36,24 @@ const TextArea = styled.div`
 `;
 
 const VersusText = styled.div`
-  position: fixed;
-  top: 50%; // 상단에서 50% 위치
-  left: 50%; // 왼쪽에서 50% 위치
-  transform: translate(-50%, -50%); // 중앙 정렬
-  padding: 0.5%;
   font-size: ${({ theme }) => theme.fontSizes.large};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.softRose};
-  /* background-color: ${({ theme }) => theme.colors.background}; */
-  z-index: 101; // Progress 위에 오도록 z-index 설정
+`;
+
+const ProgressContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const LeftProgress = styled(Progress.Line)`
+  width: 50%;
+`;
+
+const RightProgress = styled(Progress.Line)`
+  width: 50%;
 `;
 
 const QuestionPage = () => {
@@ -67,6 +75,9 @@ const QuestionPage = () => {
   };
 
   const currentKeyword = keywords[keywordIdx];
+  const leftProgressPercentage = ((keywordIdx + 1) / keywords.length) * 200;
+  const rightProgressPercentage =
+    leftProgressPercentage > 100 ? leftProgressPercentage - 100 : 0;
 
   return (
     <Container>
@@ -77,21 +88,21 @@ const QuestionPage = () => {
         {currentKeyword.top}
       </TextArea>
 
-      <VersusText>VS</VersusText>
-      <Progress.Line
-        percent={((keywordIdx + 1) / keywords.length) * 100}
-        strokeColor={theme.colors.softRose}
-        showInfo={false}
-        strokeWidth={10}
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "500px",
-          zIndex: 100,
-        }}
-      />
+      <ProgressContainer>
+        <LeftProgress
+          percent={leftProgressPercentage}
+          strokeColor={theme.colors.softRose}
+          showInfo={false}
+          strokeWidth={10}
+        />
+        <VersusText>VS</VersusText>
+        <RightProgress
+          percent={rightProgressPercentage}
+          strokeColor={theme.colors.softRose}
+          showInfo={false}
+          strokeWidth={10}
+        />
+      </ProgressContainer>
       <TextArea
         onClick={() => clickTextArea("bottom")}
         active={selected === "bottom"}
