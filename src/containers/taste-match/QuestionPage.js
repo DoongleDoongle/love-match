@@ -23,13 +23,16 @@ const TextArea = styled.div`
   font-weight: bolder;
   width: 100%;
   height: 100%;
-  color: ${({ theme }) => theme.colors.dark};
   cursor: pointer;
   background-color: ${({ active, theme }) =>
     active
       ? theme.colors.softRose
       : theme.colors.background}; // 클릭 시 배경색 변경
-  transition: background-color 0.3s ease-in-out; // 부드러운 색상 전환 효과
+  color: ${({ active, theme }) =>
+    active
+      ? theme.colors.softRose
+      : theme.colors.dark}; // 클릭 시 텍스트 색상 변경
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 `;
 
 const VersusText = styled.div`
