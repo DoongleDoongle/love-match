@@ -11,6 +11,7 @@ const theme = {
     info: "#17a2b8", // 정보 청색
     light: "#FEFAF6", // 매우 밝은 거의 흰색
     dark: "#343a40", // 짙은 회색
+    white: "#fff",
     text: "#333", // 거의 검정색
     background: "#FEFAF6", // light랑 동일
   },

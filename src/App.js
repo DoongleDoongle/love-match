@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
 import Header from "components/common/Header";
-import Footer from "components/common/Footer";
+// import Footer from "components/common/Footer";
 
 import StartPage from "containers/taste-match/StartPage";
 import QuestionPage from "containers/taste-match/QuestionPage";
@@ -24,7 +24,7 @@ function App() {
             <Route path="/taste-match/results" element={<ResultPage />} />
           </Routes>
         </Suspense>
-        <Footer>푸터</Footer>
+        {/* <Footer>푸터</Footer> */}
       </Router>
     </ThemeProvider>
   );

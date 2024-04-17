@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { Progress } from "rsuite"; // 가이드: https://rsuitejs.com/components/
+import { Progress } from "rsuite"; // 가이드: https://rsuitejs.com/components/progress/
 import "rsuite/dist/rsuite.min.css";
 
 import theme from "styles/theme";
