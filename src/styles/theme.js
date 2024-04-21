@@ -1,7 +1,10 @@
 const theme = {
   colors: {
-    primary: "#102C57", // 짙은 파랑
-    secondary: "#DAC0A3", // 베이지
+    primary: "#102C57", // 1차색, 짙은 파랑
+    secondary: "#DAC0A3", // 2차색, 베이지
+    Tertiary: "EADBC8", // 3차색,
+    Quaternary: "FEFAF6", // 4차색,
+    Quinary: "", // 5차색,
     lightBlueGrey: "#A3B4C6", // 밝은 파랑/회색
     softRose: "#B48291", // 부드러운 로즈
     softBlue: "#829AB1", // 소프트 블루

@@ -75,7 +75,7 @@ const QuestionPage = () => {
   };
 
   const currentKeyword = keywords[keywordIdx];
-  const leftProgressPercentage = ((keywordIdx + 1) / keywords.length) * 200;
+  const leftProgressPercentage = (keywordIdx / keywords.length) * 200;
   const rightProgressPercentage =
     leftProgressPercentage > 100 ? leftProgressPercentage - 100 : 0;
 

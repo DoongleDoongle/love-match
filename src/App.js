@@ -9,7 +9,7 @@ import Header from "components/common/Header";
 
 import StartPage from "containers/taste-match/StartPage";
 import QuestionPage from "containers/taste-match/QuestionPage";
-import ResultPage from "containers/taste-match/ResultPage";
+import ResultPage from "containers/taste-match/result-page/ResultPage";
 
 function App() {
   return (
