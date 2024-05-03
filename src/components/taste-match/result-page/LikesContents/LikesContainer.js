@@ -5,7 +5,7 @@ const LikesContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin-top: 20px;
   width: 70%;
 `;
 

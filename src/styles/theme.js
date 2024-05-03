@@ -21,7 +21,9 @@ const theme = {
   fontSizes: {
     extraSmall: "10px",
     small: "12px",
+    semiSmall: "14px",
     base: "16px",
+    semiLarge: "18px",
     large: "20px",
     extraLarge: "24px",
     huge: "28px",

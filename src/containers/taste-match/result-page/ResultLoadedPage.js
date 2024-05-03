@@ -3,19 +3,20 @@ import styled from "styled-components";
 
 import BaseContainer from "components/common/utils/BaseContainer";
 import LikesContents from "components/taste-match/result-page/LikesContents/LikesContents";
-import Navbar from "components/taste-match/result-page/Navbar/Navbar";
+import Navbar from "components/taste-match/result-page/Navbar";
+import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup";
 
 const CompatibilityContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: ${({ theme }) => theme.spacings.huge};
+  margin-bottom: 20px;
   padding: ${({ theme }) => theme.spacings.base};
   color: ${({ theme }) => theme.colors.primary};
   background-color: ${({ theme }) => theme.colors.background};
-  border: ${({ theme }) => `solid 1px ${theme.colors.primary}`};
-  border-radius: ${({ theme }) => theme.borderRadius.base};
+  /* border: ${({ theme }) => `solid 1px ${theme.colors.primary}`};
+  border-radius: ${({ theme }) => theme.borderRadius.base}; */
 `;
 
 const CompatibilityLabel = styled.div`
@@ -66,6 +67,8 @@ const ResultLoadedPage = ({ participants }) => {
           matchScore={compatibility.rate}
         />
       ))}
+
+      <ResultIconGroup />
     </BaseContainer>
   );
 };

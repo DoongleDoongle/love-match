@@ -14,7 +14,7 @@ const ResultPage = () => {
 };
 
 const isLoaded = (participants) => {
-  return participants.length > 0;
+  return participants.length === 0;
 };
 
 const getParticipants = () => {
