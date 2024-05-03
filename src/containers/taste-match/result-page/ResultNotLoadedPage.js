@@ -8,8 +8,8 @@ import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup"
 import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
 
 const Message = styled.div`
-  margin-bottom: 20px;
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  margin: 20px 0;
+  font-size: ${({ theme }) => theme.fontSizes.semiLarge};
   font-weight: bold;
 `;
 
