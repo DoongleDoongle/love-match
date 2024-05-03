@@ -26,11 +26,11 @@ const TextArea = styled.div`
   cursor: pointer;
   background-color: ${({ active, theme }) =>
     active
-      ? theme.colors.softRose
+      ? theme.colors.primary
       : theme.colors.background}; // 클릭 시 배경색 변경
   color: ${({ active, theme }) =>
     active
-      ? theme.colors.softRose
+      ? theme.colors.primary
       : theme.colors.dark}; // 클릭 시 텍스트 색상 변경
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 `;
@@ -38,7 +38,7 @@ const TextArea = styled.div`
 const VersusText = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.large};
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.softRose};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const ProgressContainer = styled.div`
@@ -91,14 +91,14 @@ const QuestionPage = () => {
       <ProgressContainer>
         <LeftProgress
           percent={leftProgressPercentage}
-          strokeColor={theme.colors.softRose}
+          strokeColor={theme.colors.primary}
           showInfo={false}
           strokeWidth={10}
         />
         <VersusText>VS</VersusText>
         <RightProgress
           percent={rightProgressPercentage}
-          strokeColor={theme.colors.softRose}
+          strokeColor={theme.colors.primary}
           showInfo={false}
           strokeWidth={10}
         />
