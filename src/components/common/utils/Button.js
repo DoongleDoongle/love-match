@@ -3,7 +3,7 @@ import styled from "styled-components";
 // prettier-ignore
 const Button = styled.button`
   background-color: ${({theme, backgroundColor}) => backgroundColor || theme.colors.primary};
-  color: ${({theme, color}) => color || theme.colors.light}; // 밝은 텍스트 색상 사용
+  color: ${({theme, color}) => color || theme.colors.light};
   padding: ${({theme, padding}) => padding || theme.spacings.small} ${({theme}) => theme.spacings.base};
   font-size: ${({theme, fontSize}) => fontSize || theme.fontSizes.base};
   border: none;
@@ -35,15 +35,6 @@ const Button = styled.button`
     outline: none; // 포커스 아웃라인 제거
   }
 
-  @media (hover: none) {
-    &:hover {
-      background-color: ${({theme}) =>
-        theme.colors
-          .primary}; // 호버가 없는 디바이스에서는 배경색 변경 취소
-      box-shadow: ${({theme}) => theme.shadows.light};
-      transform: none;
-    }
-  }
 `;
 
 export default Button;
