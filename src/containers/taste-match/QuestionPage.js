@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Progress } from "rsuite"; // 가이드: https://rsuitejs.com/components/progress/
 import "rsuite/dist/rsuite.min.css";
+import { fetchChoices } from "apis/queries/choices";
 
 import theme from "styles/theme";
 
@@ -58,9 +59,22 @@ const RightProgress = styled(Progress.Line)`
 
 const QuestionPage = () => {
   const navigate = useNavigate();
-  const keywords = getKeywords();
+  const [keywords, setKeywords] = useState([{ top: "", bottom: "" }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
   const [selected, setSelected] = useState(null); // 선택된 영역을 추적
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { choices, error } = await fetchChoices();
+
+      if (!error) {
+        const pairedChoices = createPairedChoices(choices).slice(0, 7);
+        setKeywords(pairedChoices);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const clickTextArea = (type) => {
     setSelected(type);
@@ -113,39 +127,23 @@ const QuestionPage = () => {
   );
 };
 
-const getKeywords = () => {
-  return [
-    { top: "피자", bottom: "파스타" },
-    { top: "치킨", bottom: "맥주" },
-    { top: "사케", bottom: "초밥" },
-    // { top: "라면", bottom: "김밥" },
-    // { top: "커피", bottom: "도넛" },
-    // { top: "스테이크", bottom: "와인" },
-    // { top: "햄버거", bottom: "감자튀김" },
-    // { top: "불고기", bottom: "두부김치" },
-    // { top: "삼겹살", bottom: "된장찌개" },
-    // { top: "아이스크림", bottom: "와플" },
-    // { top: "타코", bottom: "나초" },
-    // { top: "짜장면", bottom: "탕수육" },
-    // { top: "크로와상", bottom: "카푸치노" },
-    // { top: "소시지", bottom: "맥주" },
-    // { top: "오믈렛", bottom: "오렌지 주스" },
-    // { top: "팟타이", bottom: "새우깡" },
-    // { top: "참치회", bottom: "미소된장국" },
-    // { top: "족발", bottom: "보쌈" },
-    // { top: "수프", bottom: "샐러드" },
-    // { top: "떡볶이", bottom: "순대" },
-    // { top: "치즈", bottom: "와인" },
-    // { top: "토스트", bottom: "커피" },
-    // { top: "스시", bottom: "사시미" },
-    // { top: "바비큐", bottom: "맥주" },
-    // { top: "초밥", bottom: "우동" },
-    // { top: "팬케이크", bottom: "메이플 시럽" },
-    // { top: "라자냐", bottom: "가리비" },
-    // { top: "멕시칸 샐러드", bottom: "산그리아" },
-    // { top: "비빔밥", bottom: "육개장" },
-    // { top: "버터 치킨", bottom: "나안" },
-  ];
+const createPairedChoices = (choices) => {
+  // group_id로 그룹화하고 결과를 배열로 변환
+  const grouped = choices.reduce((acc, item) => {
+    acc[item.group_id] = acc[item.group_id] || [];
+    acc[item.group_id].push(item.choice);
+    return acc;
+  }, {});
+
+  // 변환된 객체를 배열 [{top, bottom}] 형태로 매핑
+  const pairedChoices = Object.values(grouped).map((group) => {
+    return {
+      top: group[0], // 첫 번째 항목을 top으로 설정
+      bottom: group[1] || "", // 두 번째 항목이 없으면 빈 문자열로 설정
+    };
+  });
+
+  return pairedChoices;
 };
 
 export default QuestionPage;

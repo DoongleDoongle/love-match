@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import HorizontalLine from "components/common/utils/HorizontalLine";
 import BaseContainer from "components/common/utils/BaseContainer";
 import LikesContents from "../../../components/taste-match/result-page/LikesContents/LikesContents";
 import ShereMessageForm from "components/taste-match/result-page/ShereMessageForm";
@@ -11,15 +12,6 @@ const Message = styled.div`
   margin: 20px 0;
   font-size: ${({ theme }) => theme.fontSizes.semiLarge};
   font-weight: bold;
-`;
-
-const HorizontalLine = styled.div`
-  width: 100%;
-  height: ${({ height }) => height || "1px"};
-  background-color: ${({ color }) => color || "#ccc"};
-  margin: ${({ margin }) => margin || "0"};
-  /* border: ${({ height, lineStyle, color }) =>
-    `${height || "1px"} ${lineStyle || "solid"} ${color || "#ccc"}`}; */
 `;
 
 const ResultNotLoadedPage = () => {

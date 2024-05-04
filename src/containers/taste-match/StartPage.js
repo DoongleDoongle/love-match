@@ -24,7 +24,12 @@ const InputContainer = styled.div`
 `;
 
 const InputList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10% 0;
+  width: 100%;
 `;
 
 const StartPage = () => {
@@ -44,12 +49,7 @@ const StartPage = () => {
             id="name"
             name="name"
             placeholder="이름을 입력해주세요."
-          />
-          <Input
-            type="text"
-            id="name2"
-            name="name2"
-            placeholder="테스트 제한 인원을 입력해주세요."
+            width="80%"
           />
         </InputList>
         <Button width="30%" onClick={handleStartClick}>
