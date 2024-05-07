@@ -5,6 +5,7 @@ import Image from "components/common/utils/Image";
 import Input from "components/common/utils/Input";
 import { useNavigate } from "react-router-dom";
 
+import { createRoom } from "apis/queries/rooms";
 import tasteMatchImage from "assets/taste-match/main.jpeg";
 
 const Container = styled.div`
@@ -35,8 +36,12 @@ const InputList = styled.div`
 const StartPage = () => {
   const navigate = useNavigate();
 
-  const handleStartClick = () => {
-    navigate("/taste-match/questions");
+  const handleStartClick = async () => {
+    const { rooms, error } = await createRoom();
+    if (!error) {
+      const roomId = rooms[0].room_id;
+      navigate(`/taste-match/rooms/${roomId}`);
+    }
   };
 
   return (

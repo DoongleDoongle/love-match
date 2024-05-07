@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Progress } from "rsuite"; // 가이드: https://rsuitejs.com/components/progress/
 import "rsuite/dist/rsuite.min.css";
 import { fetchChoices } from "apis/queries/choices";
+import { fetchRooms } from "apis/queries/rooms";
 
 import theme from "styles/theme";
 
@@ -57,17 +58,23 @@ const RightProgress = styled(Progress.Line)`
   width: 50%;
 `;
 
-const QuestionPage = () => {
+const RoomPage = () => {
   const navigate = useNavigate();
+  const { roomId } = useParams();
   const [keywords, setKeywords] = useState([{ top: "", bottom: "" }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
   const [selected, setSelected] = useState(null); // 선택된 영역을 추적
 
   useEffect(() => {
     const fetchData = async () => {
-      const { choices, error } = await fetchChoices();
+      const { rooms, error: roomsError } = await fetchRooms(roomId);
+      if (roomsError || rooms?.length === 0) {
+        alert("존재하지 않는 방입니다.");
+        navigate("/taste-match");
+      }
 
-      if (!error) {
+      const { choices, error: choicesError } = await fetchChoices();
+      if (!choicesError) {
         const pairedChoices = createPairedChoices(choices).slice(0, 7);
         setKeywords(pairedChoices);
       }
@@ -146,4 +153,4 @@ const createPairedChoices = (choices) => {
   return pairedChoices;
 };
 
-export default QuestionPage;
+export default RoomPage;

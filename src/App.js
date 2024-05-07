@@ -8,7 +8,7 @@ import Header from "components/common/Header";
 // import Footer from "components/common/Footer";
 
 import StartPage from "containers/taste-match/StartPage";
-import QuestionPage from "containers/taste-match/QuestionPage";
+import RoomPage from "containers/taste-match/RoomPage";
 import ResultPage from "containers/taste-match/result-page/ResultPage";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/taste-match" element={<StartPage />} />
-            <Route path="/taste-match/questions" element={<QuestionPage />} />
+            <Route path="/taste-match/rooms/:roomId" element={<RoomPage />} />
             <Route path="/taste-match/results" element={<ResultPage />} />
           </Routes>
         </Suspense>
