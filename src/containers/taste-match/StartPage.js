@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "components/common/utils/Button";
 import Image from "components/common/utils/Image";
@@ -35,8 +35,18 @@ const InputList = styled.div`
 
 const StartPage = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+
+  const handleInputChange = (event) => {
+    setName(event.target.value);
+  };
 
   const handleStartClick = async () => {
+    if (!name.trim()) {
+      alert("이름을 입력해주세요.");
+      return;
+    }
+
     const { rooms, error } = await createRoom();
     if (!error) {
       const roomId = rooms[0].room_id;
@@ -55,6 +65,8 @@ const StartPage = () => {
             name="name"
             placeholder="이름을 입력해주세요."
             width="80%"
+            value={name}
+            onChange={handleInputChange}
           />
         </InputList>
         <Button width="30%" onClick={handleStartClick}>
