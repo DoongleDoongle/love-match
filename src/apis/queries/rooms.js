@@ -1,9 +1,12 @@
-import supabase from "configs/supabaseClient";
+import supabase from "configs/db/supabaseClient";
+import { table } from "configs/db/dbConfig";
+import { createParticipant } from "./participants";
+import { createRoomParticipant } from "./rooms_participants";
 
 export const fetchRooms = async (roomId) => {
-  let query = supabase.from("rooms").select("*");
+  let query = supabase.from(table.ROOMS.name).select("*");
   if (roomId) {
-    query = query.eq("room_id", roomId);
+    query = query.eq(table.ROOMS.columns.ID, roomId);
   }
 
   const { data: rooms, error } = await query;
@@ -17,9 +20,10 @@ export const fetchRooms = async (roomId) => {
 };
 
 export const createRoom = async () => {
-  const { data: rooms, error } = await supabase
-    .from("rooms")
-    .insert([{ password: null }]) // password 필드에 NULL 값을 설정
+  const { data: room, error } = await supabase
+    .from(table.ROOMS.name)
+    .insert([{ password: null }])
+    .single()
     .select();
 
   if (error) {
@@ -27,5 +31,23 @@ export const createRoom = async () => {
     return { error };
   }
 
-  return { rooms };
+  return { room };
+};
+
+export const createRoomAndParticipant = async (nickname) => {
+  const { room, error: roomError } = await createRoom();
+  if (roomError) return { error: roomError };
+
+  const { participant, error: participantError } = await createParticipant(
+    nickname
+  );
+  if (participantError) return { error: participantError };
+
+  const { error: roomParticipantError } = await createRoomParticipant(
+    room.id,
+    participant.id
+  );
+  if (roomParticipantError) return { error: roomParticipantError };
+
+  return { room, participant };
 };

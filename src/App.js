@@ -11,7 +11,14 @@ import StartPage from "containers/taste-match/StartPage";
 import RoomPage from "containers/taste-match/RoomPage";
 import ResultPage from "containers/taste-match/result-page/ResultPage";
 
-function App() {
+// 라우트 정적 변수
+import {
+  TASTE_MATCH_ROOT,
+  TASTE_MATCH_ROOMS,
+  TASTE_MATCH_RESULTS,
+} from "configs/route/routeConfig";
+
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -19,15 +26,18 @@ function App() {
         <Header>러브 매치</Header>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path="/taste-match" element={<StartPage />} />
-            <Route path="/taste-match/rooms/:roomId" element={<RoomPage />} />
-            <Route path="/taste-match/results" element={<ResultPage />} />
+            <Route path={TASTE_MATCH_ROOT} element={<StartPage />} />
+            <Route
+              path={`${TASTE_MATCH_ROOMS}/:roomId`}
+              element={<RoomPage />}
+            />
+            <Route path={TASTE_MATCH_RESULTS} element={<ResultPage />} />
           </Routes>
         </Suspense>
         {/* <Footer>푸터</Footer> */}
       </Router>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

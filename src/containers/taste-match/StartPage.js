@@ -5,7 +5,7 @@ import Image from "components/common/utils/Image";
 import Input from "components/common/utils/Input";
 import { useNavigate } from "react-router-dom";
 
-import { createRoom } from "apis/queries/rooms";
+import { createRoomAndParticipant } from "apis/queries/rooms";
 import tasteMatchImage from "assets/taste-match/main.jpeg";
 
 const Container = styled.div`
@@ -35,22 +35,26 @@ const InputList = styled.div`
 
 const StartPage = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const handleInputChange = (event) => {
-    setName(event.target.value);
+    setNickname(event.target.value);
   };
 
   const handleStartClick = async () => {
-    if (!name.trim()) {
+    if (!nickname.trim()) {
       alert("이름을 입력해주세요.");
       return;
     }
 
-    const { rooms, error } = await createRoom();
+    const { room, participant, error } = await createRoomAndParticipant(
+      nickname
+    );
+
     if (!error) {
-      const roomId = rooms[0].room_id;
-      navigate(`/taste-match/rooms/${roomId}`);
+      const roomId = room.id;
+      const participantId = participant.id;
+      navigate(`/taste-match/rooms/${roomId}?participantId=${participantId}`);
     }
   };
 
@@ -65,7 +69,7 @@ const StartPage = () => {
             name="name"
             placeholder="이름을 입력해주세요."
             width="80%"
-            value={name}
+            value={nickname}
             onChange={handleInputChange}
           />
         </InputList>
