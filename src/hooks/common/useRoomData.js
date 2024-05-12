@@ -70,7 +70,7 @@ export const useRoomData = (roomId, participantId) => {
 
       const { choices, error: choicesError } = await fetchChoices();
       if (!choicesError) {
-        setKeywords(createPairedChoices(choices).slice(0, 7));
+        setKeywords(createPairedChoices(choices)); //.slice(0, 7));
       }
     };
 
