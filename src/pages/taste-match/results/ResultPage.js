@@ -9,8 +9,8 @@ const ResultPage = () => {
   const navigate = useNavigate();
   const { roomId } = useParams();
   const [searchParams] = useSearchParams();
-  const participantId = searchParams.get("participantId");
-  const { participants } = useRoomsResultsData(roomId);
+  const participantId = parseInt(searchParams.get("participantId"));
+  const { participants } = useRoomsResultsData(roomId, participantId);
 
   return isLoaded(participants) ? (
     <ResultLoadedPage participants={participants} />

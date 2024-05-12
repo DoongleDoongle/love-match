@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
 
-export const useRoomsResultsData = (roomId) => {
+const _goTo = (navigate, toUrl) => {
+  alert("잘못된 사용자입니다.");
+  navigate(toUrl);
+};
+
+export const useRoomsResultsData = (roomId, myId) => {
   const navigate = useNavigate();
   const [participants, setParticipants] = useState([]);
 
@@ -13,8 +18,7 @@ export const useRoomsResultsData = (roomId) => {
       const { roomsParticipants, error: roomsParticipantsError } =
         await fetchRoomsParticipants(roomId);
       if (roomsParticipantsError || roomsParticipants?.length === 0) {
-        alert("잘못된 사용자입니다.");
-        navigate(TASTE_MATCH_ROOT_PATH);
+        _goTo(navigate, TASTE_MATCH_ROOT_PATH);
         return;
       }
 
@@ -25,34 +29,45 @@ export const useRoomsResultsData = (roomId) => {
         (el) => el.participant_id
       );
 
+      if (!doneParticipantIds.includes(myId)) {
+        _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+        return;
+      }
+
       const { participants, error: participantsError } =
         await fetchParticipants(doneParticipantIds);
       if (!participantsError) {
         setParticipants(
-          convertToParticipants(doneRoomsParticipants, participants)
+          convertToParticipants(doneRoomsParticipants, participants, myId)
         );
       }
     };
 
     fetchData();
-  }, [roomId, navigate]);
+  }, [roomId, myId, navigate]);
 
   return { participants };
 };
 
-const convertToParticipants = (roomsParticipants, participants) => {
+const convertToParticipants = (doneRoomsParticipants, participants, myId) => {
   const keyValueParticipants = participants.reduce((acc, { id, nickname }) => {
     return { ...acc, [id]: nickname };
   }, {});
 
-  return roomsParticipants.map(
-    ({ participant_id: myId, choices: myChoices }) => {
-      const partnerParticipants = roomsParticipants.filter(
-        ({ participant_id }) => myId !== participant_id
+  // 본인을 가장 앞순서에 배치.
+  const sortedRoomsParticipants = doneRoomsParticipants.reduce((acc, cur) => {
+    if (cur.participant_id === myId) return [cur, ...acc];
+    return [...acc, cur];
+  }, []);
+
+  return sortedRoomsParticipants.map(
+    ({ participant_id: currentId, choices: myChoices }) => {
+      const partnerParticipants = sortedRoomsParticipants.filter(
+        ({ participant_id }) => currentId !== participant_id
       );
 
       return {
-        nickname: keyValueParticipants[myId],
+        nickname: keyValueParticipants[currentId],
         compatibilities: createCompatibilities(
           partnerParticipants,
           keyValueParticipants,

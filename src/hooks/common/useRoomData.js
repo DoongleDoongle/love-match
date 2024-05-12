@@ -22,6 +22,11 @@ const createPairedChoices = (choices) => {
   }));
 };
 
+const _goTo = (navigate, toUrl) => {
+  alert("사용자 등록에 실패했습니다.");
+  navigate(toUrl);
+};
+
 export const useRoomData = (roomId, participantId) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,6 +35,23 @@ export const useRoomData = (roomId, participantId) => {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
+    const createParticipant = async () => {
+      const nickname = prompt("이름을 입력하세요:");
+      if (nickname) {
+        const { participant, error } = await addParticipantInRoom(
+          roomId,
+          nickname
+        );
+        if (error) {
+          _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+          return;
+        }
+        navigate(`${location.pathname}?participantId=${participant.id}`);
+      } else {
+        _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+      }
+    };
+
     const fetchData = async () => {
       const { rooms, error: roomsError } = await fetchRooms(roomId);
       if (roomsError || rooms?.length === 0) {
@@ -40,25 +62,10 @@ export const useRoomData = (roomId, participantId) => {
 
       const { roomsParticipants, error: roomsParticipantsError } =
         await fetchRoomsParticipants(roomId, participantId);
-      // TODO: 사용자 전부 불러오고 있음.
-      // TOOD: 이름 입력해도 결과 화면에서 undefined? 로 나옴.
-      if (
-        roomsParticipantsError ||
-        roomsParticipants?.length === 0 ||
-        roomsParticipants?.length > 1
-      ) {
-        const nickname = prompt("이름을 입력하세요:");
-        if (nickname) {
-          const { participant, error } = await addParticipantInRoom(
-            roomId,
-            nickname
-          );
-          if (error) {
-            alert("사용자 등록에 실패했습니다.");
-            return;
-          }
-          navigate(`${location.pathname}?participantId=${participant.id}`);
-        }
+      if (roomsParticipantsError || roomsParticipants?.length === 0) {
+        alert("잘못된 사용자입니다.");
+        navigate(TASTE_MATCH_ROOT_PATH);
+        return;
       }
 
       const { choices, error: choicesError } = await fetchChoices();
@@ -67,8 +74,12 @@ export const useRoomData = (roomId, participantId) => {
       }
     };
 
-    fetchData();
-  }, [roomId, participantId, navigate]);
+    if (!participantId) {
+      createParticipant();
+    } else {
+      fetchData();
+    }
+  }, [roomId, participantId, navigate, location.pathname]);
 
   return { keywords, keywordIdx, setKeywordIdx, selected, setSelected };
 };
