@@ -1,7 +1,7 @@
 import "rsuite/dist/rsuite.min.css";
 import theme from "styles/theme";
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useRoomData } from "hooks/common/useRoomData";
 import {
@@ -12,9 +12,12 @@ import {
   VersusText,
 } from "components/taste-match/room-page";
 
+import { updateSelectedChoices } from "apis/queries";
+
 import {
-  TASTE_MATCH_ROOT,
-  TASTE_MATCH_RESULTS,
+  TASTE_MATCH_ROOT_PATH,
+  TASTE_MATCH_ROOMS_PATH,
+  RESULTS_PATH,
 } from "configs/route/routeConfig";
 
 const RoomPage = () => {
@@ -23,19 +26,25 @@ const RoomPage = () => {
   const [searchParams] = useSearchParams();
   const participantId = searchParams.get("participantId");
 
+  const [selectedChoices, setSelectedChoices] = useState([]);
+
   const { keywords, keywordIdx, setKeywordIdx, selected, setSelected } =
-    useRoomData(TASTE_MATCH_ROOT, roomId, participantId, navigate);
+    useRoomData(roomId, participantId);
 
   const clickTextArea = (type) => {
-    setSelected(type);
-    if (keywordIdx + 1 < keywords.length) {
-      setTimeout(() => {
+    setTimeout(async () => {
+      setSelected(type);
+      setSelectedChoices([...selectedChoices, keywords[keywordIdx][type]]);
+      if (keywordIdx + 1 < keywords.length) {
         setKeywordIdx(keywordIdx + 1);
         setSelected(null);
-      }, 250);
-    } else {
-      navigate(TASTE_MATCH_RESULTS);
-    }
+      } else {
+        await updateSelectedChoices(roomId, participantId, selectedChoices);
+        navigate(
+          `${TASTE_MATCH_ROOMS_PATH}/${roomId}/${RESULTS_PATH}?participantId=${participantId}`
+        );
+      }
+    }, 250);
   };
 
   const currentKeyword = keywords[keywordIdx];

@@ -14,14 +14,14 @@ const NavItem = styled(Nav.Item)`
 const Navbar = ({ active, onSelect, participants }) => {
   return (
     <Nav activeKey={active} onSelect={onSelect} style={{ width: "100%" }}>
-      {participants.map((participant) => (
+      {participants.map((participant, idx) => (
         <NavItem
-          key={participant.name}
-          eventKey={participant.name}
+          key={idx}
+          eventKey={participant.nickname}
           style={{ width: `${100 / participants.length}%` }}
-          active={active === participant.name}
+          active={active === participant.nickname}
         >
-          {participant.name}
+          {participant.nickname}
         </NavItem>
       ))}
     </Nav>

@@ -8,7 +8,7 @@ const LikesContents = ({ title, answer, matchScore }) => {
       <LikesTitle>{title}</LikesTitle>
       <LikesAnswer>{answer}</LikesAnswer>
       {matchScore !== undefined ? (
-        <LikesAnswer>궁합도: {matchScore * 100}%</LikesAnswer>
+        <LikesAnswer>궁합도: {matchScore}</LikesAnswer>
       ) : (
         ""
       )}

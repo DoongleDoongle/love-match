@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "components/common/utils/Button";
+import CustomButton from "components/common/utils/CustomButton";
 
 const ShereMessageContainer = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const ShereMessageForm = () => {
         친구에게 게임을 공유해주세요.
       </ShereMessage>
 
-      <Button width="50%">친구에게 공유하기</Button>
+      <CustomButton width="50%">친구에게 공유하기</CustomButton>
 
       <ShereBottomMessage>
         친구가 참여하면 궁합 정보를 볼 수 있어요

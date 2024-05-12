@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "components/common/utils/Button";
+import CustomButton from "components/common/utils/CustomButton";
 import Image from "components/common/utils/Image";
 import Input from "components/common/utils/Input";
 import { useNavigate } from "react-router-dom";
@@ -73,9 +73,9 @@ const StartPage = () => {
             onChange={handleInputChange}
           />
         </InputList>
-        <Button width="30%" onClick={handleStartClick}>
+        <CustomButton width="30%" onClick={handleStartClick}>
           시작
-        </Button>
+        </CustomButton>
       </InputContainer>
     </Container>
   );

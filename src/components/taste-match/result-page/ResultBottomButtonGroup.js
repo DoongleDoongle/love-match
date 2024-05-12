@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "components/common/utils/Button";
+import CustomButton from "components/common/utils/CustomButton";
 import theme from "styles/theme";
 
 const ButtonWraper = styled.div`
@@ -13,12 +13,12 @@ const ButtonWraper = styled.div`
 const ResultBottomButtonGroup = () => {
   return (
     <ButtonWraper>
-      <Button width="40%" backgroundColor={theme.colors.lightBlueGrey}>
+      <CustomButton width="40%" backgroundcolor={theme.colors.lightBlueGrey}>
         다시하기
-      </Button>
-      <Button width="40%" backgroundColor={theme.colors.lightBlueGrey}>
+      </CustomButton>
+      <CustomButton width="40%" backgroundcolor={theme.colors.lightBlueGrey}>
         새 게임
-      </Button>
+      </CustomButton>
     </ButtonWraper>
   );
 };

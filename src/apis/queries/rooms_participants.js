@@ -1,20 +1,30 @@
 import supabase from "configs/db/supabaseClient";
 import { table } from "configs/db/dbConfig";
+import { createParticipant } from "./participants";
 
-export const fetchRoomsParticipants = async (participantId, roomId) => {
+export const fetchRoomsParticipants = async (roomId, participantId) => {
   // 필수 파라미터 검사
-  if (!participantId || !roomId) {
-    const msg = "Missing parameter: participantId and roomId are required.";
+  if (!roomId) {
+    const msg = "Missing parameter: roomId is required.";
     console.error(msg);
     return { error: new Error(msg) };
   }
 
   try {
-    const { data: roomsParticipants, error } = await supabase
+    let query = supabase
       .from(table.ROOMS_PARTICIPANTS.name)
       .select("*")
-      .eq(table.ROOMS_PARTICIPANTS.columns.ROOM_ID, roomId)
-      .eq(table.ROOMS_PARTICIPANTS.columns.PARTICIPANT_ID, participantId);
+      .eq(table.ROOMS_PARTICIPANTS.columns.ROOM_ID, roomId);
+
+    // participantId가 제공된 경우에만 쿼리에 추가
+    if (participantId) {
+      query = query.eq(
+        table.ROOMS_PARTICIPANTS.columns.PARTICIPANT_ID,
+        participantId
+      );
+    }
+
+    const { data: roomsParticipants, error } = await query;
 
     if (error) {
       throw error;
@@ -27,15 +37,45 @@ export const fetchRoomsParticipants = async (participantId, roomId) => {
   }
 };
 
-export const createRoomParticipant = async (
+export const addParticipantInRoom = async (roomId, nickname) => {
+  const { participant, error: participantError } = await createParticipant(
+    nickname
+  );
+  if (participantError) return { error: participantError };
+
+  const { roomParticipant, error: roomParticipantError } =
+    await createRoomParticipant(roomId, participant.id);
+  if (roomParticipantError) return { error: roomParticipantError };
+
+  return { roomParticipant, participant };
+};
+
+export const createRoomParticipant = async (roomId, participantId) => {
+  const { data: roomParticipant, error } = await supabase
+    .from(table.ROOMS_PARTICIPANTS.name)
+    .insert([
+      {
+        [table.ROOMS_PARTICIPANTS.columns.ROOM_ID]: roomId,
+        [table.ROOMS_PARTICIPANTS.columns.PARTICIPANT_ID]: participantId,
+      },
+    ])
+    .single()
+    .select();
+
+  if (error) {
+    console.error("Error craeting roomParticipant:", error);
+    return { error };
+  }
+  return roomParticipant;
+};
+
+export const updateSelectedChoices = async (
   roomId,
   participantId,
   choices = []
 ) => {
   try {
-    const insertData = {
-      [table.ROOMS_PARTICIPANTS.columns.ROOM_ID]: roomId,
-      [table.ROOMS_PARTICIPANTS.columns.PARTICIPANT_ID]: participantId,
+    const updateData = {
       ...(choices.length > 0 && {
         [table.ROOMS_PARTICIPANTS.columns.CHOICES]: choices,
       }),
@@ -43,14 +83,16 @@ export const createRoomParticipant = async (
 
     const { data: roomParticipant, error } = await supabase
       .from(table.ROOMS_PARTICIPANTS.name)
-      .insert([insertData])
-      .single()
-      .select();
+      .update(updateData)
+      .match({
+        [table.ROOMS_PARTICIPANTS.columns.ROOM_ID]: roomId,
+        [table.ROOMS_PARTICIPANTS.columns.PARTICIPANT_ID]: participantId,
+      });
 
     if (error) throw error;
-    return roomParticipant;
+    return { roomParticipant };
   } catch (error) {
-    console.error("Error adding roomParticipant:", error);
+    console.error("Error updating choices of rooms_participants table:", error);
     return { error };
   }
 };

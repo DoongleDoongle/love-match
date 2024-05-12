@@ -5,6 +5,7 @@ import BaseContainer from "components/common/utils/BaseContainer";
 import LikesContents from "components/taste-match/result-page/LikesContents/LikesContents";
 import Navbar from "components/taste-match/result-page/Navbar";
 import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup";
+import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
 
 const CompatibilityContainer = styled.div`
   display: flex;
@@ -31,10 +32,10 @@ const CompatibilityRate = styled.div`
 
 const ResultLoadedPage = ({ participants }) => {
   const [activeParticipant, setActiveParticipant] = useState(
-    participants[0].name
+    participants[0].nickname
   );
 
-  const activeData = participants.find((p) => p.name === activeParticipant);
+  const activeData = participants.find((p) => p.nickname === activeParticipant);
 
   return (
     <BaseContainer>
@@ -58,7 +59,7 @@ const ResultLoadedPage = ({ participants }) => {
       {activeData.compatibilities.map((compatibility, index) => (
         <LikesContents
           key={index}
-          title={`${compatibility.partner}와 함께 좋아하는 음식`}
+          title={`[${compatibility.partner}] 님과 함께 좋아하는 음식`}
           answer={
             compatibility.togetherLikesMenus
               ? compatibility.togetherLikesMenus.join(", ")
@@ -69,6 +70,7 @@ const ResultLoadedPage = ({ participants }) => {
       ))}
 
       <ResultIconGroup />
+      <ResultBottomButtonGroup />
     </BaseContainer>
   );
 };

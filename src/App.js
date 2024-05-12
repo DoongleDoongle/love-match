@@ -7,15 +7,16 @@ import theme from "styles/theme";
 import Header from "components/common/Header";
 // import Footer from "components/common/Footer";
 
-import StartPage from "containers/taste-match/StartPage";
-import RoomPage from "containers/taste-match/RoomPage";
-import ResultPage from "containers/taste-match/result-page/ResultPage";
+import StartPage from "pages/taste-match/StartPage";
+import RoomPage from "pages/taste-match/RoomPage";
+import ResultPage from "pages/taste-match/results/ResultPage";
 
 // 라우트 정적 변수
 import {
-  TASTE_MATCH_ROOT,
-  TASTE_MATCH_ROOMS,
-  TASTE_MATCH_RESULTS,
+  $ROOM_ID_PATH,
+  TASTE_MATCH_ROOT_PATH,
+  TASTE_MATCH_ROOMS_PATH,
+  TASTE_MATCH_RESULTS_PATH,
 } from "configs/route/routeConfig";
 
 const App = () => {
@@ -26,12 +27,12 @@ const App = () => {
         <Header>러브 매치</Header>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path={TASTE_MATCH_ROOT} element={<StartPage />} />
+            <Route path={TASTE_MATCH_ROOT_PATH} element={<StartPage />} />
             <Route
-              path={`${TASTE_MATCH_ROOMS}/:roomId`}
+              path={`${TASTE_MATCH_ROOMS_PATH}/${$ROOM_ID_PATH}`}
               element={<RoomPage />}
             />
-            <Route path={TASTE_MATCH_RESULTS} element={<ResultPage />} />
+            <Route path={TASTE_MATCH_RESULTS_PATH} element={<ResultPage />} />
           </Routes>
         </Suspense>
         {/* <Footer>푸터</Footer> */}
