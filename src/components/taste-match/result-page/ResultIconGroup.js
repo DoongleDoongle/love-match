@@ -7,6 +7,7 @@ import {
   faShareSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import theme from "styles/theme";
+import { useShareUrl } from "hooks/common/useShareUrl";
 
 const IconButtonWrapper = styled.div`
   display: flex;
@@ -41,6 +42,8 @@ const IconLabel = styled.span`
 `;
 
 const ResultIconGroup = () => {
+  const { shareUrl } = useShareUrl();
+
   const IconSize = "2x";
   const IconColor = theme.colors.primary;
 
@@ -54,7 +57,7 @@ const ResultIconGroup = () => {
         <FontAwesomeIcon icon={faThumbsUp} size={IconSize} color={IconColor} />
         <IconLabel>좋아요</IconLabel>
       </IconButton>
-      <IconButton onClick={() => console.log("Share")}>
+      <IconButton onClick={shareUrl}>
         <FontAwesomeIcon
           icon={faShareSquare}
           size={IconSize}

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CustomButton from "components/common/utils/CustomButton";
+import { useShareUrl } from "hooks/common/useShareUrl";
 
 const ShereMessageContainer = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const ShereBottomMessage = styled.div`
 `;
 
 const ShereMessageForm = () => {
+  const { shareUrl } = useShareUrl();
   return (
     <ShereMessageContainer>
       <ShereMessage>
@@ -32,7 +34,9 @@ const ShereMessageForm = () => {
         친구에게 게임을 공유해주세요.
       </ShereMessage>
 
-      <CustomButton width="50%">친구에게 공유하기</CustomButton>
+      <CustomButton width="50%" onClick={shareUrl}>
+        친구에게 공유하기
+      </CustomButton>
 
       <ShereBottomMessage>
         친구가 참여하면 궁합 정보를 볼 수 있어요
