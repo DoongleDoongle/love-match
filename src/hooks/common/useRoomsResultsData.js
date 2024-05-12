@@ -18,19 +18,24 @@ export const useRoomsResultsData = (roomId) => {
         return;
       }
 
-      const doneParticipantIds = roomsParticipants
-        .filter((el) => el.choices.length > 0)
-        .map((el) => el.participant_id);
+      const doneRoomsParticipants = roomsParticipants.filter(
+        (el) => el.choices.length > 0
+      );
+      const doneParticipantIds = doneRoomsParticipants.map(
+        (el) => el.participant_id
+      );
 
       const { participants, error: participantsError } =
         await fetchParticipants(doneParticipantIds);
       if (!participantsError) {
+        setParticipants(
+          convertToParticipants(doneRoomsParticipants, participants)
+        );
       }
-      setParticipants(convertToParticipants(roomsParticipants, participants));
     };
 
     fetchData();
-  }, [roomId]);
+  }, [roomId, navigate]);
 
   return { participants };
 };

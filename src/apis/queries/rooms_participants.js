@@ -41,11 +41,17 @@ export const addParticipantInRoom = async (roomId, nickname) => {
   const { participant, error: participantError } = await createParticipant(
     nickname
   );
-  if (participantError) return { error: participantError };
+  if (participantError) {
+    console.error("Error creating participant:", participantError);
+    return { error: participantError };
+  }
 
   const { roomParticipant, error: roomParticipantError } =
     await createRoomParticipant(roomId, participant.id);
-  if (roomParticipantError) return { error: roomParticipantError };
+  if (roomParticipantError) {
+    console.error("Error creating roomParticipantError:", roomParticipantError);
+    return { error: roomParticipantError };
+  }
 
   return { roomParticipant, participant };
 };

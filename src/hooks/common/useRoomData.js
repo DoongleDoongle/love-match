@@ -5,7 +5,7 @@ import {
   fetchRoomsParticipants,
   addParticipantInRoom,
 } from "apis/queries";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
 
@@ -24,6 +24,7 @@ const createPairedChoices = (choices) => {
 
 export const useRoomData = (roomId, participantId) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [keywords, setKeywords] = useState([{ top: "", bottom: "" }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -39,6 +40,8 @@ export const useRoomData = (roomId, participantId) => {
 
       const { roomsParticipants, error: roomsParticipantsError } =
         await fetchRoomsParticipants(roomId, participantId);
+      // TODO: 사용자 전부 불러오고 있음.
+      // TOOD: 이름 입력해도 결과 화면에서 undefined? 로 나옴.
       if (
         roomsParticipantsError ||
         roomsParticipants?.length === 0 ||
@@ -46,11 +49,15 @@ export const useRoomData = (roomId, participantId) => {
       ) {
         const nickname = prompt("이름을 입력하세요:");
         if (nickname) {
-          const { error } = await addParticipantInRoom(roomId, nickname);
+          const { participant, error } = await addParticipantInRoom(
+            roomId,
+            nickname
+          );
           if (error) {
             alert("사용자 등록에 실패했습니다.");
             return;
           }
+          navigate(`${location.pathname}?participantId=${participant.id}`);
         }
       }
 
