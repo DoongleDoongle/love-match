@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import HorizontalLine from "components/common/utils/HorizontalLine";
@@ -14,12 +14,12 @@ const Message = styled.div`
   font-weight: bold;
 `;
 
-const ResultNotLoadedPage = () => {
+const ResultNotLoadedPage = ({ participant = {} }) => {
   return (
     <BaseContainer>
       <LikesContents
         title="내가 좋아하는 음식"
-        answer="딸기, 짜장면, 랍스타, 바나나, 사과, 포도, 스테이크, 샐러드, 쌀밥, 피자, 스파게티, 치킨, 김밥, 떡볶이, 삼겹살, 아이스크림, 초밥, 라면, 샌드위치, 팬케이크"
+        answer={participant.myMenus.join(", ")}
       />
 
       <Message>"오늘은 한식이 끌리는 날이군요 :D"</Message>

@@ -68,6 +68,7 @@ const convertToParticipants = (doneRoomsParticipants, participants, myId) => {
 
       return {
         nickname: keyValueParticipants[currentId],
+        myMenus: myChoices,
         compatibilities: createCompatibilities(
           partnerParticipants,
           keyValueParticipants,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useRoomsResultsData } from "hooks/common/useRoomsResultsData";
 
@@ -12,10 +12,18 @@ const ResultPage = () => {
   const participantId = parseInt(searchParams.get("participantId"));
   const { participants } = useRoomsResultsData(roomId, participantId);
 
+  const [participant, setParticipant] = useState({});
+
+  useEffect(() => {
+    if (participants.length === 1) {
+      setParticipant({ ...participants[0] });
+    }
+  }, [participants]);
+
   return isLoaded(participants) ? (
     <ResultLoadedPage participants={participants} />
   ) : (
-    <ResultNotLoadedPage />
+    <ResultNotLoadedPage participant={participant} />
   );
 };
 
