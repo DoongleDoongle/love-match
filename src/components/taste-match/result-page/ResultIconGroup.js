@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCamera,
   faThumbsUp,
-  faShareSquare,
+  faArrowUpFromBracket,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import theme from "styles/theme";
 import { useShareUrl } from "hooks/common/useShareUrl";
@@ -42,28 +42,28 @@ const IconLabel = styled.span`
 `;
 
 const ResultIconGroup = () => {
-  const { shareUrl } = useShareUrl();
+  const { createInviteUrl, createShareUrl } = useShareUrl();
 
   const IconSize = "2x";
   const IconColor = theme.colors.primary;
 
   return (
     <IconButtonWrapper>
-      <IconButton onClick={() => console.log("Capture")}>
-        <FontAwesomeIcon icon={faCamera} size={IconSize} color={IconColor} />
-        <IconLabel>캡쳐하기</IconLabel>
-      </IconButton>
       <IconButton onClick={() => console.log("Like")}>
         <FontAwesomeIcon icon={faThumbsUp} size={IconSize} color={IconColor} />
         <IconLabel>좋아요</IconLabel>
       </IconButton>
-      <IconButton onClick={shareUrl}>
+      <IconButton onClick={createShareUrl}>
         <FontAwesomeIcon
-          icon={faShareSquare}
+          icon={faArrowUpFromBracket}
           size={IconSize}
           color={IconColor}
         />
         <IconLabel>공유하기</IconLabel>
+      </IconButton>
+      <IconButton onClick={createInviteUrl}>
+        <FontAwesomeIcon icon={faUsers} size={IconSize} color={IconColor} />
+        <IconLabel>초대하기</IconLabel>
       </IconButton>
     </IconButtonWrapper>
   );

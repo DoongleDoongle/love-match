@@ -26,7 +26,7 @@ const ShereBottomMessage = styled.div`
 `;
 
 const ShereMessageForm = () => {
-  const { shareUrl } = useShareUrl();
+  const { createInviteUrl } = useShareUrl();
   return (
     <ShereMessageContainer>
       <ShereMessage>
@@ -34,12 +34,12 @@ const ShereMessageForm = () => {
         친구에게 게임을 공유해주세요.
       </ShereMessage>
 
-      <CustomButton width="50%" onClick={shareUrl}>
-        친구에게 공유하기
+      <CustomButton width="50%" onClick={createInviteUrl}>
+        친구 초대
       </CustomButton>
 
       <ShereBottomMessage>
-        친구가 참여하면 궁합 정보를 볼 수 있어요
+        친구가 참여하면 서로의 궁합 정보를 볼 수 있어요
       </ShereBottomMessage>
     </ShereMessageContainer>
   );
