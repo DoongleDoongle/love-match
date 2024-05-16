@@ -1,7 +1,7 @@
 import "rsuite/dist/rsuite.min.css";
 import theme from "styles/theme";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useRoomData } from "hooks/common/useRoomData";
 import {
@@ -15,7 +15,6 @@ import {
 import { updateSelectedChoices } from "apis/queries";
 
 import {
-  TASTE_MATCH_ROOT_PATH,
   TASTE_MATCH_ROOMS_PATH,
   RESULTS_PATH,
 } from "configs/route/routeConfig";
@@ -26,25 +25,47 @@ const RoomPage = () => {
   const [searchParams] = useSearchParams();
   const participantId = searchParams.get("participantId");
 
+  const [selected, setSelected] = useState(null);
   const [selectedChoices, setSelectedChoices] = useState([]);
 
-  const { keywords, keywordIdx, setKeywordIdx, selected, setSelected } =
-    useRoomData(roomId, participantId);
+  const { keywords, keywordIdx, setKeywordIdx } = useRoomData(
+    roomId,
+    participantId
+  );
+
+  useEffect(() => {
+    if (selected !== null) {
+      const timer = setTimeout(async () => {
+        setSelectedChoices((prevChoices) => [
+          ...prevChoices,
+          keywords[keywordIdx][selected],
+        ]);
+        if (keywordIdx + 1 < keywords.length) {
+          setKeywordIdx(keywordIdx + 1);
+          setSelected(null);
+        } else {
+          await updateSelectedChoices(roomId, participantId, selectedChoices);
+          navigate(
+            `${TASTE_MATCH_ROOMS_PATH}/${roomId}/${RESULTS_PATH}?participantId=${participantId}`
+          );
+        }
+      }, 250);
+
+      return () => clearTimeout(timer);
+    }
+  }, [
+    selected,
+    keywords,
+    keywordIdx,
+    participantId,
+    selectedChoices,
+    roomId,
+    setKeywordIdx,
+    navigate,
+  ]);
 
   const clickTextArea = (type) => {
-    setTimeout(async () => {
-      setSelected(type);
-      setSelectedChoices([...selectedChoices, keywords[keywordIdx][type]]);
-      if (keywordIdx + 1 < keywords.length) {
-        setKeywordIdx(keywordIdx + 1);
-        setSelected(null);
-      } else {
-        await updateSelectedChoices(roomId, participantId, selectedChoices);
-        navigate(
-          `${TASTE_MATCH_ROOMS_PATH}/${roomId}/${RESULTS_PATH}?participantId=${participantId}`
-        );
-      }
-    }, 250);
+    setSelected(type);
   };
 
   const currentKeyword = keywords[keywordIdx];

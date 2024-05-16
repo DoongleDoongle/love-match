@@ -32,7 +32,6 @@ export const useRoomData = (roomId, participantId) => {
   const location = useLocation();
   const [keywords, setKeywords] = useState([{ top: "", bottom: "" }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
-  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     const createParticipant = async () => {
@@ -81,5 +80,5 @@ export const useRoomData = (roomId, participantId) => {
     }
   }, [roomId, participantId, navigate, location.pathname]);
 
-  return { keywords, keywordIdx, setKeywordIdx, selected, setSelected };
+  return { keywords, keywordIdx, setKeywordIdx };
 };
