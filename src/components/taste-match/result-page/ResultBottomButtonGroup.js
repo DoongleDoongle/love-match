@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import CustomButton from "components/common/utils/CustomButton";
 import theme from "styles/theme";
@@ -11,12 +12,36 @@ const ButtonWraper = styled.div`
 `;
 
 const ResultBottomButtonGroup = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const replayGame = () => {
+    const currentPath = location.pathname;
+    const searchParams = location.search;
+    const replayPath = currentPath.replace(/\/results$/, "");
+    navigate(`${replayPath}${searchParams}`);
+  };
+
+  const newGame = () => {
+    const currentPath = location.pathname;
+    const RootPath = currentPath.split("/rooms")[0];
+    navigate(RootPath);
+  };
+
   return (
     <ButtonWraper>
-      <CustomButton width="40%" backgroundcolor={theme.colors.lightBlueGrey}>
+      <CustomButton
+        onClick={replayGame}
+        width="40%"
+        backgroundcolor={theme.colors.lightBlueGrey}
+      >
         다시하기
       </CustomButton>
-      <CustomButton width="40%" backgroundcolor={theme.colors.lightBlueGrey}>
+      <CustomButton
+        onClick={newGame}
+        width="40%"
+        backgroundcolor={theme.colors.lightBlueGrey}
+      >
         새 게임
       </CustomButton>
     </ButtonWraper>
