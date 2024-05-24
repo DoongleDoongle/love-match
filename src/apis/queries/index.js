@@ -1,5 +1,5 @@
 export { fetchChoices } from "./choices";
-export { fetchRooms, createRoom, createRoomAndParticipant } from "./rooms";
+export { fetchRoom, createRoom, createRoomAndParticipant } from "./rooms";
 export {
   fetchParticipant,
   fetchParticipants,
@@ -11,3 +11,9 @@ export {
   addParticipantInRoom,
   updateSelectedChoices,
 } from "./rooms_participants";
+export {
+  fetchPlatform,
+  incrementLikeCount,
+  incrementShareCount,
+  incrementInviteCount,
+} from "./platform";

@@ -25,7 +25,7 @@ const RoomPage = () => {
   const [searchParams] = useSearchParams();
   const participantId = searchParams.get("participantId");
 
-  const [selected, setSelected] = useState(null);
+  const [selectedArea, setSelectedArea] = useState(null);
   const [selectedChoices, setSelectedChoices] = useState([]);
 
   const { keywords, keywordIdx, setKeywordIdx } = useRoomData(
@@ -34,17 +34,20 @@ const RoomPage = () => {
   );
 
   useEffect(() => {
-    if (selected !== null) {
+    if (selectedArea !== null) {
       const timer = setTimeout(async () => {
-        setSelectedChoices((prevChoices) => [
-          ...prevChoices,
-          keywords[keywordIdx][selected],
-        ]);
+        const updatedChoices = [
+          ...selectedChoices,
+          keywords[keywordIdx][selectedArea],
+        ];
+
+        setSelectedChoices(updatedChoices);
+
         if (keywordIdx + 1 < keywords.length) {
           setKeywordIdx(keywordIdx + 1);
-          setSelected(null);
+          setSelectedArea(null);
         } else {
-          await updateSelectedChoices(roomId, participantId, selectedChoices);
+          await updateSelectedChoices(roomId, participantId, updatedChoices);
           navigate(
             `${TASTE_MATCH_ROOMS_PATH}/${roomId}/${RESULTS_PATH}?participantId=${participantId}`
           );
@@ -54,7 +57,7 @@ const RoomPage = () => {
       return () => clearTimeout(timer);
     }
   }, [
-    selected,
+    selectedArea,
     keywords,
     keywordIdx,
     participantId,
@@ -65,7 +68,7 @@ const RoomPage = () => {
   ]);
 
   const clickTextArea = (type) => {
-    setSelected(type);
+    setSelectedArea(type);
   };
 
   const currentKeyword = keywords[keywordIdx];
@@ -77,7 +80,7 @@ const RoomPage = () => {
     <Container>
       <TextArea
         onClick={() => clickTextArea("top")}
-        active={selected === "top"}
+        active={selectedArea === "top"}
       >
         {currentKeyword.top}
       </TextArea>
@@ -99,7 +102,7 @@ const RoomPage = () => {
       </ProgressContainer>
       <TextArea
         onClick={() => clickTextArea("bottom")}
-        active={selected === "bottom"}
+        active={selectedArea === "bottom"}
       >
         {currentKeyword.bottom}
       </TextArea>

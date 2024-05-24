@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,6 +8,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import theme from "styles/theme";
 import { useShareUrl } from "hooks/common/useShareUrl";
+
+import {
+  incrementLikeCount,
+  incrementShareCount,
+  incrementInviteCount,
+  fetchPlatform,
+} from "apis/queries";
 
 const IconButtonWrapper = styled.div`
   display: flex;
@@ -41,29 +48,78 @@ const IconLabel = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.semiSmall};
 `;
 
-const ResultIconGroup = () => {
+const Count = styled.div``;
+
+const ResultIconGroup = ({ platformName }) => {
   const { createInviteUrl, createShareUrl } = useShareUrl();
+  const [likeCount, setLikeCount] = useState(0);
+  const [shareCount, setShareCount] = useState(0);
+  const [inviteCount, setInviteCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { platform, error } = await fetchPlatform(platformName);
+      if (!error && platform !== null) {
+        setLikeCount(platform.like_count);
+        setShareCount(platform.share_count);
+        setInviteCount(platform.invite_count);
+      }
+    };
+
+    if (platformName.length > 0) {
+      fetchData();
+    }
+  }, [platformName]);
 
   const IconSize = "2x";
   const IconColor = theme.colors.primary;
 
+  const likeHandler = async () => {
+    const { platform, error } = await incrementLikeCount(platformName);
+    if (!error && platform !== null) {
+      console.log(platform, platformName);
+      setLikeCount(platform.like_count);
+    }
+  };
+
+  const shareHandler = async () => {
+    const { platform, error } = await incrementShareCount(platformName);
+    if (!error && platform !== null) {
+      setShareCount(platform.share_count);
+      createShareUrl();
+    }
+  };
+
+  const inviteHandler = async () => {
+    const { platform, error } = await incrementInviteCount(platformName);
+    if (!error && platform !== null) {
+      setInviteCount(platform.invite_count);
+      createInviteUrl();
+    }
+  };
+
   return (
     <IconButtonWrapper>
-      <IconButton onClick={() => console.log("Like")}>
+      <IconButton onClick={likeHandler}>
         <FontAwesomeIcon icon={faThumbsUp} size={IconSize} color={IconColor} />
         <IconLabel>좋아요</IconLabel>
+        <Count>{likeCount}</Count>
       </IconButton>
-      <IconButton onClick={createShareUrl}>
+
+      <IconButton onClick={shareHandler}>
         <FontAwesomeIcon
           icon={faArrowUpFromBracket}
           size={IconSize}
           color={IconColor}
         />
         <IconLabel>공유하기</IconLabel>
+        <Count>{shareCount}</Count>
       </IconButton>
-      <IconButton onClick={createInviteUrl}>
+
+      <IconButton onClick={inviteHandler}>
         <FontAwesomeIcon icon={faUsers} size={IconSize} color={IconColor} />
         <IconLabel>초대하기</IconLabel>
+        <Count>{inviteCount}</Count>
       </IconButton>
     </IconButtonWrapper>
   );

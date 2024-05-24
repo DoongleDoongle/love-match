@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   fetchChoices,
-  fetchRooms,
+  fetchRoom,
   fetchRoomsParticipants,
   addParticipantInRoom,
 } from "apis/queries";
@@ -52,8 +52,8 @@ export const useRoomData = (roomId, participantId) => {
     };
 
     const fetchData = async () => {
-      const { rooms, error: roomsError } = await fetchRooms(roomId);
-      if (roomsError || rooms?.length === 0) {
+      const { room, error: roomError } = await fetchRoom(roomId);
+      if (roomError || !room) {
         alert("존재하지 않는 방입니다.");
         navigate(TASTE_MATCH_ROOT_PATH);
         return;

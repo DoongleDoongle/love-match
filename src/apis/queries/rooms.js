@@ -3,20 +3,19 @@ import { table } from "configs/db/dbConfig";
 import { createParticipant } from "./participants";
 import { createRoomParticipant } from "./rooms_participants";
 
-export const fetchRooms = async (roomId) => {
-  let query = supabase.from(table.ROOMS.name).select("*");
-  if (roomId) {
-    query = query.eq(table.ROOMS.columns.ID, roomId);
-  }
-
-  const { data: rooms, error } = await query;
+export const fetchRoom = async (roomId) => {
+  const { data: room, error } = await supabase
+    .from(table.ROOMS.name)
+    .select("*")
+    .eq(table.ROOMS.columns.ID, roomId)
+    .single();
 
   if (error) {
-    console.error("Fetch rooms error:", error);
+    console.error("Fetch room error:", error);
     return { error };
   }
 
-  return { rooms };
+  return { room };
 };
 
 export const createRoom = async () => {
@@ -34,6 +33,11 @@ export const createRoom = async () => {
   return { room };
 };
 
+/**
+ * ROOMS, PARTICIPANTS, ROOMS_PARTICIPANTS 3개 테이블에 모두 데이터 적재
+ * @param {*} nickname
+ * @returns
+ */
 export const createRoomAndParticipant = async (nickname) => {
   const { room, error: roomError } = await createRoom();
   if (roomError) return { error: roomError };
