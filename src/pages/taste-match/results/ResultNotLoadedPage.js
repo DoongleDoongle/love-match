@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
-
+import { usePlatformNameData } from "hooks/common/usePlatformNameData";
 import HorizontalLine from "components/common/utils/HorizontalLine";
 import BaseContainer from "components/common/utils/BaseContainer";
 import LikesContents from "components/taste-match/result-page/LikesContents/LikesContents";
@@ -16,16 +15,7 @@ const Message = styled.div`
 `;
 
 const ResultNotLoadedPage = ({ participant = {} }) => {
-  const location = useLocation();
-  const [platformName, setPlatformName] = useState("");
-
-  useEffect(() => {
-    const pathParts = location.pathname.split("/");
-    const roomsIndex = pathParts.indexOf("rooms");
-    if (roomsIndex > 0) {
-      setPlatformName(pathParts[roomsIndex - 1]);
-    }
-  }, [location.pathname]);
+  const { platformName } = usePlatformNameData();
 
   return (
     <BaseContainer>

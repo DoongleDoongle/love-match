@@ -50,7 +50,7 @@ const IconLabel = styled.span`
 
 const Count = styled.div``;
 
-const ResultIconGroup = ({ platformName }) => {
+const ResultIconGroup = ({ platformName = "" }) => {
   const { createInviteUrl, createShareUrl } = useShareUrl();
   const [likeCount, setLikeCount] = useState(0);
   const [shareCount, setShareCount] = useState(0);
@@ -77,7 +77,6 @@ const ResultIconGroup = ({ platformName }) => {
   const likeHandler = async () => {
     const { platform, error } = await incrementLikeCount(platformName);
     if (!error && platform !== null) {
-      console.log(platform, platformName);
       setLikeCount(platform.like_count);
     }
   };

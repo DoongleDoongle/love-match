@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { usePlatformNameData } from "hooks/common/usePlatformNameData";
 
 import BaseContainer from "components/common/utils/BaseContainer";
 import LikesContents from "components/taste-match/result-page/LikesContents/LikesContents";
@@ -31,6 +32,7 @@ const CompatibilityRate = styled.div`
 `;
 
 const ResultLoadedPage = ({ participants }) => {
+  const { platformName } = usePlatformNameData();
   const [activeParticipant, setActiveParticipant] = useState(
     participants[0].nickname
   );
@@ -69,7 +71,7 @@ const ResultLoadedPage = ({ participants }) => {
         />
       ))}
 
-      <ResultIconGroup />
+      <ResultIconGroup platformName={platformName} />
       <ResultBottomButtonGroup />
     </BaseContainer>
   );
