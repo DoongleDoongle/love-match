@@ -6,11 +6,13 @@ import ResultLoadedPage from "./ResultLoadedPage";
 import ResultNotLoadedPage from "./ResultNotLoadedPage";
 
 const ResultPage = () => {
-  const navigate = useNavigate();
   const { roomId } = useParams();
   const [searchParams] = useSearchParams();
   const participantId = parseInt(searchParams.get("participantId"));
-  const { participants } = useRoomsResultsData(roomId, participantId);
+  const { allParticipants, participants } = useRoomsResultsData(
+    roomId,
+    participantId
+  );
 
   const [participant, setParticipant] = useState({});
 
@@ -21,7 +23,10 @@ const ResultPage = () => {
   }, [participants]);
 
   return isLoaded(participants) ? (
-    <ResultLoadedPage participants={participants} />
+    <ResultLoadedPage
+      allParticipants={allParticipants}
+      participants={participants}
+    />
   ) : (
     <ResultNotLoadedPage participant={participant} />
   );

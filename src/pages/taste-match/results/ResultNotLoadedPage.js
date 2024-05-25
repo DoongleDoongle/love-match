@@ -21,7 +21,7 @@ const ResultNotLoadedPage = ({ participant = {} }) => {
     <BaseContainer>
       <LikesContents
         title="내가 좋아하는 음식"
-        answer={participant.myMenus?.join(", ")}
+        answer={participant.myChoices?.join(", ")}
       />
 
       <Message>"오늘은 한식이 끌리는 날이군요 :D"</Message>

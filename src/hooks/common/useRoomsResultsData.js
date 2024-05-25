@@ -11,6 +11,7 @@ const _goTo = (navigate, toUrl) => {
 
 export const useRoomsResultsData = (roomId, myId) => {
   const navigate = useNavigate();
+  const [allParticipants, setAllParticipants] = useState([]);
   const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
@@ -37,16 +38,17 @@ export const useRoomsResultsData = (roomId, myId) => {
       const { participants, error: participantsError } =
         await fetchParticipants(doneParticipantIds);
       if (!participantsError) {
-        setParticipants(
-          convertToParticipants(doneRoomsParticipants, participants, myId)
-        );
+        const { convertedAllParticipants, convertedParticipants } =
+          convertToParticipants(doneRoomsParticipants, participants, myId);
+        setAllParticipants(convertedAllParticipants);
+        setParticipants(convertedParticipants);
       }
     };
 
     fetchData();
   }, [roomId, myId, navigate]);
 
-  return { participants };
+  return { allParticipants, participants };
 };
 
 const convertToParticipants = (doneRoomsParticipants, participants, myId) => {
@@ -60,23 +62,55 @@ const convertToParticipants = (doneRoomsParticipants, participants, myId) => {
     return [...acc, cur];
   }, []);
 
-  return sortedRoomsParticipants.map(
-    ({ participant_id: currentId, choices: myChoices }) => {
-      const partnerParticipants = sortedRoomsParticipants.filter(
-        ({ participant_id }) => currentId !== participant_id
-      );
+  // 응답 객체 조합해서 반환
+  return {
+    convertedAllParticipants: createAllParticipants(sortedRoomsParticipants),
+    convertedParticipants: sortedRoomsParticipants.map(
+      ({ participant_id: currentId, choices: myChoices }) => {
+        const partnerParticipants = sortedRoomsParticipants.filter(
+          ({ participant_id }) => currentId !== participant_id
+        );
 
-      return {
-        nickname: keyValueParticipants[currentId],
-        myMenus: myChoices,
-        compatibilities: createCompatibilities(
-          partnerParticipants,
-          keyValueParticipants,
-          myChoices
-        ),
-      };
-    }
+        return {
+          nickname: keyValueParticipants[currentId],
+          myChoices,
+          compatibilities: createCompatibilities(
+            partnerParticipants,
+            keyValueParticipants,
+            myChoices
+          ),
+        };
+      }
+    ),
+  };
+};
+
+/**
+ * 모든 참가자들이 공통적으로 좋아하는 메뉴와 그 궁합률을 계산하는 함수
+ *
+ * @param {Array} participants - 참가자들의 배열, 각 참가자는 {choices: Array} 형태를 가짐
+ * @returns {Object} - { rate: 궁합률 (백분율로 표현된 문자열), togetherLikesChoices: 공통으로 좋아하는 메뉴의 배열 }
+ */
+const createAllParticipants = (participants) => {
+  // 모든 참가자들의 choices 배열을 수집
+  const allChoices = participants.map((p) => p.choices);
+
+  // 모든 참가자들이 공통적으로 선택한 메뉴를 찾음
+  const commonChoices = allChoices.reduce((common, choices) => {
+    return common.filter((choice) => choices.includes(choice));
+  });
+
+  // 모든 참가자가 선택한 메뉴의 수는 동일하므로 첫 번째 참가자의 choices 길이를 사용
+  const compatibilityRate = calculateRate(
+    commonChoices,
+    participants[0].choices
   );
+
+  // 궁합률과 공통으로 좋아하는 메뉴를 반환
+  return {
+    rate: `${compatibilityRate}%`,
+    togetherLikesChoices: commonChoices,
+  };
 };
 
 const createCompatibilities = (
@@ -86,25 +120,25 @@ const createCompatibilities = (
 ) => {
   return partnerParticipants.map(
     ({ participant_id: partnerId, choices: partnerChoices }) => {
-      const togetherLikesMenus = getTogetherLikesMenus(
+      const togetherLikesChoices = getTogetherLikesChoices(
         partnerChoices,
         myChoices
       );
 
       return {
         partner: keyValueParticipants[partnerId],
-        rate: calculateRate(togetherLikesMenus, myChoices),
-        togetherLikesMenus,
+        rate: calculateRate(togetherLikesChoices, myChoices),
+        togetherLikesChoices,
       };
     }
   );
 };
 
-const getTogetherLikesMenus = (partnerChoices, myChoices) => {
+const getTogetherLikesChoices = (partnerChoices, myChoices) => {
   return partnerChoices.filter((el) => myChoices.includes(el));
 };
 
-const calculateRate = (togetherLikesMenus, myChoices) => {
-  const percentage = (togetherLikesMenus.length / myChoices.length) * 100;
+const calculateRate = (likeChoices, baseChoices) => {
+  const percentage = (likeChoices.length / baseChoices.length) * 100;
   return percentage % 1 === 0 ? `${percentage}%` : `${percentage.toFixed(1)}%`;
 };

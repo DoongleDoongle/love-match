@@ -31,7 +31,7 @@ const CompatibilityRate = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.huge};
 `;
 
-const ResultLoadedPage = ({ participants }) => {
+const ResultLoadedPage = ({ allParticipants, participants }) => {
   const { platformName } = usePlatformNameData();
   const [activeParticipant, setActiveParticipant] = useState(
     participants[0].nickname
@@ -42,13 +42,13 @@ const ResultLoadedPage = ({ participants }) => {
   return (
     <BaseContainer>
       <LikesContents
-        title="우리가 함께 좋아하는 음식"
-        answer="딸기, 짜장면, 랍스타, 바나나, 사과, 포도, 스테이크, 샐러드, 쌀밥, 피자, 스파게티, 치킨, 김밥, 떡볶이, 삼겹살, 아이스크림, 초밥, 라면, 샌드위치, 팬케이크"
+        title="모두가 좋아하는 음식"
+        answer={allParticipants.togetherLikesChoices.join(", ")}
       />
 
       <CompatibilityContainer>
         <CompatibilityLabel>궁합도: </CompatibilityLabel>
-        <CompatibilityRate>100%</CompatibilityRate>
+        <CompatibilityRate>{allParticipants.rate}</CompatibilityRate>
       </CompatibilityContainer>
 
       <Navbar
@@ -63,8 +63,8 @@ const ResultLoadedPage = ({ participants }) => {
           key={index}
           title={`[${compatibility.partner}] 님과 함께 좋아하는 음식`}
           answer={
-            compatibility.togetherLikesMenus
-              ? compatibility.togetherLikesMenus.join(", ")
+            compatibility.togetherLikesChoices
+              ? compatibility.togetherLikesChoices.join(", ")
               : "없음"
           }
           matchScore={compatibility.rate}
