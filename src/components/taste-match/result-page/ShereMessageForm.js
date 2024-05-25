@@ -8,6 +8,7 @@ const ShereMessageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const ShereMessage = styled.div`
@@ -22,7 +23,6 @@ const ShereBottomMessage = styled.div`
   margin-top: 2px;
   margin-bottom: 20px;
   font-size: ${({ theme }) => theme.fontSizes.small};
-  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const ShereMessageForm = () => {

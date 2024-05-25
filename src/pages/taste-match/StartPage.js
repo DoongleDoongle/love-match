@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { createRoomAndParticipant } from "apis/queries/rooms";
 import tasteMatchImage from "assets/taste-match/main.jpeg";
+// import tasteMatchImage from "assets/common/love-match-logo.png";
 
 const Container = styled.div`
   display: flex;
@@ -14,14 +15,24 @@ const Container = styled.div`
   align-items: center;
   flex: 1;
   width: 100%;
+  position: relative;
+`;
+
+const CenteredImage = styled(Image)`
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
   align-items: center;
   width: 100%;
+  margin-top: 10%;
+  /* position: absolute;
+  bottom: 10%; */
 `;
 
 const InputList = styled.div`
@@ -29,7 +40,6 @@ const InputList = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10% 0;
   width: 100%;
 `;
 
@@ -69,11 +79,12 @@ const StartPage = () => {
             name="name"
             placeholder="이름을 입력해주세요."
             width="80%"
+            borderRadius="14px"
             value={nickname}
             onChange={handleInputChange}
           />
         </InputList>
-        <CustomButton width="30%" onClick={handleStartClick}>
+        <CustomButton width="30%" margin="10% 0 0 0" onClick={handleStartClick}>
           시작
         </CustomButton>
       </InputContainer>

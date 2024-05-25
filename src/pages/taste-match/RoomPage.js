@@ -88,14 +88,14 @@ const RoomPage = () => {
       <ProgressContainer>
         <HalfProgress
           percent={leftProgressPercentage}
-          strokeColor={theme.colors.primary}
+          strokeColor={theme.colors.secondary}
           showInfo={false}
           strokeWidth={10}
         />
         <VersusText>VS</VersusText>
         <HalfProgress
           percent={rightProgressPercentage}
-          strokeColor={theme.colors.primary}
+          strokeColor={theme.colors.secondary}
           showInfo={false}
           strokeWidth={10}
         />

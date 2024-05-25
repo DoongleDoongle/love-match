@@ -10,6 +10,7 @@ import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBo
 
 const Message = styled.div`
   margin: 20px 0;
+  color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.fontSizes.semiLarge};
   font-weight: bold;
 `;

@@ -21,19 +21,19 @@ export const TextArea = styled.div`
   cursor: pointer;
   background-color: ${({ active, theme }) =>
     active
-      ? theme.colors.primary
+      ? theme.colors.secondary
       : theme.colors.background}; // 클릭 시 배경색 변경
   color: ${({ active, theme }) =>
     active
       ? theme.colors.primary
-      : theme.colors.dark}; // 클릭 시 텍스트 색상 변경
+      : theme.colors.primary}; // 클릭 시 텍스트 색상 변경
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 `;
 
 export const VersusText = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.large};
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const ProgressContainer = styled.div`

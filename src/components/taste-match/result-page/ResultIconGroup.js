@@ -23,6 +23,7 @@ const IconButtonWrapper = styled.div`
   justify-content: space-evenly;
   width: 100%;
   margin: 20px 0;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const IconButton = styled.button`

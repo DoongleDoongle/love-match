@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useRoomsResultsData } from "hooks/common/useRoomsResultsData";
 
 import ResultLoadedPage from "./ResultLoadedPage";

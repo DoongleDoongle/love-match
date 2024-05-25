@@ -7,6 +7,7 @@ const LikesContainer = styled.div`
   align-items: center;
   margin-top: 20px;
   width: 70%;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export default LikesContainer;

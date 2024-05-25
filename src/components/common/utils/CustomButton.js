@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 
 // prettier-ignore
 const CustomButton = styled.button`
-  background-color: ${({ theme, backgroundcolor }) => backgroundcolor || theme.colors.primary};
-  color: ${({ theme, color }) => color || theme.colors.light};
+  background-color: ${({ theme, backgroundcolor }) => backgroundcolor || theme.colors.secondary};
+  color: ${({ theme, color }) => color || theme.colors.background};
+  margin: ${({ theme, margin }) => margin || 0};
   padding: ${({ theme, padding }) => padding || theme.spacings.small} ${({ theme }) => theme.spacings.base};
   font-size: ${({ theme, fontSize }) => fontSize || theme.fontSizes.base};
   border: none;
@@ -20,6 +21,7 @@ const CustomButton = styled.button`
 
   &:hover {
     background-color: ${({ theme, hoverbackgroundcolor }) => hoverbackgroundcolor || theme.colors.secondary};
+    color: ${({ theme, color }) => color || theme.colors.background};
     box-shadow: ${({ theme }) => theme.shadows.medium};
     transition: 0.2s;
     transform: translateY(1.5px); 

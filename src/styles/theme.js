@@ -1,10 +1,10 @@
 const theme = {
   colors: {
-    primary: "#102C57", // 1차색, 짙은 파랑
-    secondary: "#DAC0A3", // 2차색, 베이지
-    Tertiary: "EADBC8", // 3차색,
-    Quaternary: "FEFAF6", // 4차색,
-    Quinary: "", // 5차색,
+    primary: "#2B3467", // 1차색, 짙은 파랑
+    secondary: "#EB455F", // 2차색, 베이지
+    tertiary: "#BAD7E9", // 3차색,
+    quaternary: "#FEFAF6", // 4차색,
+    quinary: "", // 5차색,
     lightBlueGrey: "#A3B4C6", // 밝은 파랑/회색
     softRose: "#B48291", // 부드러운 로즈
     softBlue: "#829AB1", // 소프트 블루
@@ -16,7 +16,7 @@ const theme = {
     dark: "#343a40", // 짙은 회색
     white: "#fff",
     text: "#333", // 거의 검정색
-    background: "#FEFAF6", // light랑 동일
+    background: "#FCFFE7", // light랑 동일
   },
   fontSizes: {
     extraSmall: "10px",
