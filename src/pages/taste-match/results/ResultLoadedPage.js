@@ -78,7 +78,8 @@ const NavItemWrapper = styled.div`
   max-height: 40vh; // 스크롤을 적용할 최대 높이 설정
   overflow-y: scroll; // 내용이 넘칠 경우 스크롤 적용
   background-color: ${({ theme }) => theme.colors.light};
-  border: 2px solid ${({ theme }) => theme.colors.primary}; // 경계선 추가
+  border-top: 2px solid ${({ theme }) => theme.colors.primary};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
 
   /* 스크롤바 스타일링 (웹킷 브라우저 전용) */
   &::-webkit-scrollbar {
