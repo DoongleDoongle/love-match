@@ -8,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   flex: 1; // 남은 공간을 모두 채움
   width: 100%;
+  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
 `;
 
 export const TextArea = styled.div`

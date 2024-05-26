@@ -1,4 +1,3 @@
-// GlobalStyle.js
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -22,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 auto;     // 화면 중앙 정렬
     width: 100%;        // 전체 너비를 사용하되, 최대 너비는 500px
     background-color: ${(props) => props.theme.colors.background};
+    position: relative; // 사이드바 위치 조정을 위해 relative로 설정
   }
 `;
 

@@ -79,7 +79,6 @@ const StartPage = () => {
             name="name"
             placeholder="이름을 입력해주세요."
             width="80%"
-            borderRadius="14px"
             value={nickname}
             onChange={handleInputChange}
           />

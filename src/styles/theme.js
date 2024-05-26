@@ -52,6 +52,9 @@ const theme = {
     normal: "all 0.5s ease-in-out",
     slow: "all 0.75s ease-in-out",
   },
+  header: {
+    height: "60px",
+  },
 };
 
 export default theme;

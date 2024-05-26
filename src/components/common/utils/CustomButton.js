@@ -17,7 +17,7 @@ const CustomButton = styled.button`
   transition: background-color ${({ theme }) => theme.transitions.normal},
     box-shadow ${({ theme }) => theme.transitions.normal},
     transform ${({ theme }) => theme.transitions.normal};
-  box-shadow: ${({ theme }) => theme.shadows.light};
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background-color: ${({ theme, hoverbackgroundcolor }) => hoverbackgroundcolor || theme.colors.secondary};
