@@ -9,14 +9,15 @@ import logoImage from "assets/common/love-match-logo.png";
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;
-  position: relative; // relative로 변경
+  position: relative;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 1000;
   background-color: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.primary};
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5px 0px rgba(0, 0, 0, 0.1);
+  /* border-bottom: 1px solid lightgrey; */
   height: ${({ theme }) => theme.header.height}; // 헤더 높이를 고정
   padding: 0 16px;
 `;

@@ -9,7 +9,8 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-style: normal;
     color: ${(props) => props.theme.colors.text};
   }
 
@@ -22,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;        // 전체 너비를 사용하되, 최대 너비는 500px
     background-color: ${(props) => props.theme.colors.background};
     position: relative; // 사이드바 위치 조정을 위해 relative로 설정
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 `;
 
