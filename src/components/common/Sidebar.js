@@ -2,8 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import styled from "styled-components";
-
 import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
+
+const SidebarOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); // 반투명 배경
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+  transition: visibility 0.3s ease, opacity 0.3s ease;
+  z-index: 1999; // SidebarContainer 아래에 위치
+`;
 
 const SidebarContainer = styled.div`
   position: absolute;
@@ -26,19 +38,24 @@ const StyledSidebar = styled(Sidebar)`
 
 const CustomSidebar = ({ isOpen, onClose }) => {
   return (
-    <SidebarContainer isOpen={isOpen}>
-      <StyledSidebar>
-        <Menu>
-          <SubMenu label="궁합 보기" defaultOpen>
-            <MenuItem
-              component={<Link to={TASTE_MATCH_ROOT_PATH} onClick={onClose} />}
-            >
-              입맛 궁합
-            </MenuItem>
-          </SubMenu>
-        </Menu>
-      </StyledSidebar>
-    </SidebarContainer>
+    <>
+      <SidebarOverlay isOpen={isOpen} onClick={onClose} />
+      <SidebarContainer isOpen={isOpen}>
+        <StyledSidebar>
+          <Menu>
+            <SubMenu label="궁합 보기" defaultOpen>
+              <MenuItem
+                component={
+                  <Link to={TASTE_MATCH_ROOT_PATH} onClick={onClose} />
+                }
+              >
+                입맛 궁합
+              </MenuItem>
+            </SubMenu>
+          </Menu>
+        </StyledSidebar>
+      </SidebarContainer>
+    </>
   );
 };
 

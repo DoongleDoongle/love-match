@@ -108,7 +108,7 @@ const createAllParticipants = (participants) => {
 
   // 궁합률과 공통으로 좋아하는 메뉴를 반환
   return {
-    rate: `${compatibilityRate}%`,
+    rate: compatibilityRate,
     togetherLikesChoices: commonChoices,
   };
 };
