@@ -17,8 +17,6 @@ const CompatibilityContainer = styled.div`
   padding: ${({ theme }) => theme.spacings.base};
   color: ${({ theme }) => theme.colors.primary};
   background-color: ${({ theme }) => theme.colors.background};
-  /* border: ${({ theme }) => `solid 1px ${theme.colors.primary}`};
-  border-radius: ${({ theme }) => theme.borderRadius.base}; */
 `;
 
 const CompatibilityLabel = styled.div`

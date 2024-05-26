@@ -22,7 +22,7 @@ const IconButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
