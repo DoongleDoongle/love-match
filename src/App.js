@@ -20,7 +20,28 @@ import {
   TASTE_MATCH_RESULTS_PATH,
 } from "configs/route/routeConfig";
 
-const MainLayout = styled.div``;
+const MainLayout = styled.div`
+  width: 100%;
+  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  overflow-y: auto;
+
+  /* 스크롤바 스타일링 (웹킷 브라우저 전용) */
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: 10px;
+    border: 3px solid white; // 스크롤바 주변에 여백을 줌
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.background};
+    border: 1px solid rgb(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+`;
 
 const App = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
