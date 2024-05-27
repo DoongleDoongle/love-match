@@ -19,10 +19,10 @@ const SidebarOverlay = styled.div`
 
 const SidebarContainer = styled.div`
   position: absolute;
-  top: ${({ theme }) => theme.header.height};
+  top: 0;
   left: 0;
   width: 250px;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: 100vh;
   z-index: 2000;
   transform: ${({ isOpen }) =>
     isOpen ? "translateX(0)" : "translateX(-100%)"};
