@@ -16,7 +16,7 @@ const theme = {
     dark: "#343a40", // 짙은 회색
     white: "#fff",
     text: "#333", // 거의 검정색
-    background: "#FCFFE7", // light랑 동일
+    background: "#FFFFFA", // light랑 동일
   },
   fontSizes: {
     extraSmall: "10px",
