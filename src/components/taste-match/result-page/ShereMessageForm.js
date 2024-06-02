@@ -16,7 +16,13 @@ const ShereMessage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
   margin: 20px 0;
+`;
+
+const OneLineMessage = styled.div`
+  margin: 0;
+  padding: 0;
 `;
 
 const ShereBottomMessage = styled.div`
@@ -35,8 +41,8 @@ const ShereMessageForm = () => {
   return (
     <ShereMessageContainer>
       <ShereMessage>
-        <p>아직 함께한 친구가 없군요.</p>
-        친구에게 게임을 공유해주세요.
+        <OneLineMessage>아직 함께한 친구가 없군요.</OneLineMessage>
+        <OneLineMessage>친구에게 게임을 공유해주세요.</OneLineMessage>
       </ShereMessage>
 
       <CustomButton width="50%" onClick={inviteHandler}>
