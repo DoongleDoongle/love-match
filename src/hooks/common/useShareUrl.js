@@ -1,5 +1,6 @@
 export const useShareUrl = () => {
   const createInviteUrl = ({
+    type = "kakao-feed",
     title,
     description,
     imageUrl,
@@ -10,10 +11,11 @@ export const useShareUrl = () => {
     url.searchParams.delete("participantId");
     const targetUrl = `${url.origin}${basePath}${url.search}`;
 
-    sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
+    shareUrl({ type, title, description, imageUrl, buttonTitle, targetUrl });
   };
 
   const createShareUrl = ({
+    type = "kakao-feed",
     title,
     description,
     imageUrl,
@@ -22,10 +24,30 @@ export const useShareUrl = () => {
     const url = new URL(window.location.href);
     const targetUrl = url.href;
 
-    sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
+    shareUrl({ type, title, description, imageUrl, buttonTitle, targetUrl });
   };
 
   return { createInviteUrl, createShareUrl };
+};
+
+const shareUrl = ({
+  type,
+  title,
+  description,
+  imageUrl,
+  buttonTitle,
+  targetUrl,
+} = {}) => {
+  switch (type) {
+    case "kakao-feed":
+      sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
+      break;
+    case "clipboard":
+      copyClipboard(targetUrl);
+      break;
+    default:
+      throw new Error("존재하지 않는 공유 타입입니다.");
+  }
 };
 
 const sendKakaoFeed = ({
@@ -56,4 +78,16 @@ const sendKakaoFeed = ({
       },
     ],
   });
+};
+
+const copyClipboard = (targetUrl = "/") => {
+  navigator.clipboard
+    .writeText(targetUrl)
+    .then(() => {
+      alert("URL이 클립보드에 복사되었습니다.");
+    })
+    .catch((err) => {
+      console.error("클립보드 복사에 실패했습니다:", err);
+      alert("클립보드 복사에 실패했습니다.");
+    });
 };
