@@ -27,6 +27,11 @@ const ShereBottomMessage = styled.div`
 
 const ShereMessageForm = () => {
   const { createInviteUrl } = useShareUrl();
+
+  const inviteHandler = () => {
+    createInviteUrl();
+  };
+
   return (
     <ShereMessageContainer>
       <ShereMessage>
@@ -34,7 +39,7 @@ const ShereMessageForm = () => {
         친구에게 게임을 공유해주세요.
       </ShereMessage>
 
-      <CustomButton width="50%" onClick={createInviteUrl}>
+      <CustomButton width="50%" onClick={inviteHandler}>
         친구 초대
       </CustomButton>
 

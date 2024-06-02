@@ -37,7 +37,11 @@ const CustomButton = styled.button`
   }
 `;
 
-CustomButton.propTypes = {
+const ButtonComponent = ({ onClick, ...props }) => {
+  return <CustomButton onClick={onClick} {...props} />;
+};
+
+ButtonComponent.propTypes = {
   backgroundcolor: PropTypes.string,
   color: PropTypes.string,
   padding: PropTypes.string,
@@ -48,7 +52,7 @@ CustomButton.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-CustomButton.defaultProps = {
+ButtonComponent.defaultProps = {
   backgroundcolor: null,
   color: null,
   padding: null,
@@ -58,4 +62,4 @@ CustomButton.defaultProps = {
   onClick: () => console.log("CustomButton이 클릭되었습니다."),
 };
 
-export default CustomButton;
+export default ButtonComponent;

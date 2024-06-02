@@ -1,36 +1,59 @@
 export const useShareUrl = () => {
-  const createInviteUrl = () => {
+  const createInviteUrl = ({
+    title,
+    description,
+    imageUrl,
+    buttonTitle,
+  } = {}) => {
     const url = new URL(window.location.href);
     const basePath = url.pathname.replace("/results", "");
     url.searchParams.delete("participantId");
-    const finalUrl = `${url.origin}${basePath}${url.search}`;
+    const targetUrl = `${url.origin}${basePath}${url.search}`;
 
-    navigator.clipboard
-      .writeText(finalUrl)
-      .then(() => {
-        alert("공유 URL이 클립보드에 복사되었습니다. 친구를 초대해보세요!");
-      })
-      .catch((err) => {
-        console.error("클립보드 복사에 실패했습니다:", err);
-        alert("클립보드 복사에 실패했습니다.");
-      });
+    sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
   };
 
-  const createShareUrl = () => {
+  const createShareUrl = ({
+    title,
+    description,
+    imageUrl,
+    buttonTitle,
+  } = {}) => {
     const url = new URL(window.location.href);
+    const targetUrl = url.href;
 
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        alert(
-          "공유 URL이 클립보드에 복사되었습니다. 내 결과를 친구와 공유해보세요!"
-        );
-      })
-      .catch((err) => {
-        console.error("클립보드 복사에 실패했습니다:", err);
-        alert("클립보드 복사에 실패했습니다.");
-      });
+    sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
   };
 
   return { createInviteUrl, createShareUrl };
+};
+
+const sendKakaoFeed = ({
+  title = "러브 매치",
+  description = "우리 사이, 이대로 괜찮을까?",
+  targetUrl = "/",
+  imageUrl = "https://love-match.vercel.app/static/media/main.c7cb733adac7e6d11b19.jpeg",
+  buttonTitle = "궁합 테스트 바로가기",
+} = {}) => {
+  window.Kakao.Link.sendDefault({
+    objectType: "feed",
+    content: {
+      title: title,
+      description: description,
+      imageUrl: imageUrl,
+      link: {
+        mobileWebUrl: targetUrl,
+        webUrl: targetUrl,
+      },
+    },
+    buttons: [
+      {
+        title: buttonTitle,
+        link: {
+          mobileWebUrl: targetUrl,
+          webUrl: targetUrl,
+        },
+      },
+    ],
+  });
 };
