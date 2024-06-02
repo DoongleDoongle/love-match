@@ -55,7 +55,7 @@ const sendKakaoFeed = ({
   title = "러브 매치",
   description = "우리 사이, 이대로 괜찮을까?",
   targetUrl = "/",
-  imageUrl = "https://love-match.vercel.app/static/media/main.c7cb733adac7e6d11b19.jpeg",
+  imageUrl = "https://love-match.co.kr/static/media/main.c7cb733adac7e6d11b19.jpeg",
   buttonTitle = "궁합 테스트 바로가기",
 } = {}) => {
   window.Kakao.Link.sendDefault({
