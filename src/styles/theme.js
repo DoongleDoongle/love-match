@@ -1,3 +1,5 @@
+const toasterHeight = 60;
+
 const theme = {
   colors: {
     primary: "#2B3467", // 1차색, 짙은 파랑
@@ -53,7 +55,7 @@ const theme = {
     slow: "all 0.75s ease-in-out",
   },
   header: {
-    height: "60px",
+    height: `${toasterHeight + 60}px`,
   },
 };
 

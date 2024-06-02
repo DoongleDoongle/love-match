@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
   color: ${(props) => props.theme.colors.primary};
   box-shadow: 0 0.5px 0px rgba(0, 0, 0, 0.1); // 하단에 얇은 그림자 생성
   /* border-bottom: 1px solid lightgrey; */
-  height: ${({ theme }) => theme.header.height}; // 헤더 높이를 고정
+  height: ${({ theme }) => "60px" || theme.header.height}; // 헤더 높이를 고정
   padding: 0 16px;
 `;
 
