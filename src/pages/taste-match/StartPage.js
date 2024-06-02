@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CustomButton from "components/common/utils/CustomButton";
 import Image from "components/common/utils/Image";
 import Input from "components/common/utils/Input";
+import CustomModal from "components/common/utils/CustomModal";
 import { useNavigate } from "react-router-dom";
 
 import { createRoomAndParticipant } from "apis/queries/rooms";
@@ -45,6 +46,7 @@ const InputList = styled.div`
 
 const StartPage = () => {
   const navigate = useNavigate();
+  const [modalShow, setModalShow] = useState(false);
   const [nickname, setNickname] = useState("");
 
   const handleInputChange = (event) => {
@@ -53,7 +55,7 @@ const StartPage = () => {
 
   const handleStartClick = async () => {
     if (!nickname.trim()) {
-      alert("이름을 입력해주세요.");
+      setModalShow(true);
       return;
     }
 
@@ -70,6 +72,11 @@ const StartPage = () => {
 
   return (
     <Container>
+      <CustomModal
+        description="이름을 입력해주세요."
+        onClose={() => setModalShow(false)}
+        show={modalShow}
+      />
       <Image src={tasteMatchImage} alt="Taste Match" />
       <InputContainer>
         <InputList>
