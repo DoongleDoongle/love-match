@@ -32,6 +32,8 @@ export const useRoomData = (roomId, participantId) => {
   const location = useLocation();
   const [keywords, setKeywords] = useState([{ top: "", bottom: "" }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null); // 에러 상태
 
   useEffect(() => {
     const createParticipant = async () => {
@@ -52,24 +54,30 @@ export const useRoomData = (roomId, participantId) => {
     };
 
     const fetchData = async () => {
-      const { room, error: roomError } = await fetchRoom(roomId);
-      if (roomError || !room) {
-        alert("존재하지 않는 방입니다.");
-        navigate(TASTE_MATCH_ROOT_PATH);
-        return;
-      }
+      try {
+        const { room, error: roomError } = await fetchRoom(roomId);
+        if (roomError || !room) {
+          alert("존재하지 않는 방입니다.");
+          navigate(TASTE_MATCH_ROOT_PATH);
+          return;
+        }
 
-      const { roomsParticipants, error: roomsParticipantsError } =
-        await fetchRoomsParticipants(roomId, participantId);
-      if (roomsParticipantsError || roomsParticipants?.length === 0) {
-        alert("잘못된 사용자입니다.");
-        navigate(TASTE_MATCH_ROOT_PATH);
-        return;
-      }
+        const { roomsParticipants, error: roomsParticipantsError } =
+          await fetchRoomsParticipants(roomId, participantId);
+        if (roomsParticipantsError || roomsParticipants?.length === 0) {
+          alert("잘못된 사용자입니다.");
+          navigate(TASTE_MATCH_ROOT_PATH);
+          return;
+        }
 
-      const { choices, error: choicesError } = await fetchChoices();
-      if (!choicesError) {
-        setKeywords(createPairedChoices(choices).slice(0, 7));
+        const { choices, error: choicesError } = await fetchChoices();
+        if (!choicesError) {
+          setKeywords(createPairedChoices(choices).slice(0, 7));
+        }
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false); // 데이터 로드 완료
       }
     };
 
@@ -80,5 +88,5 @@ export const useRoomData = (roomId, participantId) => {
     }
   }, [roomId, participantId, navigate, location.pathname]);
 
-  return { keywords, keywordIdx, setKeywordIdx };
+  return { keywords, keywordIdx, setKeywordIdx, isLoading, error };
 };

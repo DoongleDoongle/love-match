@@ -41,6 +41,7 @@ const shareUrl = ({
   switch (type) {
     case "kakao-feed":
       sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
+      // copyClipboard(targetUrl);
       break;
     case "clipboard":
       copyClipboard(targetUrl);

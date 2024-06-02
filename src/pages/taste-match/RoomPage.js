@@ -1,4 +1,3 @@
-import "rsuite/dist/rsuite.min.css";
 import theme from "styles/theme";
 
 import React, { useState, useEffect } from "react";
@@ -18,6 +17,7 @@ import {
   TASTE_MATCH_ROOMS_PATH,
   RESULTS_PATH,
 } from "configs/route/routeConfig";
+import Spinner from "react-bootstrap/Spinner";
 
 const RoomPage = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const RoomPage = () => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedChoices, setSelectedChoices] = useState([]);
 
-  const { keywords, keywordIdx, setKeywordIdx } = useRoomData(
+  const { keywords, keywordIdx, setKeywordIdx, isLoading, error } = useRoomData(
     roomId,
     participantId
   );
@@ -70,6 +70,18 @@ const RoomPage = () => {
   const clickTextArea = (type) => {
     setSelectedArea(type);
   };
+
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="grow" />
+      </div>
+    ); // 로딩 중일 때 Spinner 표시
+  }
+
+  if (error) {
+    return <div>에러가 발생했습니다: {error.message}</div>; // 에러 처리
+  }
 
   const currentKeyword = keywords[keywordIdx];
   const leftProgressPercentage = (keywordIdx / keywords.length) * 200;

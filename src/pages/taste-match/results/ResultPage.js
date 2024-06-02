@@ -4,15 +4,14 @@ import { useRoomsResultsData } from "hooks/common/useRoomsResultsData";
 
 import ResultLoadedPage from "./ResultLoadedPage";
 import ResultNotLoadedPage from "./ResultNotLoadedPage";
+import CustomSpinner from "components/common/CustomSpinner";
 
 const ResultPage = () => {
   const { roomId } = useParams();
   const [searchParams] = useSearchParams();
   const participantId = parseInt(searchParams.get("participantId"));
-  const { allParticipants, participants } = useRoomsResultsData(
-    roomId,
-    participantId
-  );
+  const { allParticipants, participants, isLoading, error } =
+    useRoomsResultsData(roomId, participantId);
 
   const [participant, setParticipant] = useState({});
 
@@ -22,7 +21,15 @@ const ResultPage = () => {
     }
   }, [participants]);
 
-  return isLoaded(participants) ? (
+  if (isLoading) {
+    return <CustomSpinner />; // 로딩 중일 때 Spinner 표시
+  }
+
+  if (error) {
+    return <div>에러가 발생했습니다: {error.message}</div>; // 에러 처리
+  }
+
+  return participants.length > 1 ? (
     <ResultLoadedPage
       allParticipants={allParticipants}
       participants={participants}
@@ -30,10 +37,6 @@ const ResultPage = () => {
   ) : (
     <ResultNotLoadedPage participant={participant} />
   );
-};
-
-const isLoaded = (participants) => {
-  return participants.length > 1;
 };
 
 export default ResultPage;

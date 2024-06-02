@@ -1,4 +1,6 @@
-// App.js
+import "rsuite/dist/rsuite.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import React, { useState, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
