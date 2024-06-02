@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Image from "./utils/Image";
+import Toaster from "./Toaster";
 import logoImage from "assets/common/love-match-logo.png";
 
 const StyledHeader = styled.header`
@@ -76,18 +77,24 @@ const Header = ({ title = "러브매치", onMenuClick }) => {
   };
 
   return (
-    <StyledHeader>
-      <MenuIcon icon={faBars} onClick={onMenuClick} />
-      <TitleWrapper>
-        <Title>{title}</Title>
-      </TitleWrapper>
-      <LogoImage
-        src={logoImage}
-        width="50px"
-        alt="Logo"
-        onClick={handleLogoClick}
-      />
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <MenuIcon icon={faBars} onClick={onMenuClick} />
+        <TitleWrapper>
+          <Title>{title}</Title>
+        </TitleWrapper>
+        <LogoImage
+          src={logoImage}
+          width="50px"
+          alt="Logo"
+          onClick={handleLogoClick}
+        />
+      </StyledHeader>
+
+      <Toaster showIcon type="info" closable>
+        [공지] 현재는 베타 서비스 기간입니다.
+      </Toaster>
+    </>
   );
 };
 
