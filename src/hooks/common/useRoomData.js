@@ -9,16 +9,29 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
 
+/**
+ * 선택지 데이터를 Supabase 테이블로 관리할 때 사용하던 조합 함수
+ * @param {*} choices 선택지 테이블의 데이터 목록
+ * @returns [{top: {id, value, imageUrl}, bottom: {id, value, imageUrl}}] 으로 조합된 목록
+ */
 const createPairedChoices = (choices) => {
   const grouped = choices.reduce((acc, item) => {
     acc[item.group_id] = acc[item.group_id] || [];
-    acc[item.group_id].push(item.choice);
+    acc[item.group_id].push(item);
     return acc;
   }, {});
 
   return Object.values(grouped).map((group) => ({
-    top: group[0],
-    bottom: group[1] || "",
+    top: {
+      id: group[0].id,
+      value: group[0].choice,
+      imageUrl: group[0].image_url,
+    },
+    bottom: {
+      id: group[1].id,
+      value: group[1].choice,
+      imageUrl: group[1].image_url,
+    },
   }));
 };
 
@@ -30,7 +43,7 @@ const _goTo = (navigate, toUrl) => {
 export const useRoomData = (roomId, participantId) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [keywords, setKeywords] = useState([{ top: "", bottom: "" }]);
+  const [keywords, setKeywords] = useState([{ top: {}, bottom: {} }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
   const [error, setError] = useState(null); // 에러 상태
@@ -70,9 +83,9 @@ export const useRoomData = (roomId, participantId) => {
           return;
         }
 
-        const { choices, error: choicesError } = await fetchChoices();
+        const { choices, error: choicesError } = await fetchChoices(1);
         if (!choicesError) {
-          setKeywords(createPairedChoices(choices));
+          setKeywords(createPairedChoices(choices).splice(0, 7));
         }
       } catch (err) {
         setError(err);

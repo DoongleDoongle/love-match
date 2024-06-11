@@ -13,11 +13,12 @@ const CustomButton = styled.button`
   cursor: pointer;
   display: block;
   width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || "50px"};
   text-align: center;
   transition: background-color ${({ theme }) => theme.transitions.normal},
     box-shadow ${({ theme }) => theme.transitions.normal},
     transform ${({ theme }) => theme.transitions.normal};
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 
   &:hover {
     background-color: ${({ theme, hoverbackgroundcolor }) => hoverbackgroundcolor || theme.colors.secondary};

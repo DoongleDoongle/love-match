@@ -1,4 +1,4 @@
-export { fetchChoices } from "./choices";
+export { fetchChoices, fetchChoicesByPlatformName } from "./choices";
 export { fetchRoom, createRoom, createRoomAndParticipant } from "./rooms";
 export {
   fetchParticipant,

@@ -5,7 +5,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useRoomData } from "hooks/common/useRoomData";
 import {
   Container,
-  TextArea,
+  ChoiceArea,
   ProgressContainer,
   HalfProgress,
   VersusText,
@@ -90,12 +90,13 @@ const RoomPage = () => {
 
   return (
     <Container>
-      <TextArea
+      <ChoiceArea
         onClick={() => clickTextArea("top")}
         active={selectedArea === "top"}
+        imageUrl={currentKeyword.top.imageUrl}
       >
-        {currentKeyword.top}
-      </TextArea>
+        {currentKeyword.top.value}
+      </ChoiceArea>
 
       <ProgressContainer>
         <HalfProgress
@@ -112,12 +113,14 @@ const RoomPage = () => {
           strokeWidth={10}
         />
       </ProgressContainer>
-      <TextArea
+
+      <ChoiceArea
         onClick={() => clickTextArea("bottom")}
         active={selectedArea === "bottom"}
+        imageUrl={currentKeyword.bottom.imageUrl}
       >
-        {currentKeyword.bottom}
-      </TextArea>
+        {currentKeyword.bottom.value}
+      </ChoiceArea>
     </Container>
   );
 };

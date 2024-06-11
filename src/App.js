@@ -26,6 +26,7 @@ const MainLayout = styled.div`
   width: 100%;
   height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
   overflow-y: auto;
+  overflow-x: hidden; // 좌우 스크롤 없애기
 
   /* 스크롤바 스타일링 (웹킷 브라우저 전용) */
   &::-webkit-scrollbar {

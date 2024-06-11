@@ -83,7 +83,9 @@ export const updateSelectedChoices = async (
   try {
     const updateData = {
       ...(choices.length > 0 && {
-        [table.ROOMS_PARTICIPANTS.columns.CHOICES]: choices,
+        [table.ROOMS_PARTICIPANTS.columns.CHOICE_IDS]: choices.map(
+          (choice) => choice.id
+        ),
       }),
     };
 

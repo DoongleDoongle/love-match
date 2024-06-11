@@ -5,7 +5,7 @@ import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
 
 const _goTo = (navigate, toUrl) => {
   alert("잘못된 사용자입니다.");
-  navigate(toUrl);
+  // navigate(toUrl);
 };
 
 export const useRoomsResultsData = (roomId, myId) => {
@@ -27,11 +27,24 @@ export const useRoomsResultsData = (roomId, myId) => {
           return;
         }
 
-        const doneRoomsParticipants = roomsParticipants.filter(
-          (el) => el.choices.length > 0
+        const convertedRoomsParticipants = roomsParticipants.map(
+          ({ room_id, participant_id, choice_ids }) => {
+            return {
+              roomId: room_id,
+              participantId: participant_id,
+              choiceIds: choice_ids,
+            };
+          }
         );
+
+        // 선택지 테스트를 완료한 참가자 목록
+        const doneRoomsParticipants = convertedRoomsParticipants.filter(
+          (el) => el.choiceIds.length > 0
+        );
+
+        // 선택지 테스트를 완료한 참가자의 아이디 목록
         const doneParticipantIds = doneRoomsParticipants.map(
-          (el) => el.participant_id
+          (el) => el.participantId
         );
 
         if (!doneParticipantIds.includes(myId)) {
@@ -76,25 +89,25 @@ const convertToParticipants = (doneRoomsParticipants, participants, myId) => {
   }, {});
 
   const sortedRoomsParticipants = doneRoomsParticipants.reduce((acc, cur) => {
-    if (cur.participant_id === myId) return [cur, ...acc];
+    if (cur.participantId === myId) return [cur, ...acc];
     return [...acc, cur];
   }, []);
 
   return {
     convertedAllParticipants: createAllParticipants(sortedRoomsParticipants),
     convertedParticipants: sortedRoomsParticipants.map(
-      ({ participant_id: currentId, choices: myChoices }) => {
+      ({ participantId: currentId, choiceIds: myChoiceIds }) => {
         const partnerParticipants = sortedRoomsParticipants.filter(
-          ({ participant_id }) => currentId !== participant_id
+          ({ participantId }) => currentId !== participantId
         );
 
         return {
           nickname: keyValueParticipants[currentId],
-          myChoices,
+          myChoiceIds,
           compatibilities: createCompatibilities(
             partnerParticipants,
             keyValueParticipants,
-            myChoices
+            myChoiceIds
           ),
         };
       }
@@ -103,49 +116,48 @@ const convertToParticipants = (doneRoomsParticipants, participants, myId) => {
 };
 
 const createAllParticipants = (participants) => {
-  const allChoices = participants.map((p) => p.choices);
-
-  const commonChoices = allChoices.reduce((common, choices) => {
-    return common.filter((choice) => choices.includes(choice));
+  const allChoiceIds = participants.map((p) => p.choiceIds);
+  const commonChoiceIds = allChoiceIds.reduce((common, choiceIds) => {
+    return common.filter((choiceId) => choiceIds.includes(choiceId));
   });
 
   const compatibilityRate = calculateRate(
-    commonChoices,
-    participants[0].choices
+    commonChoiceIds,
+    participants[0].choiceIds
   );
 
   return {
     rate: compatibilityRate,
-    togetherLikesChoices: commonChoices,
+    togetherLikesChoiceIds: commonChoiceIds,
   };
 };
 
 const createCompatibilities = (
   partnerParticipants,
   keyValueParticipants,
-  myChoices
+  myChoiceIds
 ) => {
   return partnerParticipants.map(
-    ({ participant_id: partnerId, choices: partnerChoices }) => {
-      const togetherLikesChoices = getTogetherLikesChoices(
-        partnerChoices,
-        myChoices
+    ({ participantId: partnerId, choiceIds: partnerChoiceIds }) => {
+      const togetherLikesChoiceIds = getTogetherLikesChoiceIds(
+        partnerChoiceIds,
+        myChoiceIds
       );
 
       return {
         partner: keyValueParticipants[partnerId],
-        rate: calculateRate(togetherLikesChoices, myChoices),
-        togetherLikesChoices,
+        rate: calculateRate(togetherLikesChoiceIds, myChoiceIds),
+        togetherLikesChoiceIds,
       };
     }
   );
 };
 
-const getTogetherLikesChoices = (partnerChoices, myChoices) => {
-  return partnerChoices.filter((el) => myChoices.includes(el));
+const getTogetherLikesChoiceIds = (partnerChoiceIds, myChoiceIds) => {
+  return partnerChoiceIds.filter((el) => myChoiceIds.includes(el));
 };
 
-const calculateRate = (likeChoices, baseChoices) => {
-  const percentage = (likeChoices.length / baseChoices.length) * 100;
+const calculateRate = (likeChoiceIds, baseChoiceIds) => {
+  const percentage = (likeChoiceIds.length / baseChoiceIds.length) * 100;
   return percentage % 1 === 0 ? `${percentage}%` : `${percentage.toFixed(1)}%`;
 };

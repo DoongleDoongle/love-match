@@ -47,7 +47,7 @@ export const table = {
     columns: {
       ROOM_ID: "room_id",
       PARTICIPANT_ID: "participant_id",
-      CHOICES: "choices",
+      CHOICE_IDS: "choice_ids",
       CREATED_AT: "created_at",
       UPDATED_AT: "updated_at",
     },

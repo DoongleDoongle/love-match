@@ -86,11 +86,17 @@ const StartPage = () => {
             name="name"
             placeholder="이름을 입력해주세요."
             width="80%"
+            height="50px"
             value={nickname}
             onChange={handleInputChange}
           />
         </InputList>
-        <CustomButton width="30%" margin="10% 0 0 0" onClick={handleStartClick}>
+        <CustomButton
+          width="80%"
+          height="50px"
+          margin="10px 0 0 0"
+          onClick={handleStartClick}
+        >
           시작
         </CustomButton>
       </InputContainer>
