@@ -81,11 +81,19 @@ export const updateSelectedChoices = async (
   choices = []
 ) => {
   try {
+    // 1. choices 배열에서 각 choice의 id를 추출하여 배열을 만듭니다.
+    const choiceIds = choices.map((choice) => choice.id);
+
+    // 2. 중복된 id를 제거하여 유일한 id들로 구성된 배열을 만듭니다.
+    const uniqueChoiceIds = Array.from(new Set(choiceIds));
+
+    // 3. choices 배열에 요소가 있는지 확인합니다.
+    const hasChoices = choices.length > 0;
+
+    // 4. 조건에 따라 updateData 객체를 만듭니다.
     const updateData = {
-      ...(choices.length > 0 && {
-        [table.ROOMS_PARTICIPANTS.columns.CHOICE_IDS]: choices.map(
-          (choice) => choice.id
-        ),
+      ...(hasChoices && {
+        [table.ROOMS_PARTICIPANTS.columns.CHOICE_IDS]: uniqueChoiceIds,
       }),
     };
 
