@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { usePlatformNameData } from "hooks/common/usePlatformNameData";
 
@@ -8,17 +8,18 @@ import Navbar from "components/taste-match/result-page/Navbar";
 import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup";
 import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
 
+import { fetchChoicesByPlatformName } from "apis/queries";
+
 const TopContentsWrapper = styled.div`
   display: flex;
-  flex: 5;
+  /* flex: 5; */
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
   width: 100%;
 `;
 
 const BottomContentsWrapper = styled.div`
-  flex: 5;
+  /* flex: 5; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,34 +32,28 @@ const BottomContentsWrapper = styled.div`
 const LikesContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
 `;
 
 const CompatibilityContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
+  justify-content: flex-end;
+  width: 100%;
   color: ${({ theme }) => theme.colors.primary};
-  background-color: ${({ theme }) => theme.colors.light};
+  /* background-color: ${({ theme }) => theme.colors.light}; */
   margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 0.5px 2px 0 rgb(0, 0, 0, 0.3);
+  padding: 0 20px;
+  /* border-radius: 4px;
+  box-shadow: 0 0.5px 2px 0 rgb(0, 0, 0, 0.3); */
+  font-size: 16px;
+  font-weight: 500;
 `;
 
-const CompatibilityLabel = styled.div`
-  font-size: 20px;
-  font-weight: 800;
-`;
+const CompatibilityLabel = styled.div``;
 
 const CompatibilityRate = styled.div`
-  margin-left: 20px;
-  font-size: 20px;
-  font-weight: 800;
+  margin-left: 5px;
 `;
 
 const NavbarWrapper = styled.div`
@@ -100,9 +95,61 @@ const NavItemWrapper = styled.div`
 
 const ResultLoadedPage = ({ allParticipants, participants }) => {
   const { platformName } = usePlatformNameData();
+  const [allChoices, setAllChoices] = useState([]);
   const [activeParticipant, setActiveParticipant] = useState(
     participants[0].nickname
   );
+
+  useEffect(() => {
+    const fetchChoices = async () => {
+      if (platformName) {
+        const { choices, error } = await fetchChoicesByPlatformName(
+          platformName
+        );
+        if (!error) {
+          setAllChoices(
+            choices.map(({ id, platform_id, group_id, choice, image_url }) => {
+              return {
+                id,
+                choice,
+                platformId: platform_id,
+                groupId: group_id,
+                imageUrl: image_url,
+              };
+            })
+          );
+        }
+      }
+    };
+
+    fetchChoices();
+  }, [platformName]);
+
+  const getChoices = () => {
+    const selectedChoices = allChoices.filter(({ id }) =>
+      allParticipants.togetherLikesChoiceIds.includes(id)
+    );
+
+    const selectedChoicesGrouping = selectedChoices.reduce(
+      (acc, selectedChoice) => {
+        const foundChoices = allChoices.filter(
+          (choice) => choice.groupId === selectedChoice.groupId
+        );
+        const sortedChoices = foundChoices.sort((a, b) => a.id - b.id);
+        const updatedChoices = sortedChoices.map((choice) => {
+          return {
+            ...choice,
+            isSelected: allParticipants.togetherLikesChoiceIds.includes(
+              choice.id
+            ),
+          };
+        });
+        return [...acc, updatedChoices];
+      },
+      []
+    );
+    return selectedChoicesGrouping;
+  };
 
   const activeData = participants.find((p) => p.nickname === activeParticipant);
 
@@ -112,10 +159,8 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
         <LikesContentsWrapper>
           <LikesContents
             title="모두가 좋아하는 음식"
-            answer={
-              allParticipants.togetherLikesChoices.join(", ") ||
-              "저런,, 궁합이 꽝이네.."
-            }
+            description="우리 방에 참여한 모두가 선택한 음식이에요!"
+            choices={getChoices()}
           />
 
           <CompatibilityContainer>
@@ -124,7 +169,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
           </CompatibilityContainer>
         </LikesContentsWrapper>
 
-        <NavbarWrapper>
+        {/* <NavbarWrapper>
           <Navbar
             appearance="tabs"
             active={activeParticipant}
@@ -145,7 +190,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
               />
             ))}
           </NavItemWrapper>
-        </NavbarWrapper>
+        </NavbarWrapper> */}
       </TopContentsWrapper>
 
       <BottomContentsWrapper>
