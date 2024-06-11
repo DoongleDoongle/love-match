@@ -101,6 +101,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
   );
 
   useEffect(() => {
+    console.log(participants);
     const fetchChoices = async () => {
       if (platformName) {
         const { choices, error } = await fetchChoicesByPlatformName(
@@ -169,7 +170,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
           </CompatibilityContainer>
         </LikesContentsWrapper>
 
-        {/* <NavbarWrapper>
+        <NavbarWrapper>
           <Navbar
             appearance="tabs"
             active={activeParticipant}
@@ -177,7 +178,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
             participants={participants}
           />
           <NavItemWrapper>
-            {activeData.compatibilities.map((compatibility, index) => (
+            {/* {activeData.compatibilities.map((compatibility, index) => (
               <LikesContents
                 key={index}
                 title={`[${compatibility.partner}] 님과 함께 좋아하는 음식`}
@@ -188,9 +189,9 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
                 }
                 matchScore={compatibility.rate}
               />
-            ))}
+            ))} */}
           </NavItemWrapper>
-        </NavbarWrapper> */}
+        </NavbarWrapper>
       </TopContentsWrapper>
 
       <BottomContentsWrapper>
