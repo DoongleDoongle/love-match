@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    primary: "#2B3467", // 1차색, 짙은 파랑
+    primary: "black", //"#2B3467", // 1차색, 짙은 파랑
     secondary: "#EB455F", // 2차색, 베이지
     tertiary: "#BAD7E9", // 3차색,
     quaternary: "#FEFAF6", // 4차색,
