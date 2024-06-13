@@ -40,11 +40,15 @@ const shareUrl = ({
 } = {}) => {
   switch (type) {
     case "kakao-feed":
-      sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
+      handleCapture();
+      // sendKakaoFeed({ title, description, targetUrl, imageUrl, buttonTitle });
       // copyClipboard(targetUrl);
       break;
     case "clipboard":
       copyClipboard(targetUrl);
+      break;
+    case "captureScreen":
+      handleCapture();
       break;
     default:
       throw new Error("존재하지 않는 공유 타입입니다.");
@@ -91,4 +95,39 @@ const copyClipboard = (targetUrl = "/") => {
       console.error("클립보드 복사에 실패했습니다:", err);
       alert("클립보드 복사에 실패했습니다.");
     });
+};
+
+const handleCapture = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: { mediaSource: "screen" },
+    });
+
+    const track = stream.getVideoTracks()[0];
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    const video = document.createElement("video");
+
+    video.srcObject = stream;
+    video.onloadedmetadata = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      video.play();
+
+      // 비디오 프레임을 캡쳐
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      track.stop();
+
+      // 캡쳐된 이미지 다운로드
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "screenshot.png";
+        a.click();
+      });
+    };
+  } catch (error) {
+    console.error("Error capturing screen:", error);
+  }
 };

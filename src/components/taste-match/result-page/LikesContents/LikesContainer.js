@@ -4,7 +4,6 @@ const LikesContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 20px;
   color: ${({ theme }) => theme.colors.primary};
 
   overflow-wrap: break-word; // 텍스트가 넘칠 때 줄바꿈을 허용

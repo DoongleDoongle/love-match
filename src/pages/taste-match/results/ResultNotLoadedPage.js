@@ -11,8 +11,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  flex: 1;
+  padding: 20px 0 0 20px;
   width: 100%;
   height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
   background-color: ${({ theme, backgroundcolor }) => theme.colors.background};
@@ -20,17 +19,12 @@ const Container = styled.div`
 
 const TopContentsWrapper = styled.div`
   display: flex;
-  flex: 5;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
   width: 100%;
 `;
 
 const LikesContentsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
 `;
 
@@ -42,14 +36,10 @@ const ShareMessageFormWrapper = styled.div`
 `;
 
 const BottomContentsWrapper = styled.div`
-  flex: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  bottom: 20px;
   width: 100%;
-  padding: 30px 0 30px 0;
 `;
 
 const Message = styled.div`
