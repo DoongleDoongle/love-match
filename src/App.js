@@ -1,7 +1,7 @@
 import "rsuite/dist/rsuite.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React, { useState, useRef, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
@@ -13,6 +13,7 @@ import Sidebar from "components/common/Sidebar";
 import StartPage from "pages/taste-match/StartPage";
 import RoomPage from "pages/taste-match/RoomPage";
 import ResultPage from "pages/taste-match/results/ResultPage";
+import DeveloperPage from "pages/contacts/DeveloperPage";
 
 // 라우트 정적 변수
 import {
@@ -93,6 +94,8 @@ const App = () => {
                 path={"place-match/rooms/:roomId/results"}
                 element={<ResultPage />}
               />
+
+              <Route path={"contacts/developer"} element={<DeveloperPage />} />
             </Routes>
           </MainLayout>
         </Suspense>
