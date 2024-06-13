@@ -73,10 +73,13 @@ const App = () => {
               />
               <Route path={TASTE_MATCH_RESULTS_PATH} element={<ResultPage />} />
 
-              <Route path={"balance-match"} element={<StartPage />} />
-              <Route path={`balance-match/rooms`} element={<RoomPage />} />
+              <Route path={"place-match"} element={<StartPage />} />
               <Route
-                path={"balance-match/rooms/:roomId/results"}
+                path={"place-match/rooms/:roomId"}
+                element={<RoomPage />}
+              />
+              <Route
+                path={"place-match/rooms/:roomId/results"}
                 element={<ResultPage />}
               />
             </Routes>

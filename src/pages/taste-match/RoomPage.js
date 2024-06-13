@@ -1,7 +1,12 @@
 import theme from "styles/theme";
 
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { useRoomData } from "hooks/common/useRoomData";
 import {
   Container,
@@ -19,8 +24,18 @@ import {
 } from "configs/route/routeConfig";
 import Spinner from "react-bootstrap/Spinner";
 
+const getPlatformName = (location) => {
+  const roomsIdx = location.pathname.indexOf("/rooms");
+  const platformName = location.pathname
+    .substring(0, roomsIdx)
+    .replace("/", "");
+  return platformName;
+};
+
 const RoomPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const platformName = getPlatformName(location);
   const { roomId } = useParams();
   const [searchParams] = useSearchParams();
   const participantId = searchParams.get("participantId");
@@ -30,7 +45,8 @@ const RoomPage = () => {
 
   const { keywords, keywordIdx, setKeywordIdx, isLoading, error } = useRoomData(
     roomId,
-    participantId
+    participantId,
+    platformName
   );
 
   useEffect(() => {
@@ -49,7 +65,7 @@ const RoomPage = () => {
         } else {
           await updateSelectedChoices(roomId, participantId, updatedChoices);
           navigate(
-            `${TASTE_MATCH_ROOMS_PATH}/${roomId}/${RESULTS_PATH}?participantId=${participantId}`
+            `/${platformName}/rooms/${roomId}/${RESULTS_PATH}?participantId=${participantId}`
           );
         }
       }, 250);
@@ -65,6 +81,7 @@ const RoomPage = () => {
     roomId,
     setKeywordIdx,
     navigate,
+    platformName,
   ]);
 
   const clickTextArea = (type) => {

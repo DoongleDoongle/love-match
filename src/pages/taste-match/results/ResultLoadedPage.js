@@ -9,6 +9,7 @@ import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup"
 import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
 
 import { fetchChoicesByPlatformName } from "apis/queries";
+import { getResultChoices } from "utils/functions/taste-match/results";
 
 const TopContentsWrapper = styled.div`
   display: flex;
@@ -49,12 +50,6 @@ const CompatibilityContainer = styled.div`
   box-shadow: 0 0.5px 2px 0 rgb(0, 0, 0, 0.3); */
   font-size: 16px;
   font-weight: 500;
-`;
-
-const CompatibilityLabel = styled.div``;
-
-const CompatibilityRate = styled.div`
-  margin-left: 5px;
 `;
 
 const NavbarWrapper = styled.div`
@@ -126,43 +121,6 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     fetchChoices();
   }, [platformName]);
 
-  const getChoices = (togetherChoiceIds, compareChoices, myChoiceIds) => {
-    // compareChoices -> allChoices, togetherChoiceIds -> allParticipants.togetherLikesChoiceIds
-    const selectedChoices = compareChoices.filter(({ id }) =>
-      togetherChoiceIds.includes(id)
-    );
-
-    const selectedChoicesGrouping = compareChoices.reduce(
-      (acc, selectedChoice) => {
-        const foundChoices = compareChoices.filter(
-          (choice) => choice.groupId === selectedChoice.groupId
-        );
-
-        const sortedChoices = foundChoices.sort((a, b) => a.id - b.id);
-        const updatedChoices = sortedChoices.map((choice) => {
-          return {
-            ...choice,
-            isSelectedTogether: togetherChoiceIds.includes(choice.id),
-            isSelectedMe: myChoiceIds.includes(choice.id),
-          };
-        });
-        return [...acc, updatedChoices];
-      },
-      []
-    );
-
-    const seenGroupIds = new Set();
-    return selectedChoicesGrouping.filter((subArray) => {
-      const groupId = subArray[0].groupId;
-      if (seenGroupIds.has(groupId)) {
-        return false;
-      } else {
-        seenGroupIds.add(groupId);
-        return true;
-      }
-    });
-  };
-
   const activeParticipant = participants.find(
     (p) => p.nickname === activeParticipantNickname
   );
@@ -171,9 +129,9 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     <BaseContainer>
       <TopContentsWrapper>
         <LikesContents
-          title="모두가 좋아하는 음식"
-          description="우리 방에 참여한 모두가 선택한 음식이에요!"
-          choices={getChoices(
+          title="모두가 좋아하는 것"
+          description="우리 방에 참여한 모두가 선택했어요!"
+          choices={getResultChoices(
             allParticipants.togetherLikesChoiceIds,
             allChoices,
             participants[0].myChoiceIds
@@ -192,9 +150,9 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
             {activeParticipant.compatibilities.map((compatibility, index) => (
               <LikesContents
                 key={index}
-                title={`${compatibility.partner} 님과 함께 좋아하는 음식`}
-                description="나만 선택한 음식의 사진은 어둡게 표시했어요!"
-                choices={getChoices(
+                title={`${compatibility.partner} 님과 함께 좋아하는 것`}
+                description="나만 선택한 사진은 어둡게 표시했어요!"
+                choices={getResultChoices(
                   compatibility.togetherLikesChoiceIds,
                   allChoices,
                   activeParticipant.myChoiceIds

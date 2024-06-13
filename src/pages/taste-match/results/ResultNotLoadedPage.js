@@ -6,6 +6,7 @@ import ShereMessageForm from "components/taste-match/result-page/ShereMessageFor
 import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup";
 import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
 import { fetchChoicesByPlatformName } from "apis/queries";
+import { getResultChoices } from "utils/functions/taste-match/results";
 
 const Container = styled.div`
   display: flex;
@@ -35,13 +36,6 @@ const BottomContentsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-`;
-
-const Message = styled.div`
-  margin: 20px 0;
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: ${({ theme }) => theme.fontSizes.semiLarge};
-  font-weight: bold;
 `;
 
 const ResultNotLoadedPage = ({ participant = {} }) => {
@@ -103,7 +97,11 @@ const ResultNotLoadedPage = ({ participant = {} }) => {
         <LikesContents
           title="내가 좋아하는 음식"
           description="선택한 메뉴를 확인해보세요."
-          choices={getChoices()}
+          choices={getResultChoices(
+            participant.myChoiceIds,
+            allChoices,
+            participant.myChoiceIds
+          )}
         />
         {/* <Message>"오늘은 한식이 끌리는 날이군요 :D"</Message> */}
 

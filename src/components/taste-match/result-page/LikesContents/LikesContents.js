@@ -53,8 +53,6 @@ const RightTextOverlay = styled.div`
       : "rgba(255, 255, 255, 0.5)"}; // 텍스트 색상
   padding: 5px;
   z-index: 1; // 텍스트가 이미지 위에 표시되도록 설정
-  text-decoration: ${({ isSelectedTogether }) =>
-    isSelectedTogether ? "none" : "line-through"};
 `;
 
 const CompatibilityWrapper = styled.div`

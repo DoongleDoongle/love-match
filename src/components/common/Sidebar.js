@@ -51,6 +51,11 @@ const CustomSidebar = ({ isOpen, onClose }) => {
               >
                 입맛 궁합
               </MenuItem>
+              <MenuItem
+                component={<Link to={"/place-match"} onClick={onClose} />}
+              >
+                데이트 장소 궁합
+              </MenuItem>
             </SubMenu>
           </Menu>
         </StyledSidebar>

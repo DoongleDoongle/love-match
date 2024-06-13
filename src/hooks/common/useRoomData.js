@@ -4,6 +4,7 @@ import {
   fetchRoom,
   fetchRoomsParticipants,
   addParticipantInRoom,
+  fetchPlatform,
 } from "apis/queries";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -21,7 +22,7 @@ const createPairedChoices = (choices) => {
     return acc;
   }, {});
 
-  return Object.values(grouped).map((group) => ({
+  const pairedChoices = Object.values(grouped).map((group) => ({
     top: {
       id: group[0].id,
       value: group[0].choice,
@@ -33,6 +34,8 @@ const createPairedChoices = (choices) => {
       imageUrl: group[1].image_url,
     },
   }));
+
+  return pairedChoices;
 };
 
 const _goTo = (navigate, toUrl) => {
@@ -40,7 +43,7 @@ const _goTo = (navigate, toUrl) => {
   navigate(toUrl);
 };
 
-export const useRoomData = (roomId, participantId) => {
+export const useRoomData = (roomId, participantId, platformName) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [keywords, setKeywords] = useState([{ top: {}, bottom: {} }]);
@@ -83,9 +86,22 @@ export const useRoomData = (roomId, participantId) => {
           return;
         }
 
-        const { choices, error: choicesError } = await fetchChoices(1);
+        const { platform, error: platformError } = await fetchPlatform(
+          platformName
+        );
+        if (platformError) {
+          alert("존재하지 않는 서비스입니다.");
+          navigate(TASTE_MATCH_ROOT_PATH);
+          return;
+        }
+
+        const { choices, error: choicesError } = await fetchChoices(
+          platform.id
+        );
         if (!choicesError) {
-          setKeywords(createPairedChoices(choices)); //.splice(0, 7)
+          const a = createPairedChoices(choices);
+          console.log(a);
+          setKeywords(a); //.splice(0, 7)
         }
       } catch (err) {
         setError(err);
@@ -99,7 +115,7 @@ export const useRoomData = (roomId, participantId) => {
     } else {
       fetchData();
     }
-  }, [roomId, participantId, navigate, location.pathname]);
+  }, [roomId, participantId, navigate, location.pathname, platformName]);
 
   return { keywords, keywordIdx, setKeywordIdx, isLoading, error };
 };
