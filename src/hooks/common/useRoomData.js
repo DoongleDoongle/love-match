@@ -85,7 +85,7 @@ export const useRoomData = (roomId, participantId) => {
 
         const { choices, error: choicesError } = await fetchChoices(1);
         if (!choicesError) {
-          setKeywords(createPairedChoices(choices).splice(0, 7)); //
+          setKeywords(createPairedChoices(choices)); //.splice(0, 7)
         }
       } catch (err) {
         setError(err);
