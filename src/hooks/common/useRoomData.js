@@ -99,9 +99,7 @@ export const useRoomData = (roomId, participantId, platformName) => {
           platform.id
         );
         if (!choicesError) {
-          const a = createPairedChoices(choices);
-          console.log(a);
-          setKeywords(a); //.splice(0, 7)
+          setKeywords(createPairedChoices(choices)); //.splice(0, 7)
         }
       } catch (err) {
         setError(err);

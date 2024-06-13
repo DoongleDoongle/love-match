@@ -66,14 +66,20 @@ const App = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <MainLayout isOpen={isSidebarOpen}>
             <Routes>
-              <Route path={TASTE_MATCH_ROOT_PATH} element={<StartPage />} />
+              <Route
+                path={TASTE_MATCH_ROOT_PATH}
+                element={<StartPage platformTitle="입맛 궁합 테스트" />}
+              />
               <Route
                 path={`${TASTE_MATCH_ROOMS_PATH}/${$ROOM_ID_PATH}`}
                 element={<RoomPage />}
               />
               <Route path={TASTE_MATCH_RESULTS_PATH} element={<ResultPage />} />
 
-              <Route path={"place-match"} element={<StartPage />} />
+              <Route
+                path={"place-match"}
+                element={<StartPage platformTitle="연애 장소 궁합 테스트" />}
+              />
               <Route
                 path={"place-match/rooms/:roomId"}
                 element={<RoomPage />}

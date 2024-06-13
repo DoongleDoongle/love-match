@@ -7,8 +7,6 @@ import CustomModal from "components/common/utils/CustomModal";
 import { useNavigate } from "react-router-dom";
 
 import { createRoomAndParticipant } from "apis/queries/rooms";
-import tasteMatchImage from "assets/taste-match/main.jpeg";
-// import tasteMatchImage from "assets/common/love-match-logo.png";
 
 const Container = styled.div`
   display: flex;
@@ -16,14 +14,18 @@ const Container = styled.div`
   align-items: center;
   flex: 1;
   width: 100%;
-  position: relative;
+  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
 `;
 
-const CenteredImage = styled(Image)`
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+const PlatformTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${({ platformTitleSize }) => platformTitleSize};
+  font-family: "Single Day";
+  color: ${({ theme }) => theme.colors.primary};
+  width: 100%;
+  height: ${({ theme }) => `calc(100vh - ${theme.header.height} - 30%)`};
 `;
 
 const InputContainer = styled.div`
@@ -31,9 +33,6 @@ const InputContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 10%;
-  /* position: absolute;
-  bottom: 10%; */
 `;
 
 const InputList = styled.div`
@@ -44,7 +43,10 @@ const InputList = styled.div`
   width: 100%;
 `;
 
-const StartPage = () => {
+const StartPage = ({
+  platformTitle = "플랫폼 타이틀",
+  platformTitleSize = "40px",
+}) => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState(false);
   const [nickname, setNickname] = useState("");
@@ -78,7 +80,13 @@ const StartPage = () => {
         onClose={() => setModalShow(false)}
         show={modalShow}
       />
-      <Image src={tasteMatchImage} alt="Taste Match" />
+
+      <PlatformTitle platformTitleSize={platformTitleSize}>
+        {platformTitle}
+      </PlatformTitle>
+
+      {/* <Image src={tasteMatchImage} alt="Taste Match" /> */}
+
       <InputContainer>
         <InputList>
           <Input
