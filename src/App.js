@@ -78,7 +78,12 @@ const App = () => {
 
               <Route
                 path={"place-match"}
-                element={<StartPage platformTitle="연애 장소 궁합 테스트" />}
+                element={
+                  <StartPage
+                    platformTitle="데이트 장소 궁합 테스트"
+                    platformTitleSize="35px"
+                  />
+                }
               />
               <Route
                 path={"place-match/rooms/:roomId"}
