@@ -23,11 +23,6 @@ const TopContentsWrapper = styled.div`
   width: 100%;
 `;
 
-const LikesContentsWrapper = styled.div`
-  padding: 20px 0 0 20px;
-  width: 100%;
-`;
-
 const ShareMessageFormWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -105,14 +100,12 @@ const ResultNotLoadedPage = ({ participant = {} }) => {
   return (
     <Container>
       <TopContentsWrapper>
-        <LikesContentsWrapper>
-          <LikesContents
-            title="내가 좋아하는 음식"
-            description="선택한 메뉴를 확인해보세요."
-            choices={getChoices()}
-          />
-          {/* <Message>"오늘은 한식이 끌리는 날이군요 :D"</Message> */}
-        </LikesContentsWrapper>
+        <LikesContents
+          title="내가 좋아하는 음식"
+          description="선택한 메뉴를 확인해보세요."
+          choices={getChoices()}
+        />
+        {/* <Message>"오늘은 한식이 끌리는 날이군요 :D"</Message> */}
 
         <ShareMessageFormWrapper>
           <ShereMessageForm />
