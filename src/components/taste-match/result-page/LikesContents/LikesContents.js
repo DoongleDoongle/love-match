@@ -34,6 +34,7 @@ const Image = styled.img`
   height: 100%;
   border-radius: ${({ borderRadius }) => borderRadius};
   object-fit: cover; // 이미지가 카드 크기에 맞게 조정되도록 설정
+  filter: ${({ isActive }) => (isActive ? "none" : "brightness(50%)")};
 `;
 
 const RightTextOverlay = styled.div`
@@ -80,48 +81,49 @@ const LikesContents = ({
   return (
     <LikesContainer>
       <LikesTitle>{title}</LikesTitle>
-      <LikesDescription>{description}</LikesDescription>
+      <LikesDescription>
+        {matchScore === "0%"
+          ? `"저런.. 없군요.. 밥은 따로 먹는걸루!"`
+          : description}
+      </LikesDescription>
 
-      {choices.length === 0 ? (
-        `"저런... 없군요.."`
+      <ListView height={height} padding={padding}>
+        {choices.map(([firstChoice, secondChoice], idx) => {
+          const selectedChoice = firstChoice.isSelected
+            ? firstChoice
+            : secondChoice;
+
+          return (
+            <Card key={idx} height={height} borderRadius={borderRadius}>
+              <Image
+                src={selectedChoice.imageUrl}
+                alt={`Card ${idx}`}
+                borderRadius={borderRadius}
+                isActive={selectedChoice.isSelected}
+              />
+              <RightTextOverlay
+                isFirst={true}
+                isSelected={firstChoice.isSelected}
+              >
+                {firstChoice.choice}
+              </RightTextOverlay>
+              <RightTextOverlay
+                isFirst={false}
+                isSelected={secondChoice.isSelected}
+              >
+                {secondChoice.choice}
+              </RightTextOverlay>
+            </Card>
+          );
+        })}
+      </ListView>
+
+      {matchScore === undefined ? (
+        "" // 나만 선택한 첫 화면에서는 궁합도를 노출하지 않는다. (ex: 내가 좋아하는 음식..)
       ) : (
-        <ListView height={height} padding={padding}>
-          {choices.map(([firstChoice, secondChoice], idx) => {
-            const selectedChoice = firstChoice.isSelected
-              ? firstChoice
-              : secondChoice;
-
-            return (
-              <Card key={idx} height={height} borderRadius={borderRadius}>
-                <Image
-                  src={selectedChoice.imageUrl}
-                  alt={`Card ${idx}`}
-                  borderRadius={borderRadius}
-                />
-                <RightTextOverlay
-                  isFirst={true}
-                  isSelected={firstChoice.isSelected}
-                >
-                  {firstChoice.choice}
-                </RightTextOverlay>
-                <RightTextOverlay
-                  isFirst={false}
-                  isSelected={secondChoice.isSelected}
-                >
-                  {secondChoice.choice}
-                </RightTextOverlay>
-              </Card>
-            );
-          })}
-        </ListView>
-      )}
-
-      {matchScore !== undefined ? (
         <CompatibilityWrapper>
           궁합도: <CompatibilityRate>{matchScore}</CompatibilityRate>
         </CompatibilityWrapper>
-      ) : (
-        ""
       )}
     </LikesContainer>
   );

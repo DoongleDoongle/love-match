@@ -132,11 +132,12 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
       selectedChoiceIds.includes(id)
     );
 
-    const selectedChoicesGrouping = selectedChoices.reduce(
+    const selectedChoicesGrouping = compareChoices.reduce(
       (acc, selectedChoice) => {
         const foundChoices = compareChoices.filter(
           (choice) => choice.groupId === selectedChoice.groupId
         );
+
         const sortedChoices = foundChoices.sort((a, b) => a.id - b.id);
         const updatedChoices = sortedChoices.map((choice) => {
           return {
@@ -148,7 +149,24 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
       },
       []
     );
-    return selectedChoicesGrouping;
+
+    const seenGroupIds = new Set();
+    return selectedChoicesGrouping
+      .filter((subArray) => {
+        const groupId = subArray[0].groupId;
+        if (seenGroupIds.has(groupId)) {
+          return false;
+        } else {
+          seenGroupIds.add(groupId);
+          return true;
+        }
+      })
+      .reduce((acc, choicesGrouping) => {
+        if (choicesGrouping.findIndex(({ isSelected }) => isSelected) > -1) {
+          return [choicesGrouping, ...acc];
+        }
+        return [...acc, choicesGrouping];
+      }, []);
   };
 
   const activeParticipant = participants.find(
@@ -180,6 +198,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
               <LikesContents
                 key={index}
                 title={`${compatibility.partner} 님과 함께 좋아하는 음식`}
+                description="나만 선택한 음식의 사진은 어둡게 표시했어요!"
                 choices={getChoices(
                   compatibility.togetherLikesChoiceIds,
                   allChoices
