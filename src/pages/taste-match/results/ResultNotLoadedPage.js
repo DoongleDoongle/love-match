@@ -11,7 +11,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0 0 20px;
   width: 100%;
   height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
   background-color: ${({ theme, backgroundcolor }) => theme.colors.background};
@@ -25,6 +24,7 @@ const TopContentsWrapper = styled.div`
 `;
 
 const LikesContentsWrapper = styled.div`
+  padding: 20px 0 0 20px;
   width: 100%;
 `;
 

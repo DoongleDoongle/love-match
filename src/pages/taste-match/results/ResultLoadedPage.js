@@ -32,6 +32,7 @@ const BottomContentsWrapper = styled.div`
 const LikesContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 20px 0 0 20px;
   width: 100%;
 `;
 
@@ -71,8 +72,8 @@ const NavItemWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-height: 40vh; // 스크롤을 적용할 최대 높이 설정
-  overflow-y: scroll; // 내용이 넘칠 경우 스크롤 적용
+  /* max-height: 40vh; // 스크롤을 적용할 최대 높이 설정 */
+  /* overflow-y: scroll; // 내용이 넘칠 경우 스크롤 적용 */
   background-color: ${({ theme }) => theme.colors.light};
 
   /* 스크롤바 스타일링 (웹킷 브라우저 전용) */
@@ -96,12 +97,11 @@ const NavItemWrapper = styled.div`
 const ResultLoadedPage = ({ allParticipants, participants }) => {
   const { platformName } = usePlatformNameData();
   const [allChoices, setAllChoices] = useState([]);
-  const [activeParticipant, setActiveParticipant] = useState(
+  const [activeParticipantNickname, setActiveParticipantNickname] = useState(
     participants[0].nickname
   );
 
   useEffect(() => {
-    console.log(participants);
     const fetchChoices = async () => {
       if (platformName) {
         const { choices, error } = await fetchChoicesByPlatformName(
@@ -126,23 +126,22 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     fetchChoices();
   }, [platformName]);
 
-  const getChoices = () => {
-    const selectedChoices = allChoices.filter(({ id }) =>
-      allParticipants.togetherLikesChoiceIds.includes(id)
+  const getChoices = (selectedChoiceIds, compareChoices) => {
+    // compareChoices -> allChoices, selectedChoiceIds -> allParticipants.togetherLikesChoiceIds
+    const selectedChoices = compareChoices.filter(({ id }) =>
+      selectedChoiceIds.includes(id)
     );
 
     const selectedChoicesGrouping = selectedChoices.reduce(
       (acc, selectedChoice) => {
-        const foundChoices = allChoices.filter(
+        const foundChoices = compareChoices.filter(
           (choice) => choice.groupId === selectedChoice.groupId
         );
         const sortedChoices = foundChoices.sort((a, b) => a.id - b.id);
         const updatedChoices = sortedChoices.map((choice) => {
           return {
             ...choice,
-            isSelected: allParticipants.togetherLikesChoiceIds.includes(
-              choice.id
-            ),
+            isSelected: selectedChoiceIds.includes(choice.id),
           };
         });
         return [...acc, updatedChoices];
@@ -152,44 +151,42 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     return selectedChoicesGrouping;
   };
 
-  const activeData = participants.find((p) => p.nickname === activeParticipant);
+  const activeParticipant = participants.find(
+    (p) => p.nickname === activeParticipantNickname
+  );
 
   return (
     <BaseContainer>
       <TopContentsWrapper>
-        <LikesContentsWrapper>
-          <LikesContents
-            title="모두가 좋아하는 음식"
-            description="우리 방에 참여한 모두가 선택한 음식이에요!"
-            choices={getChoices()}
-          />
-
-          <CompatibilityContainer>
-            <CompatibilityLabel>궁합도: </CompatibilityLabel>
-            <CompatibilityRate>{allParticipants.rate}</CompatibilityRate>
-          </CompatibilityContainer>
-        </LikesContentsWrapper>
+        <LikesContents
+          title="모두가 좋아하는 음식"
+          description="우리 방에 참여한 모두가 선택한 음식이에요!"
+          choices={getChoices(
+            allParticipants.togetherLikesChoiceIds,
+            allChoices
+          )}
+          matchScore={allParticipants.rate}
+        />
 
         <NavbarWrapper>
           <Navbar
             appearance="tabs"
-            active={activeParticipant}
-            onSelect={setActiveParticipant}
+            active={activeParticipantNickname}
+            onSelect={setActiveParticipantNickname}
             participants={participants}
           />
           <NavItemWrapper>
-            {/* {activeData.compatibilities.map((compatibility, index) => (
+            {activeParticipant.compatibilities.map((compatibility, index) => (
               <LikesContents
                 key={index}
-                title={`[${compatibility.partner}] 님과 함께 좋아하는 음식`}
-                answer={
-                  compatibility.togetherLikesChoices
-                    ? compatibility.togetherLikesChoices.join(", ")
-                    : "없음"
-                }
+                title={`${compatibility.partner} 님과 함께 좋아하는 음식`}
+                choices={getChoices(
+                  compatibility.togetherLikesChoiceIds,
+                  allChoices
+                )}
                 matchScore={compatibility.rate}
               />
-            ))} */}
+            ))}
           </NavItemWrapper>
         </NavbarWrapper>
       </TopContentsWrapper>

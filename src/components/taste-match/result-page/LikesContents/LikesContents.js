@@ -2,7 +2,6 @@ import styled from "styled-components";
 import LikesContainer from "./LikesContainer";
 import LikesTitle from "./LikesTitle";
 import LikesAnswer from "./LikesAnswer";
-import { useEffect } from "react";
 
 const LikesDescription = styled.div``;
 
@@ -57,6 +56,18 @@ const RightTextOverlay = styled.div`
     isSelected ? "none" : "line-through"};
 `;
 
+const CompatibilityWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+  width: 100%;
+  padding-right: 10px;
+`;
+
+const CompatibilityRate = styled.div`
+  margin-left: 5px;
+`;
+
 const LikesContents = ({
   title,
   description,
@@ -71,38 +82,44 @@ const LikesContents = ({
       <LikesTitle>{title}</LikesTitle>
       <LikesDescription>{description}</LikesDescription>
 
-      <ListView height={height} padding={padding}>
-        {choices.map(([firstChoice, secondChoice], idx) => {
-          const selectedChoice = firstChoice.isSelected
-            ? firstChoice
-            : secondChoice;
+      {choices.length === 0 ? (
+        `"저런... 없군요.."`
+      ) : (
+        <ListView height={height} padding={padding}>
+          {choices.map(([firstChoice, secondChoice], idx) => {
+            const selectedChoice = firstChoice.isSelected
+              ? firstChoice
+              : secondChoice;
 
-          return (
-            <Card key={idx} height={height} borderRadius={borderRadius}>
-              <Image
-                src={selectedChoice.imageUrl}
-                alt={`Card ${idx}`}
-                borderRadius={borderRadius}
-              />
-              <RightTextOverlay
-                isFirst={true}
-                isSelected={firstChoice.isSelected}
-              >
-                {firstChoice.choice}
-              </RightTextOverlay>
-              <RightTextOverlay
-                isFirst={false}
-                isSelected={secondChoice.isSelected}
-              >
-                {secondChoice.choice}
-              </RightTextOverlay>
-            </Card>
-          );
-        })}
-      </ListView>
+            return (
+              <Card key={idx} height={height} borderRadius={borderRadius}>
+                <Image
+                  src={selectedChoice.imageUrl}
+                  alt={`Card ${idx}`}
+                  borderRadius={borderRadius}
+                />
+                <RightTextOverlay
+                  isFirst={true}
+                  isSelected={firstChoice.isSelected}
+                >
+                  {firstChoice.choice}
+                </RightTextOverlay>
+                <RightTextOverlay
+                  isFirst={false}
+                  isSelected={secondChoice.isSelected}
+                >
+                  {secondChoice.choice}
+                </RightTextOverlay>
+              </Card>
+            );
+          })}
+        </ListView>
+      )}
 
       {matchScore !== undefined ? (
-        <LikesAnswer>궁합도: {matchScore}</LikesAnswer>
+        <CompatibilityWrapper>
+          궁합도: <CompatibilityRate>{matchScore}</CompatibilityRate>
+        </CompatibilityWrapper>
       ) : (
         ""
       )}

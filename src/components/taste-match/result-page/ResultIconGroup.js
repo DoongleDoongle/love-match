@@ -112,13 +112,13 @@ const ResultIconGroup = ({ platformName = "" }) => {
           size={IconSize}
           color={IconColor}
         />
-        <IconLabel>공유하기</IconLabel>
+        <IconLabel>내결과공유</IconLabel>
         <Count>{shareCount}</Count>
       </IconButton>
 
       <IconButton onClick={inviteHandler}>
         <FontAwesomeIcon icon={faUsers} size={IconSize} color={IconColor} />
-        <IconLabel>초대하기</IconLabel>
+        <IconLabel>친구초대</IconLabel>
         <Count>{inviteCount}</Count>
       </IconButton>
     </IconButtonWrapper>
