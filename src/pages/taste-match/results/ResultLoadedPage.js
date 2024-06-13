@@ -126,10 +126,10 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     fetchChoices();
   }, [platformName]);
 
-  const getChoices = (selectedChoiceIds, compareChoices) => {
-    // compareChoices -> allChoices, selectedChoiceIds -> allParticipants.togetherLikesChoiceIds
+  const getChoices = (togetherChoiceIds, compareChoices, myChoiceIds) => {
+    // compareChoices -> allChoices, togetherChoiceIds -> allParticipants.togetherLikesChoiceIds
     const selectedChoices = compareChoices.filter(({ id }) =>
-      selectedChoiceIds.includes(id)
+      togetherChoiceIds.includes(id)
     );
 
     const selectedChoicesGrouping = compareChoices.reduce(
@@ -142,7 +142,8 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
         const updatedChoices = sortedChoices.map((choice) => {
           return {
             ...choice,
-            isSelected: selectedChoiceIds.includes(choice.id),
+            isSelectedTogether: togetherChoiceIds.includes(choice.id),
+            isSelectedMe: myChoiceIds.includes(choice.id),
           };
         });
         return [...acc, updatedChoices];
@@ -151,22 +152,15 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     );
 
     const seenGroupIds = new Set();
-    return selectedChoicesGrouping
-      .filter((subArray) => {
-        const groupId = subArray[0].groupId;
-        if (seenGroupIds.has(groupId)) {
-          return false;
-        } else {
-          seenGroupIds.add(groupId);
-          return true;
-        }
-      })
-      .reduce((acc, choicesGrouping) => {
-        if (choicesGrouping.findIndex(({ isSelected }) => isSelected) > -1) {
-          return [choicesGrouping, ...acc];
-        }
-        return [...acc, choicesGrouping];
-      }, []);
+    return selectedChoicesGrouping.filter((subArray) => {
+      const groupId = subArray[0].groupId;
+      if (seenGroupIds.has(groupId)) {
+        return false;
+      } else {
+        seenGroupIds.add(groupId);
+        return true;
+      }
+    });
   };
 
   const activeParticipant = participants.find(
@@ -181,7 +175,8 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
           description="우리 방에 참여한 모두가 선택한 음식이에요!"
           choices={getChoices(
             allParticipants.togetherLikesChoiceIds,
-            allChoices
+            allChoices,
+            participants[0].myChoiceIds
           )}
           matchScore={allParticipants.rate}
         />
@@ -201,7 +196,8 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
                 description="나만 선택한 음식의 사진은 어둡게 표시했어요!"
                 choices={getChoices(
                   compatibility.togetherLikesChoiceIds,
-                  allChoices
+                  allChoices,
+                  activeParticipant.myChoiceIds
                 )}
                 matchScore={compatibility.rate}
               />

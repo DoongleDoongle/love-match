@@ -42,19 +42,19 @@ const RightTextOverlay = styled.div`
   bottom: ${({ isFirst }) =>
     isFirst ? "50px" : "10px"}; // 이미지의 하단에서 텍스트가 약간 떨어지게 설정
   right: 10px; // 이미지의 우측에서 텍스트가 약간 떨어지게 설정
-  background: ${({ isSelected }) =>
-    isSelected ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 0.6)"};
-  border: ${({ theme, isSelected }) =>
-    isSelected ? `1px solid ${theme.colors.secondary}` : ""};
+  background: ${({ isSelectedTogether }) =>
+    isSelectedTogether ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 0.6)"};
+  border: ${({ theme, isSelectedTogether }) =>
+    isSelectedTogether ? `1px solid ${theme.colors.secondary}` : ""};
   border-radius: 4px;
-  color: ${({ theme, isSelected }) =>
-    isSelected
+  color: ${({ theme, isSelectedTogether }) =>
+    isSelectedTogether
       ? theme.colors.primary
       : "rgba(255, 255, 255, 0.5)"}; // 텍스트 색상
   padding: 5px;
   z-index: 1; // 텍스트가 이미지 위에 표시되도록 설정
-  text-decoration: ${({ isSelected }) =>
-    isSelected ? "none" : "line-through"};
+  text-decoration: ${({ isSelectedTogether }) =>
+    isSelectedTogether ? "none" : "line-through"};
 `;
 
 const CompatibilityWrapper = styled.div`
@@ -89,27 +89,32 @@ const LikesContents = ({
 
       <ListView height={height} padding={padding}>
         {choices.map(([firstChoice, secondChoice], idx) => {
-          const selectedChoice = firstChoice.isSelected
+          const togetherChoice = firstChoice.isSelectedTogether
+            ? firstChoice
+            : secondChoice.isSelectedTogether
+            ? secondChoice
+            : { isSelectedTogether: false };
+          const myChoice = firstChoice.isSelectedMe
             ? firstChoice
             : secondChoice;
 
           return (
             <Card key={idx} height={height} borderRadius={borderRadius}>
               <Image
-                src={selectedChoice.imageUrl}
+                src={myChoice.imageUrl}
                 alt={`Card ${idx}`}
                 borderRadius={borderRadius}
-                isActive={selectedChoice.isSelected}
+                isActive={togetherChoice.isSelectedTogether}
               />
               <RightTextOverlay
                 isFirst={true}
-                isSelected={firstChoice.isSelected}
+                isSelectedTogether={firstChoice.isSelectedTogether}
               >
                 {firstChoice.choice}
               </RightTextOverlay>
               <RightTextOverlay
                 isFirst={false}
-                isSelected={secondChoice.isSelected}
+                isSelectedTogether={secondChoice.isSelectedTogether}
               >
                 {secondChoice.choice}
               </RightTextOverlay>

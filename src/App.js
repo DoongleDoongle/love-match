@@ -72,6 +72,13 @@ const App = () => {
                 element={<RoomPage />}
               />
               <Route path={TASTE_MATCH_RESULTS_PATH} element={<ResultPage />} />
+
+              <Route path={"balance-match"} element={<StartPage />} />
+              <Route path={`balance-match/rooms`} element={<RoomPage />} />
+              <Route
+                path={"balance-match/rooms/:roomId/results"}
+                element={<ResultPage />}
+              />
             </Routes>
           </MainLayout>
         </Suspense>

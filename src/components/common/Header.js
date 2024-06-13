@@ -74,7 +74,7 @@ const Header = ({ title = "러브매치", onMenuClick }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    navigate("/taste-match"); // 홈으로 이동
+    navigate("/"); // 홈으로 이동
   };
 
   return (

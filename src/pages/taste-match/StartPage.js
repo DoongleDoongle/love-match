@@ -66,7 +66,8 @@ const StartPage = () => {
     if (!error) {
       const roomId = room.id;
       const participantId = participant.id;
-      navigate(`/taste-match/rooms/${roomId}?participantId=${participantId}`);
+      const newUrl = `${window.location.pathname}/rooms/${roomId}?participantId=${participantId}`;
+      navigate(newUrl);
     }
   };
 
