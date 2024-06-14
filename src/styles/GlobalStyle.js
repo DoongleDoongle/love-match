@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --vh: 1vh; /* 모바일의 여러 브라우저별 주소 표시줄과 툴바 등을 제외한 전체 높이(기본 초기값, useViewportHeight 훅에서 정의함) */
+  }
+
   html, body {
     height: 100%;
     margin: 0;

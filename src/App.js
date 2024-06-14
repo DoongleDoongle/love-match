@@ -1,7 +1,7 @@
 import "rsuite/dist/rsuite.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
@@ -9,6 +9,7 @@ import theme from "styles/theme";
 import Header from "components/common/Header";
 import Sidebar from "components/common/Sidebar";
 // import Footer from "components/common/Footer";
+import useViewportHeight from "hooks/common/useViewportHeight";
 
 import StartPage from "pages/taste-match/StartPage";
 import RoomPage from "pages/taste-match/RoomPage";
@@ -25,7 +26,7 @@ import {
 
 const MainLayout = styled.div`
   width: 100%;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: ${({ theme }) => `calc(var(--vh) * 100 - ${theme.header.height})`};
   overflow-y: auto;
   overflow-x: hidden; // 좌우 스크롤 없애기
 
@@ -48,6 +49,19 @@ const MainLayout = styled.div`
 `;
 
 const App = () => {
+  useEffect(() => {
+    const setViewportHeight = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setViewportHeight();
+    window.addEventListener("resize", setViewportHeight);
+
+    return () => {
+      window.removeEventListener("resize", setViewportHeight);
+    };
+  }, []);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const handleMenuClick = () => {
