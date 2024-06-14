@@ -4,7 +4,6 @@ import styled from "styled-components";
 const FooterContainer = styled.footer`
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.light};
-  margin-top: 20px;
   padding: 20px;
   width: 100%;
   display: flex;
@@ -25,10 +24,6 @@ const FooterLink = styled.a`
 const Footer = () => {
   return (
     <FooterContainer>
-      <FooterText>© 2024 박우림. All rights reserved.</FooterText>
-      <FooterText>Developed by 박우림.</FooterText>
-      <br />
-
       <FooterText>
         Contact:{" "}
         <FooterLink href="mailto:woorimprog@gmail.com">
@@ -36,33 +31,36 @@ const Footer = () => {
         </FooterLink>
       </FooterText>
 
-      {/* <FooterText>
-        Visit our website:{" "}
-        <FooterLink href="https://www.yourcompany.com" target="_blank">
-          www.yourcompany.com
-        </FooterLink>
-      </FooterText>
-
       <FooterText>
         Follow us on:
-        <FooterLink href="https://twitter.com/yourcompany" target="_blank">
+        <FooterLink href="https://github.com/woorim960" target="_blank">
           {" "}
-          Twitter
+          Github
         </FooterLink>
         ,
-        <FooterLink href="https://facebook.com/yourcompany" target="_blank">
+        <FooterLink href="https://www.youtube.com/@woorimit" target="_blank">
           {" "}
-          Facebook
+          Youtube
         </FooterLink>
         ,
         <FooterLink
-          href="https://linkedin.com/company/yourcompany"
+          href="https://www.instagram.com/dev_woorimit/"
           target="_blank"
         >
           {" "}
-          LinkedIn
+          Instagram
         </FooterLink>
-      </FooterText> */}
+        {/* ,
+        <FooterLink href="https://woorim960.github.io/" target="_blank">
+          {" "}
+          Blog
+        </FooterLink> */}
+      </FooterText>
+
+      <br />
+
+      <FooterText>© 2024 박우림. All rights reserved.</FooterText>
+      <FooterText>Developed by 박우림.</FooterText>
     </FooterContainer>
   );
 };

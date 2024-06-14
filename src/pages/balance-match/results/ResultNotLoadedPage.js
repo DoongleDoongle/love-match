@@ -8,6 +8,7 @@ import ResultBottomButtonGroup from "components/balance-match/result-page/Result
 import { fetchChoicesByPlatformName } from "apis/queries";
 import { getResultChoices } from "utils/functions/balance-match/results";
 import { calculateMainLayoutHeight } from "styles/functions";
+import Footer from "components/common/Footer";
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const ShareMessageFormWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  background-color: ${({ theme }) => theme.colors.light};
 `;
 
 const BottomContentsWrapper = styled.div`
@@ -37,6 +39,7 @@ const BottomContentsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding: 30px 0 30px 0;
 `;
 
 const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
@@ -91,6 +94,8 @@ const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
         <ResultIconGroup platformName={platformName} />
         <ResultBottomButtonGroup />
       </BottomContentsWrapper>
+
+      <Footer />
     </Container>
   );
 };

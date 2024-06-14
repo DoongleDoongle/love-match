@@ -10,46 +10,22 @@ import ResultBottomButtonGroup from "components/balance-match/result-page/Result
 
 import { fetchChoicesByPlatformName } from "apis/queries";
 import { getResultChoices } from "utils/functions/balance-match/results";
+import Footer from "components/common/Footer";
 
 const TopContentsWrapper = styled.div`
   display: flex;
-  /* flex: 5; */
   flex-direction: column;
   align-items: center;
   width: 100%;
 `;
 
 const BottomContentsWrapper = styled.div`
-  /* flex: 5; */
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  position: relative;
-  bottom: 20px;
   width: 100%;
   padding: 30px 0 30px 0;
-`;
-
-const LikesContentsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0 0 20px;
-  width: 100%;
-`;
-
-const CompatibilityContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  width: 100%;
-  color: ${({ theme }) => theme.colors.primary};
-  /* background-color: ${({ theme }) => theme.colors.light}; */
-  margin-bottom: 20px;
-  padding: 0 20px;
-  /* border-radius: 4px;
-  box-shadow: 0 0.5px 2px 0 rgb(0, 0, 0, 0.3); */
-  font-size: 16px;
-  font-weight: 500;
 `;
 
 const NavbarWrapper = styled.div`
@@ -58,7 +34,7 @@ const NavbarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 30px 0;
+  margin-top: 30px;
 `;
 
 const NavItemWrapper = styled.div`
@@ -169,6 +145,8 @@ const ResultLoadedPage = ({ choiceTopic, allParticipants, participants }) => {
         <ResultIconGroup platformName={platformName} />
         <ResultBottomButtonGroup />
       </BottomContentsWrapper>
+
+      <Footer />
     </BaseContainer>
   );
 };

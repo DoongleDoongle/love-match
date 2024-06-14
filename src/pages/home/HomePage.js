@@ -76,7 +76,7 @@ const HomePage = () => {
         </CardList>
       </TopicAreaWrapper>
 
-      <Footer>푸터입니다</Footer>
+      <Footer />
     </Container>
   );
 };
