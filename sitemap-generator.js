@@ -31,8 +31,27 @@ sitemap.write({
 
 // 정적 파일 URL 추가
 sitemap.write({ url: "/favicon.ico", changefreq: "yearly", priority: 0.1 });
-// sitemap.write({ url: "/logo.png", changefreq: "yearly", priority: 0.1 });
-// sitemap.write({ url: "/og-image.jpg", changefreq: "yearly", priority: 0.1 });
+sitemap.write({ url: "/og-image.jpg", changefreq: "yearly", priority: 0.1 });
+sitemap.write({
+  url: "/banners/홈_배너_001.png",
+  changefreq: "yearly",
+  priority: 0.1,
+});
+sitemap.write({
+  url: "/banners/홈_배너_002.png",
+  changefreq: "yearly",
+  priority: 0.1,
+});
+sitemap.write({
+  url: "/games/balance-match/입맛_궁합_001.png",
+  changefreq: "yearly",
+  priority: 0.1,
+});
+sitemap.write({
+  url: "/games/balance-match/데이트장소_궁합_002.png",
+  changefreq: "yearly",
+  priority: 0.1,
+});
 
 // 사이트맵 생성을 종료합니다.
 sitemap.end();
