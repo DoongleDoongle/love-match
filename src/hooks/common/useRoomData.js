@@ -8,7 +8,6 @@ import {
   fetchParticipantsByRoomId,
 } from "apis/queries";
 import { useNavigate, useLocation } from "react-router-dom";
-import { usePlatformNameData } from "./usePlatformNameData";
 
 /**
  * 선택지 데이터를 Supabase 테이블로 관리할 때 사용하던 조합 함수
@@ -46,7 +45,6 @@ const _goTo = (navigate, platformName) => {
 export const useRoomData = (roomId, participantId, platformName) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { platformName } = usePlatformNameData();
   const [keywords, setKeywords] = useState([{ top: {}, bottom: {} }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
