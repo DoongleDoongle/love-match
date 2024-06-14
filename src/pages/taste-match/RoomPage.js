@@ -15,14 +15,10 @@ import {
   HalfProgress,
   VersusText,
 } from "components/taste-match/room-page";
+import Spinner from "components/common/CustomSpinner";
 
 import { updateSelectedChoices } from "apis/queries";
-
-import {
-  TASTE_MATCH_ROOMS_PATH,
-  RESULTS_PATH,
-} from "configs/route/routeConfig";
-import Spinner from "react-bootstrap/Spinner";
+import { RESULTS_PATH } from "configs/route/routeConfig";
 
 const getPlatformName = (location) => {
   const roomsIdx = location.pathname.indexOf("/rooms");
@@ -88,17 +84,8 @@ const RoomPage = () => {
     setSelectedArea(type);
   };
 
-  if (isLoading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <Spinner animation="grow" />
-      </div>
-    ); // 로딩 중일 때 Spinner 표시
-  }
-
-  if (error) {
-    return <div>에러가 발생했습니다: {error.message}</div>; // 에러 처리
-  }
+  if (isLoading) return <Spinner />;
+  if (error) return <div>에러가 발생했습니다: {error.message}</div>;
 
   const currentKeyword = keywords[keywordIdx];
   const leftProgressPercentage = (keywordIdx / keywords.length) * 200;
