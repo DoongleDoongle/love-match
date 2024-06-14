@@ -4,8 +4,11 @@ import "slick-carousel/slick/slick-theme.css";
 import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+import { useNavigate } from "react-router-dom"; // useNavigate로 변경
 
 const HomePage = () => {
+  const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
+
   const banners = [
     {
       redirectUrl: "/",
@@ -50,7 +53,7 @@ const HomePage = () => {
             key={index}
             src={imageUrl}
             alt={`Banner ${index + 1}`}
-            // onClick={() => (window.location.href = redirectUrl)}
+            onClick={() => navigate(redirectUrl)} // history.push 대신 navigate 사용
           />
         ))}
       </BannerSlider>
@@ -65,7 +68,7 @@ const HomePage = () => {
           {cards.map((card, index) => (
             <Card
               key={index}
-              onClick={() => (window.location.href = card.redirectUrl)}
+              onClick={() => navigate(card.redirectUrl)} // history.push 대신 navigate 사용
             >
               <CardImage src={card.img} alt={card.title} />
               <CardContent>
@@ -107,6 +110,7 @@ const Banner = styled.img`
   height: auto;
   aspect-ratio: 16 / 9; /* 가로 16, 세로 9의 비율 유지 */
   object-fit: contain;
+  cursor: pointer; /* 클릭 가능하게 커서 변경 */
 `;
 
 const TopicAreaWrapper = styled.div`
