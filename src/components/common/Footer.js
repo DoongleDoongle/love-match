@@ -59,7 +59,7 @@ const Footer = () => {
 
       <br />
 
-      <FooterText>© 2024 박우림. All rights reserved.</FooterText>
+      <FooterText>© 2024 러브매치. All rights reserved.</FooterText>
       <FooterText>Developed by 박우림.</FooterText>
     </FooterContainer>
   );

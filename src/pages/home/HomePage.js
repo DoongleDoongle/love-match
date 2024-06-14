@@ -114,7 +114,8 @@ const Banner = styled.img`
 `;
 
 const TopicAreaWrapper = styled.div`
-  padding: 20px;
+  padding: 30px 20px;
+  margin-bottom: 30px;
 `;
 
 const TopicTextWrapper = styled.div`
