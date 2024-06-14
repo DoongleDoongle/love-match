@@ -8,7 +8,7 @@ import Toaster from "./Toaster";
 import logoImage from "assets/common/love-match-logo.png";
 
 const StyledHeader = styled.header`
-  font-family: "Single Day";
+  font-family: "Poor Story"; //"Single Day";
   display: flex;
   align-items: center;
   position: relative;

@@ -24,6 +24,7 @@ import {
   TASTE_MATCH_ROOMS_PATH,
   TASTE_MATCH_RESULTS_PATH,
 } from "configs/route/routeConfig";
+import HomePage from "pages/home/HomePage";
 
 const App = () => {
   useViewportHeight();
@@ -46,6 +47,8 @@ const App = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <MainLayout isOpen={isSidebarOpen}>
             <Routes>
+              <Route path="/" element={<HomePage />} />
+
               <Route
                 path={TASTE_MATCH_ROOT_PATH}
                 element={<StartPage platformTitle="입맛 궁합 테스트" />}
