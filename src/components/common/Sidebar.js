@@ -56,6 +56,11 @@ const CustomSidebar = ({ isOpen, onClose }) => {
               >
                 데이트 장소 궁합
               </MenuItem>
+              <MenuItem
+                component={<Link to={"/hobby-match"} onClick={onClose} />}
+              >
+                취미 궁합
+              </MenuItem>
             </SubMenu>
             <MenuItem
               component={<Link to={"contacts/developer"} onClick={onClose} />}

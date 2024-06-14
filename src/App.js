@@ -82,6 +82,19 @@ const App = () => {
               />
 
               <Route
+                path={"hobby-match"}
+                element={<StartPage platformTitle="취미 궁합 테스트" />}
+              />
+              <Route
+                path={"hobby-match/rooms/:roomId"}
+                element={<RoomPage />}
+              />
+              <Route
+                path={"hobby-match/rooms/:roomId/results"}
+                element={<ResultPage choiceTopic="취미" />}
+              />
+
+              <Route
                 path={"contacts/developer"}
                 element={
                   <DeveloperPage platformTitle="개발자에게 피드백주기" />
