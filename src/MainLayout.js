@@ -26,7 +26,7 @@ const MainLayoutContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.secondary};
     border-radius: 10px;
     border: 3px solid white;
   }

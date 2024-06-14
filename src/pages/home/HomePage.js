@@ -9,54 +9,26 @@ const HomePage = () => {
   const banners = [
     {
       redirectUrl: "/",
-      imageUrl: "https://via.placeholder.com/800x300?text=Banner+1",
+      imageUrl: "/banners/홈_배너_001.png",
     },
     {
       redirectUrl: "/",
-      imageUrl: "https://via.placeholder.com/800x300?text=Banner+2",
-    },
-    {
-      redirectUrl: "/",
-      imageUrl: "https://via.placeholder.com/800x300?text=Banner+3",
+      imageUrl: "/banners/홈_배너_002.png",
     },
   ];
 
   const cards = [
     {
-      img: "https://via.placeholder.com/200",
-      title: "Card 1",
-      redirectUrl: "/",
-      likes: 100,
+      img: "/games/balance-match/입맛_궁합_001.png",
+      title: "입맛 궁합 테스트",
+      redirectUrl: "/taste-match",
+      likes: 4328,
     },
     {
-      img: "https://via.placeholder.com/200",
-      title: "Card 2",
-      redirectUrl: "/",
-      likes: 200,
-    },
-    {
-      img: "https://via.placeholder.com/200",
-      title: "Card 3",
-      redirectUrl: "/",
-      likes: 300,
-    },
-    {
-      img: "https://via.placeholder.com/200",
-      title: "Card 4",
-      redirectUrl: "/",
-      likes: 400,
-    },
-    {
-      img: "https://via.placeholder.com/200",
-      title: "Card 3",
-      redirectUrl: "/",
-      likes: 300,
-    },
-    {
-      img: "https://via.placeholder.com/200",
-      title: "Card 4",
-      redirectUrl: "/",
-      likes: 400,
+      img: "/games/balance-match/데이트장소_궁합_002.png",
+      title: "데이트 장소 궁합 테스트",
+      redirectUrl: "/place-match",
+      likes: 4134,
     },
   ];
 
@@ -78,24 +50,32 @@ const HomePage = () => {
             key={index}
             src={imageUrl}
             alt={`Banner ${index + 1}`}
-            onClick={() => (window.location.href = redirectUrl)}
+            // onClick={() => (window.location.href = redirectUrl)}
           />
         ))}
       </BannerSlider>
-      <CardList>
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            onClick={() => (window.location.href = card.redirectUrl)}
-          >
-            <CardImage src={card.img} alt={card.title} />
-            <CardContent>
-              <CardTitle>{card.title}</CardTitle>
-              <CardLikes>❤️ {card.likes}</CardLikes>
-            </CardContent>
-          </Card>
-        ))}
-      </CardList>
+
+      <TopicAreaWrapper>
+        <TopicTextWrapper>
+          <TopicTitle>궁합 테스트</TopicTitle>
+          <TopicDescription>우리 사이, 이대로 괜찮을까?</TopicDescription>
+        </TopicTextWrapper>
+
+        <CardList>
+          {cards.map((card, index) => (
+            <Card
+              key={index}
+              onClick={() => (window.location.href = card.redirectUrl)}
+            >
+              <CardImage src={card.img} alt={card.title} />
+              <CardContent>
+                <CardTitle>{card.title}</CardTitle>
+                <CardLikes>❤️ {card.likes}</CardLikes>
+              </CardContent>
+            </Card>
+          ))}
+        </CardList>
+      </TopicAreaWrapper>
     </Container>
   );
 };
@@ -105,8 +85,11 @@ const Container = styled.div`
 `;
 
 const BannerSlider = styled(Slider)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 300px;
+  background-color: #f0f0f0;
   margin-bottom: 20px;
 
   .slick-slide {
@@ -116,30 +99,45 @@ const BannerSlider = styled(Slider)`
   }
 
   .slick-slide img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
   }
 `;
 
 const Banner = styled.img`
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 16 / 9; /* 가로 16, 세로 9의 비율 유지 */
+  object-fit: contain;
 `;
+
+const TopicAreaWrapper = styled.div`
+  padding: 20px;
+`;
+
+const TopicTextWrapper = styled.div`
+  margin-bottom: 10px;
+`;
+
+const TopicTitle = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
+const TopicDescription = styled.div``;
 
 const CardList = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  padding: 20px;
 `;
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* 카드가 그리드 셀의 너비를 채우도록 설정 */
+  justify-content: space-between;
+  width: 100%;
+  overflow: hidden;
 
   &:hover {
     cursor: pointer;
@@ -154,19 +152,24 @@ const Card = styled.div`
 `;
 
 const CardImage = styled.img`
-  width: 100%; /* 카드 이미지가 부모의 너비를 채우도록 설정 */
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 `;
 
 const CardContent = styled.div`
   width: 100%;
-  padding: 10px 0 0 10px;
+  padding: 10px 0 0 0;
 `;
 
 const CardTitle = styled.h3`
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const CardLikes = styled.p`
