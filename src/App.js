@@ -8,7 +8,6 @@ import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
 import Header from "components/common/Header";
 import Sidebar from "components/common/Sidebar";
-// import Footer from "components/common/Footer";
 import useViewportHeight from "hooks/common/useViewportHeight";
 
 import MainLayout from "MainLayout";
@@ -89,7 +88,6 @@ const App = () => {
             </Routes>
           </MainLayout>
         </Suspense>
-        {/* <Footer>푸터</Footer> */}
       </Router>
     </ThemeProvider>
   );

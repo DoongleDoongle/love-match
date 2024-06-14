@@ -6,6 +6,8 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
+import Footer from "components/common/Footer";
+
 const HomePage = () => {
   const navigate = useNavigate();
 
@@ -73,6 +75,8 @@ const HomePage = () => {
           ))}
         </CardList>
       </TopicAreaWrapper>
+
+      <Footer>푸터입니다</Footer>
     </Container>
   );
 };
