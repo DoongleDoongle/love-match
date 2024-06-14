@@ -38,7 +38,7 @@ const BottomContentsWrapper = styled.div`
   width: 100%;
 `;
 
-const ResultNotLoadedPage = ({ participant = {} }) => {
+const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
   const { platformName } = usePlatformNameData();
   const [allChoices, setAllChoices] = useState([]);
 
@@ -67,36 +67,12 @@ const ResultNotLoadedPage = ({ participant = {} }) => {
     fetchChoices();
   }, [participant, platformName]);
 
-  const getChoices = () => {
-    const selectedChoices = allChoices.filter(({ id }) =>
-      participant.myChoiceIds.includes(id)
-    );
-
-    const selectedChoicesGrouping = selectedChoices.reduce(
-      (acc, selectedChoice) => {
-        const foundChoices = allChoices.filter(
-          (choice) => choice.groupId === selectedChoice.groupId
-        );
-        const sortedChoices = foundChoices.sort((a, b) => a.id - b.id);
-        const updatedChoices = sortedChoices.map((choice) => {
-          return {
-            ...choice,
-            isSelected: participant.myChoiceIds.includes(choice.id),
-          };
-        });
-        return [...acc, updatedChoices];
-      },
-      []
-    );
-    return selectedChoicesGrouping;
-  };
-
   return (
     <Container>
       <TopContentsWrapper>
         <LikesContents
-          title="내가 좋아하는 음식"
-          description="선택한 메뉴를 확인해보세요."
+          title={`내가 좋아하는 ${choiceTopic}`}
+          description={`선택한 ${choiceTopic}들을 확인해보세요!`}
           choices={getResultChoices(
             participant.myChoiceIds,
             allChoices,

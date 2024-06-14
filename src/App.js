@@ -75,7 +75,10 @@ const App = () => {
                 path={`${TASTE_MATCH_ROOMS_PATH}/${$ROOM_ID_PATH}`}
                 element={<RoomPage />}
               />
-              <Route path={TASTE_MATCH_RESULTS_PATH} element={<ResultPage />} />
+              <Route
+                path={TASTE_MATCH_RESULTS_PATH}
+                element={<ResultPage choiceTopic="음식" />}
+              />
 
               <Route
                 path={"place-match"}
@@ -92,7 +95,7 @@ const App = () => {
               />
               <Route
                 path={"place-match/rooms/:roomId/results"}
-                element={<ResultPage />}
+                element={<ResultPage choiceTopic="데이트 장소" />}
               />
 
               <Route

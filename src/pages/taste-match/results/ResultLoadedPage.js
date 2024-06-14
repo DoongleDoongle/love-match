@@ -89,7 +89,7 @@ const NavItemWrapper = styled.div`
   }
 `;
 
-const ResultLoadedPage = ({ allParticipants, participants }) => {
+const ResultLoadedPage = ({ choiceTopic, allParticipants, participants }) => {
   const { platformName } = usePlatformNameData();
   const [allChoices, setAllChoices] = useState([]);
   const [activeParticipantNickname, setActiveParticipantNickname] = useState(
@@ -129,7 +129,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
     <BaseContainer>
       <TopContentsWrapper>
         <LikesContents
-          title="모두가 좋아하는 것"
+          title={`모두가 좋아하는 ${choiceTopic}`}
           description="우리 방에 참여한 모두가 선택했어요!"
           choices={getResultChoices(
             allParticipants.togetherLikesChoiceIds,
@@ -150,7 +150,7 @@ const ResultLoadedPage = ({ allParticipants, participants }) => {
             {activeParticipant.compatibilities.map((compatibility, index) => (
               <LikesContents
                 key={index}
-                title={`${compatibility.partner} 님과 함께 좋아하는 것`}
+                title={`${compatibility.partner} 님과 함께 좋아하는 ${choiceTopic}`}
                 description="나만 선택한 사진은 어둡게 표시했어요!"
                 choices={getResultChoices(
                   compatibility.togetherLikesChoiceIds,

@@ -6,7 +6,7 @@ import ResultLoadedPage from "./ResultLoadedPage";
 import ResultNotLoadedPage from "./ResultNotLoadedPage";
 import CustomSpinner from "components/common/CustomSpinner";
 
-const ResultPage = () => {
+const ResultPage = ({ choiceTopic }) => {
   const { roomId } = useParams();
   const [searchParams] = useSearchParams();
   const participantId = parseInt(searchParams.get("participantId"));
@@ -31,11 +31,12 @@ const ResultPage = () => {
 
   return participants.length > 1 ? (
     <ResultLoadedPage
+      choiceTopic={choiceTopic}
       allParticipants={allParticipants}
       participants={participants}
     />
   ) : (
-    <ResultNotLoadedPage participant={participant} />
+    <ResultNotLoadedPage choiceTopic={choiceTopic} participant={participant} />
   );
 };
 
