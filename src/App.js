@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import React, { useState, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
@@ -89,6 +90,7 @@ const App = () => {
           </MainLayout>
         </Suspense>
       </Router>
+      <Analytics />
     </ThemeProvider>
   );
 };
