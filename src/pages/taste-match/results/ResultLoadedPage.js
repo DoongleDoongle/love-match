@@ -67,6 +67,7 @@ const NavItemWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-bottom: 20px;
   /* max-height: 40vh; // 스크롤을 적용할 최대 높이 설정 */
   /* overflow-y: scroll; // 내용이 넘칠 경우 스크롤 적용 */
   background-color: ${({ theme }) => theme.colors.light};
