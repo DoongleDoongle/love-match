@@ -10,6 +10,7 @@ import Header from "components/common/Header";
 import Sidebar from "components/common/Sidebar";
 // import Footer from "components/common/Footer";
 import useViewportHeight from "hooks/common/useViewportHeight";
+import { calculateMainLayoutHeight } from "styles/functions";
 
 import StartPage from "pages/taste-match/StartPage";
 import RoomPage from "pages/taste-match/RoomPage";
@@ -26,7 +27,7 @@ import {
 
 const MainLayout = styled.div`
   width: 100%;
-  height: ${({ theme }) => `calc(var(--vh) * 100 - ${theme.header.height})`};
+  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
   overflow-y: auto;
   overflow-x: hidden; // 좌우 스크롤 없애기
 

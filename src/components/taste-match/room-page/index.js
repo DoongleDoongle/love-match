@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Progress } from "rsuite"; // 가이드: https://rsuitejs.com/components/progress/
+import { calculateMainLayoutHeight } from "styles/functions";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1; // 남은 공간을 모두 채움
   width: 100%;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
 `;
 
 const TextArea = styled.div`

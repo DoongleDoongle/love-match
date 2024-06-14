@@ -7,13 +7,14 @@ import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup"
 import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
 import { fetchChoicesByPlatformName } from "apis/queries";
 import { getResultChoices } from "utils/functions/taste-match/results";
+import { calculateMainLayoutHeight } from "styles/functions";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
   background-color: ${({ theme, backgroundcolor }) => theme.colors.background};
 `;
 

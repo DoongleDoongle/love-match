@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { calculateMainLayoutHeight } from "styles/functions";
 
 const BaseContainer = styled.div`
   display: flex;
@@ -7,7 +8,7 @@ const BaseContainer = styled.div`
   justify-content: ${({ justifyContent }) => justifyContent || "none"};
   flex: 1;
   width: 100%;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
   background-color: ${({ theme, backgroundcolor }) =>
     backgroundcolor || theme.colors.background};
 `;

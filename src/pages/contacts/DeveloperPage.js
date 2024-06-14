@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CustomHelmet from "components/common/Helmet";
 import styled from "styled-components";
+import { calculateMainLayoutHeight } from "styles/functions";
 
 import Input from "components/common/utils/Input";
 import Button from "components/common/utils/CustomButton";
@@ -11,7 +12,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
   background-color: #f0f0f0;
 `;
 

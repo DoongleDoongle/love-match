@@ -8,6 +8,7 @@ import CustomHelmet from "components/common/Helmet";
 import { useNavigate } from "react-router-dom";
 
 import { createRoomAndParticipant } from "apis/queries/rooms";
+import { calculateMainLayoutHeight } from "styles/functions";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const Container = styled.div`
   align-items: center;
   flex: 1;
   width: 100%;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height})`};
+  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
 `;
 
 const PlatformTitle = styled.div`
@@ -26,7 +27,7 @@ const PlatformTitle = styled.div`
   font-family: "Single Day";
   color: ${({ theme }) => theme.colors.primary};
   width: 100%;
-  height: ${({ theme }) => `calc(100vh - ${theme.header.height} - 30%)`};
+  height: ${({ theme }) => `calc(${calculateMainLayoutHeight(theme)} - 30%)`};
 `;
 
 const InputContainer = styled.div`
