@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import React, { useState, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
 import Header from "components/common/Header";
@@ -12,9 +12,9 @@ import Sidebar from "components/common/Sidebar";
 import useViewportHeight from "hooks/common/useViewportHeight";
 
 import MainLayout from "MainLayout";
-import StartPage from "pages/taste-match/StartPage";
-import RoomPage from "pages/taste-match/RoomPage";
-import ResultPage from "pages/taste-match/results/ResultPage";
+import StartPage from "pages/balance-match/StartPage";
+import RoomPage from "pages/balance-match/RoomPage";
+import ResultPage from "pages/balance-match/results/ResultPage";
 import DeveloperPage from "pages/contacts/DeveloperPage";
 
 // 라우트 정적 변수

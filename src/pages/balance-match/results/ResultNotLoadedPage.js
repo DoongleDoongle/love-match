@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { usePlatformNameData } from "hooks/common/usePlatformNameData";
-import LikesContents from "components/taste-match/result-page/LikesContents/LikesContents";
-import ShereMessageForm from "components/taste-match/result-page/ShereMessageForm";
-import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup";
-import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
+import LikesContents from "components/balance-match/result-page/LikesContents/LikesContents";
+import ShereMessageForm from "components/balance-match/result-page/ShereMessageForm";
+import ResultIconGroup from "components/balance-match/result-page/ResultIconGroup";
+import ResultBottomButtonGroup from "components/balance-match/result-page/ResultBottomButtonGroup";
 import { fetchChoicesByPlatformName } from "apis/queries";
-import { getResultChoices } from "utils/functions/taste-match/results";
+import { getResultChoices } from "utils/functions/balance-match/results";
 import { calculateMainLayoutHeight } from "styles/functions";
 
 const Container = styled.div`

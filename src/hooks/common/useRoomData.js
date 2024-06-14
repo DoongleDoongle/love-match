@@ -8,8 +8,7 @@ import {
   fetchParticipantsByRoomId,
 } from "apis/queries";
 import { useNavigate, useLocation } from "react-router-dom";
-
-import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
+import { usePlatformNameData } from "./usePlatformNameData";
 
 /**
  * 선택지 데이터를 Supabase 테이블로 관리할 때 사용하던 조합 함수
@@ -39,14 +38,15 @@ const createPairedChoices = (choices) => {
   return pairedChoices;
 };
 
-const _goTo = (navigate, toUrl) => {
+const _goTo = (navigate, platformName) => {
   alert("사용자 등록에 실패했습니다.");
-  navigate(toUrl);
+  navigate(`/${platformName}`);
 };
 
 export const useRoomData = (roomId, participantId, platformName) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { platformName } = usePlatformNameData();
   const [keywords, setKeywords] = useState([{ top: {}, bottom: {} }]);
   const [keywordIdx, setKeywordIdx] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
@@ -58,10 +58,7 @@ export const useRoomData = (roomId, participantId, platformName) => {
       const { participants, error: participantsError } =
         await fetchParticipantsByRoomId(roomId);
 
-      if (participantsError) {
-        _goTo(navigate, TASTE_MATCH_ROOT_PATH);
-        return;
-      }
+      if (participantsError) return _goTo(navigate, platformName);
 
       const participantNicknames = participants.map(({ nickname }) => nickname);
       if (participantNicknames.includes(nickname)) {
@@ -73,12 +70,12 @@ export const useRoomData = (roomId, participantId, platformName) => {
         const { participant, error: participantError } =
           await addParticipantInRoom(roomId, nickname);
         if (participantError) {
-          _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+          _goTo(navigate, platformName);
           return;
         }
         navigate(`${location.pathname}?participantId=${participant.id}`);
       } else {
-        _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+        _goTo(navigate, platformName);
       }
     };
 
@@ -87,7 +84,7 @@ export const useRoomData = (roomId, participantId, platformName) => {
         const { room, error: roomError } = await fetchRoom(roomId);
         if (roomError || !room) {
           alert("존재하지 않는 방입니다.");
-          navigate(TASTE_MATCH_ROOT_PATH);
+          navigate(`/${platformName}`);
           return;
         }
 
@@ -95,7 +92,7 @@ export const useRoomData = (roomId, participantId, platformName) => {
           await fetchRoomsParticipants(roomId, participantId);
         if (roomsParticipantsError || roomsParticipants?.length === 0) {
           alert("잘못된 사용자입니다.");
-          navigate(TASTE_MATCH_ROOT_PATH);
+          navigate(`/${platformName}`);
           return;
         }
 
@@ -104,7 +101,7 @@ export const useRoomData = (roomId, participantId, platformName) => {
         );
         if (platformError) {
           alert("존재하지 않는 서비스입니다.");
-          navigate(TASTE_MATCH_ROOT_PATH);
+          navigate(`/${platformName}`);
           return;
         }
 

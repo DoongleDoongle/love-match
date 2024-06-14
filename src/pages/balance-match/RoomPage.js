@@ -14,7 +14,7 @@ import {
   ProgressContainer,
   HalfProgress,
   VersusText,
-} from "components/taste-match/room-page";
+} from "components/balance-match/room-page";
 import Spinner from "components/common/CustomSpinner";
 
 import { updateSelectedChoices } from "apis/queries";

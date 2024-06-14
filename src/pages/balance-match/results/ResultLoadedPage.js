@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { usePlatformNameData } from "hooks/common/usePlatformNameData";
 
 import BaseContainer from "components/common/utils/BaseContainer";
-import LikesContents from "components/taste-match/result-page/LikesContents/LikesContents";
-import Navbar from "components/taste-match/result-page/Navbar";
-import ResultIconGroup from "components/taste-match/result-page/ResultIconGroup";
-import ResultBottomButtonGroup from "components/taste-match/result-page/ResultBottomButtonGroup";
+import LikesContents from "components/balance-match/result-page/LikesContents/LikesContents";
+import Navbar from "components/balance-match/result-page/Navbar";
+import ResultIconGroup from "components/balance-match/result-page/ResultIconGroup";
+import ResultBottomButtonGroup from "components/balance-match/result-page/ResultBottomButtonGroup";
 
 import { fetchChoicesByPlatformName } from "apis/queries";
-import { getResultChoices } from "utils/functions/taste-match/results";
+import { getResultChoices } from "utils/functions/balance-match/results";
 
 const TopContentsWrapper = styled.div`
   display: flex;

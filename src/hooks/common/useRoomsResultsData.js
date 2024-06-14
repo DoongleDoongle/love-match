@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { fetchParticipants, fetchRoomsParticipants } from "apis/queries";
 import { useNavigate } from "react-router-dom";
-import { TASTE_MATCH_ROOT_PATH } from "configs/route/routeConfig";
+import { usePlatformNameData } from "./usePlatformNameData";
 
 const _goTo = (navigate, toUrl) => {
   alert("잘못된 사용자입니다.");
-  // navigate(toUrl);
+  navigate(toUrl);
 };
 
 export const useRoomsResultsData = (roomId, myId) => {
   const navigate = useNavigate();
+  const { platformName } = usePlatformNameData();
   const [allParticipants, setAllParticipants] = useState([]);
   const [participants, setParticipants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,7 @@ export const useRoomsResultsData = (roomId, myId) => {
         const { roomsParticipants, error: roomsParticipantsError } =
           await fetchRoomsParticipants(roomId);
         if (roomsParticipantsError || roomsParticipants?.length === 0) {
-          _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+          _goTo(navigate, `/${platformName}`);
           return;
         }
 
@@ -48,7 +49,7 @@ export const useRoomsResultsData = (roomId, myId) => {
         );
 
         if (!doneParticipantIds.includes(myId)) {
-          _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+          _goTo(navigate, `/${platformName}`);
           return;
         }
 
@@ -78,7 +79,7 @@ export const useRoomsResultsData = (roomId, myId) => {
     return () => {
       isMounted = false; // 컴포넌트 언마운트 시 상태 업데이트 방지
     };
-  }, [roomId, myId, navigate]);
+  }, [roomId, myId, navigate, platformName]);
 
   return { allParticipants, participants, isLoading, error };
 };
