@@ -95,7 +95,12 @@ const App = () => {
                 element={<ResultPage />}
               />
 
-              <Route path={"contacts/developer"} element={<DeveloperPage />} />
+              <Route
+                path={"contacts/developer"}
+                element={
+                  <DeveloperPage platformTitle="개발자에게 피드백주기" />
+                }
+              />
             </Routes>
           </MainLayout>
         </Suspense>

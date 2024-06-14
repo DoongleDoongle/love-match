@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CustomHelmet from "components/common/Helmet";
 import styled from "styled-components";
 
 import Input from "components/common/utils/Input";
@@ -44,7 +45,7 @@ const TextArea = styled.textarea`
   font-size: 16px;
 `;
 
-const DeveloperPage = () => {
+const DeveloperPage = ({ platformTitle = "" }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -71,8 +72,12 @@ const DeveloperPage = () => {
 
   return (
     <Container>
+      <CustomHelmet
+        title={`러브매치 - ${platformTitle}`}
+        description="개발자에게 해주고 싶은 말이 있으신가요?"
+      />
       <Form onSubmit={handleSubmit}>
-        <Title>개발자에게 피드백주기</Title>
+        <Title>{platformTitle}</Title>
         <Label htmlFor="name">이름</Label>
         <Input
           id="name"

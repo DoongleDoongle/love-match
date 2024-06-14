@@ -42,18 +42,18 @@ const LogoImage = styled(Image)`
 
   // 이미지의 scale()을 확대하고, width를 고정시키고,
   // object-fit을 cover로 설정함으로써 좌우 벗어나는 크기는 잘라버린다. -> 이미지 크기를 키운다.
-  transform: scale(1.2);
-  width: 38px;
-  height: 80px;
+  transform: scale(1);
+  /* width: 38px; */
+  /* height: 80px; */
   object-fit: cover;
 
   transition: transform 0.3s ease; // 호버 및 포커스 시 애니메이션 설정
   &:hover,
   &:focus {
-    transform: scale(1.4);
+    transform: scale(1.1);
   }
   &:active {
-    transform: scale(1);
+    transform: scale(0.9);
   }
 `;
 

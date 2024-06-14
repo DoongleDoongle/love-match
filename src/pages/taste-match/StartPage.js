@@ -4,6 +4,7 @@ import CustomButton from "components/common/utils/CustomButton";
 import Image from "components/common/utils/Image";
 import Input from "components/common/utils/Input";
 import CustomModal from "components/common/utils/CustomModal";
+import CustomHelmet from "components/common/Helmet";
 import { useNavigate } from "react-router-dom";
 
 import { createRoomAndParticipant } from "apis/queries/rooms";
@@ -75,6 +76,11 @@ const StartPage = ({
 
   return (
     <Container>
+      <CustomHelmet
+        title={`러브매치 - ${platformTitle}`}
+        description={`커플/친구와 함께 맞춰보는 ${platformTitle}!`}
+      />
+
       <CustomModal
         description="이름을 입력해주세요."
         onClose={() => setModalShow(false)}
