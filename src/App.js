@@ -1,7 +1,7 @@
 import "rsuite/dist/rsuite.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import GlobalStyle from "styles/GlobalStyle";
@@ -49,19 +49,7 @@ const MainLayout = styled.div`
 `;
 
 const App = () => {
-  useEffect(() => {
-    const setViewportHeight = () => {
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-
-    setViewportHeight();
-    window.addEventListener("resize", setViewportHeight);
-
-    return () => {
-      window.removeEventListener("resize", setViewportHeight);
-    };
-  }, []);
+  useViewportHeight();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const handleMenuClick = () => {
