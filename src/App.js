@@ -10,8 +10,8 @@ import Header from "components/common/Header";
 import Sidebar from "components/common/Sidebar";
 // import Footer from "components/common/Footer";
 import useViewportHeight from "hooks/common/useViewportHeight";
-import { calculateMainLayoutHeight } from "styles/functions";
 
+import MainLayout from "MainLayout";
 import StartPage from "pages/taste-match/StartPage";
 import RoomPage from "pages/taste-match/RoomPage";
 import ResultPage from "pages/taste-match/results/ResultPage";
@@ -24,30 +24,6 @@ import {
   TASTE_MATCH_ROOMS_PATH,
   TASTE_MATCH_RESULTS_PATH,
 } from "configs/route/routeConfig";
-
-const MainLayout = styled.div`
-  width: 100%;
-  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
-  overflow-y: auto;
-  overflow-x: hidden; // 좌우 스크롤 없애기
-
-  /* 스크롤바 스타일링 (웹킷 브라우저 전용) */
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border-radius: 10px;
-    border: 3px solid white; // 스크롤바 주변에 여백을 줌
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.colors.background};
-    border: 1px solid rgb(0, 0, 0, 0.2);
-    border-radius: 10px;
-  }
-`;
 
 const App = () => {
   useViewportHeight();
