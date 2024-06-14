@@ -5,7 +5,7 @@ const theme = {
     tertiary: "#BAD7E9", // 3차색,
     quaternary: "#FEFAF6", // 4차색,
     quinary: "", // 5차색,
-    lightBlueGrey: "#A3B4C6", // 밝은 파랑/회색
+    lightOrangeGrey: "#fd9a30af",
     softRose: "#B48291", // 부드러운 로즈
     softBlue: "#829AB1", // 소프트 블루
     success: "#28a745", // 성공 녹색

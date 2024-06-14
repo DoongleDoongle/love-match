@@ -18,7 +18,7 @@ const StyledHeader = styled.header`
   z-index: 1000;
   background-color: ${(props) => props.theme.colors.background};
   color: ${(props) => props.theme.colors.primary};
-  box-shadow: 0 0.5px 0px rgba(0, 0, 0, 0.1); // 하단에 얇은 그림자 생성
+  box-shadow: 0 0.5px 0px rgba(253, 154, 48, 1); // 하단에 얇은 그림자 생성
   /* border-bottom: 1px solid lightgrey; */
   height: ${({ theme }) => theme.header.height}; // 헤더 높이를 고정
   padding: 0 16px;
@@ -33,6 +33,7 @@ const TitleWrapper = styled.div`
 const Title = styled.h1`
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSizes.extraLarge};
+  color: ${(props) => props.theme.colors.primary};
   margin: 0;
 `;
 
@@ -60,6 +61,7 @@ const LogoImage = styled(Image)`
 const MenuIcon = styled(FontAwesomeIcon)`
   cursor: pointer; // 클릭할 수 있도록 포인터 커서 설정
   font-size: 24px;
+  /* color: ${(props) => props.theme.colors.secondary}; */
   transition: transform 0.3s ease; // 호버 및 포커스 시 애니메이션 설정
   &:hover,
   &:focus {

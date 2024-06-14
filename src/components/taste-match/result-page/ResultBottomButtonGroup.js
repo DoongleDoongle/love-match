@@ -33,14 +33,14 @@ const ResultBottomButtonGroup = () => {
       <CustomButton
         onClick={replayGame}
         width="100px"
-        backgroundcolor={theme.colors.lightBlueGrey}
+        backgroundcolor={theme.colors.lightOrangeGrey}
       >
         다시하기
       </CustomButton>
       <CustomButton
         onClick={newGame}
         width="100px"
-        backgroundcolor={theme.colors.lightBlueGrey}
+        backgroundcolor={theme.colors.lightOrangeGrey}
       >
         새 게임
       </CustomButton>

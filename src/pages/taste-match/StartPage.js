@@ -25,7 +25,7 @@ const PlatformTitle = styled.div`
   justify-content: center;
   font-size: ${({ platformTitleSize }) => platformTitleSize};
   font-family: "Single Day";
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
   width: 100%;
   height: ${({ theme }) => `calc(${calculateMainLayoutHeight(theme)} - 30%)`};
 `;
