@@ -3,6 +3,7 @@ export { fetchRoom, createRoom, createRoomAndParticipant } from "./rooms";
 export {
   fetchParticipant,
   fetchParticipants,
+  fetchParticipantsByRoomId,
   createParticipant,
 } from "./participants";
 export {

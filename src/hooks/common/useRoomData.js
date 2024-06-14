@@ -5,6 +5,7 @@ import {
   fetchRoomsParticipants,
   addParticipantInRoom,
   fetchPlatform,
+  fetchParticipantsByRoomId,
 } from "apis/queries";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -54,12 +55,24 @@ export const useRoomData = (roomId, participantId, platformName) => {
   useEffect(() => {
     const createParticipant = async () => {
       const nickname = prompt("이름을 입력하세요:");
+      const { participants, error: participantsError } =
+        await fetchParticipantsByRoomId(roomId);
+
+      if (participantsError) {
+        _goTo(navigate, TASTE_MATCH_ROOT_PATH);
+        return;
+      }
+
+      const participantNicknames = participants.map(({ nickname }) => nickname);
+      if (participantNicknames.includes(nickname)) {
+        alert("같은 이름의 플레이어가 존재합니다.\n다른 이름을 사용해주세요.");
+        return createParticipant();
+      }
+
       if (nickname) {
-        const { participant, error } = await addParticipantInRoom(
-          roomId,
-          nickname
-        );
-        if (error) {
+        const { participant, error: participantError } =
+          await addParticipantInRoom(roomId, nickname);
+        if (participantError) {
           _goTo(navigate, TASTE_MATCH_ROOT_PATH);
           return;
         }

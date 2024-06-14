@@ -1,5 +1,21 @@
 import supabase from "configs/db/supabaseClient";
 import { table } from "configs/db/dbConfig";
+import { fetchRoomsParticipants } from "./rooms_participants";
+
+export const fetchParticipantsByRoomId = async (roomId) => {
+  const { roomsParticipants } = await fetchRoomsParticipants(roomId);
+  if (roomsParticipants.length === 0) return { participants: [] };
+
+  const { participants, error } = await fetchParticipants(
+    roomsParticipants.map(({ participant_id }) => participant_id)
+  );
+  if (error) {
+    console.error(new Error(error.message));
+    return { error };
+  }
+
+  return { participants };
+};
 
 export const fetchParticipants = async (participantIds = []) => {
   if (!Array.isArray(participantIds)) {
