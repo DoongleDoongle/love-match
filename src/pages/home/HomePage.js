@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick-theme.css";
 import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
-import { useNavigate } from "react-router-dom"; // useNavigate로 변경
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
+  const navigate = useNavigate();
 
   const banners = [
     {
@@ -49,12 +49,9 @@ const HomePage = () => {
     <Container>
       <BannerSlider {...settings}>
         {banners.map(({ imageUrl, redirectUrl }, index) => (
-          <Banner
-            key={index}
-            src={imageUrl}
-            alt={`Banner ${index + 1}`}
-            onClick={() => navigate(redirectUrl)} // history.push 대신 navigate 사용
-          />
+          <BannerWrapper key={index} onClick={() => navigate(redirectUrl)}>
+            <Banner src={imageUrl} alt={`Banner ${index + 1}`} />
+          </BannerWrapper>
         ))}
       </BannerSlider>
 
@@ -66,10 +63,7 @@ const HomePage = () => {
 
         <CardList>
           {cards.map((card, index) => (
-            <Card
-              key={index}
-              onClick={() => navigate(card.redirectUrl)} // history.push 대신 navigate 사용
-            >
+            <Card key={index} onClick={() => navigate(card.redirectUrl)}>
               <CardImage src={card.img} alt={card.title} />
               <CardContent>
                 <CardTitle>{card.title}</CardTitle>
@@ -88,28 +82,30 @@ const Container = styled.div`
 `;
 
 const BannerSlider = styled(Slider)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  background-color: #f0f0f0;
-  margin-bottom: 20px;
+  aspect-ratio: 16 / 9; /* aspect-ratio 설정 */
+  background-color: ${({ theme }) => theme.colors.background};
+  margin-bottom: 5px;
 
   .slick-slide {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+`;
 
-  .slick-slide img {
-  }
+const BannerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; /* 부모의 높이를 채우도록 설정 */
 `;
 
 const Banner = styled.img`
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9; /* 가로 16, 세로 9의 비율 유지 */
-  object-fit: contain;
+  height: 100%; /* 부모의 높이를 채우도록 설정 */
+  object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 설정 */
   cursor: pointer; /* 클릭 가능하게 커서 변경 */
 `;
 
