@@ -77,7 +77,7 @@ const sendKakaoFeed = ({
     content: {
       title: title,
       description: description,
-      imageUrl: process.env.PUBLIC_URL + imageUrl,
+      imageUrl: process.env.REACT_APP_PUBLIC_URL + imageUrl,
       link: {
         mobileWebUrl: targetUrl,
         webUrl: targetUrl,
