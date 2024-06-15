@@ -15,3 +15,18 @@ export const isEmpty = (value) => {
   // 숫자나 불리언 같은 다른 타입은 "비어있지 않음"으로 처리
   return false;
 };
+
+export const translatePlatformNameToKorean = (platformName = "") => {
+  switch (platformName) {
+    case "taste-match":
+      return "입맛 궁합 테스트";
+    case "place-match":
+      return "데이트 장소 궁합 테스트";
+    case "hobby-match":
+      return "취미 궁합 테스트";
+    case "propensity-match":
+      return "성향 궁합 테스트";
+    default:
+      return "궁합 테스트";
+  }
+};

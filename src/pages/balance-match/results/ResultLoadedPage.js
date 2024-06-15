@@ -130,7 +130,7 @@ const ResultLoadedPage = ({ choiceTopic, allParticipants, participants }) => {
               <LikesContents
                 key={index}
                 title={`${compatibility.partner} 님과 함께 좋아하는 ${choiceTopic}`}
-                description="나만 선택한 사진은 어둡게 표시했어요!"
+                description={`${activeParticipantNickname} 님의 선택 기준으로 정렬했어요!`}
                 choices={getResultChoices(
                   compatibility.togetherLikesChoiceIds,
                   allChoices,

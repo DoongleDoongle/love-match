@@ -69,7 +69,7 @@ const sendKakaoFeed = ({
   title = "러브 매치",
   description = "우리 사이, 이대로 괜찮을까?",
   targetUrl = "/",
-  imageUrl = "https://love-match.co.kr/banners/카카오_공유_배너_001.png",
+  imageUrl = "/banners/카카오_공유_배너_001.png",
   buttonTitle = "궁합 테스트 바로가기",
 } = {}) => {
   window.Kakao.Link.sendDefault({
@@ -77,7 +77,7 @@ const sendKakaoFeed = ({
     content: {
       title: title,
       description: description,
-      imageUrl: imageUrl,
+      imageUrl: process.env.PUBLIC_URL + imageUrl,
       link: {
         mobileWebUrl: targetUrl,
         webUrl: targetUrl,

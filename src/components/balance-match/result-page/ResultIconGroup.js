@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import theme from "styles/theme";
 import { useShareUrl } from "hooks/common/useShareUrl";
+import { translatePlatformNameToKorean } from "utils/functions/common";
 
 import {
   incrementLikeCount,
@@ -77,6 +78,11 @@ const ResultIconGroup = ({
 
   const IconSize = "lg"; // 2xs, xs, sm, lg, xl, 2xl, 1x, 2x, 3x, 4x, 5x, 6x, 7x, 8x, 9x, 10x
   const IconColor = theme.colors.primary;
+  const kakaoOptions = {
+    title: `${translatePlatformNameToKorean(platformName)} - 러브매치`,
+    imageUrl: `/games/balance-match/${platformName}/index.png
+    `,
+  };
 
   const likeHandler = async () => {
     const { platform, error } = await incrementLikeCount(platformName);
@@ -89,7 +95,7 @@ const ResultIconGroup = ({
     const { platform, error } = await incrementShareCount(platformName);
     if (!error && platform !== null) {
       setShareCount(platform.share_count);
-      createShareUrl();
+      createShareUrl(kakaoOptions);
     }
   };
 
@@ -97,7 +103,7 @@ const ResultIconGroup = ({
     const { platform, error } = await incrementInviteCount(platformName);
     if (!error && platform !== null) {
       setInviteCount(platform.invite_count);
-      createInviteUrl();
+      createInviteUrl(kakaoOptions);
     }
   };
 

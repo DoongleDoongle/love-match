@@ -43,12 +43,22 @@ sitemap.write({
   priority: 0.1,
 });
 sitemap.write({
-  url: "/games/balance-match/입맛_궁합_001.png",
+  url: "/games/balance-match/taste-macth/index.png",
   changefreq: "yearly",
   priority: 0.1,
 });
 sitemap.write({
-  url: "/games/balance-match/데이트장소_궁합_002.png",
+  url: "/games/balance-match/place-macth/index.png",
+  changefreq: "yearly",
+  priority: 0.1,
+});
+sitemap.write({
+  url: "/games/balance-match/hobby-macth/index.png",
+  changefreq: "yearly",
+  priority: 0.1,
+});
+sitemap.write({
+  url: "/games/balance-match/propensity-macth/index.png",
   changefreq: "yearly",
   priority: 0.1,
 });

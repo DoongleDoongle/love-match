@@ -24,25 +24,25 @@ const HomePage = () => {
 
   const cards = [
     {
-      img: "/games/balance-match/입맛_궁합_001.png",
+      img: "/games/balance-match/taste-match/index.png",
       title: "입맛 궁합 테스트",
       redirectUrl: "/taste-match",
       likes: 4328,
     },
     {
-      img: "/games/balance-match/데이트장소_궁합_002.png",
+      img: "/games/balance-match/place-match/index.png",
       title: "데이트 장소 궁합 테스트",
       redirectUrl: "/place-match",
       likes: 4134,
     },
     {
-      img: "/games/balance-match/취미_궁합_003.png",
+      img: "/games/balance-match/hobby-match/index.png",
       title: "취미 궁합 테스트",
       redirectUrl: "/hobby-match",
       likes: 5826,
     },
     {
-      img: "/games/balance-match/성향_궁합_004.png",
+      img: "/games/balance-match/propensity-match/index.png",
       title: "성향 궁합 테스트",
       redirectUrl: "/propensity-match",
       likes: 2432,
