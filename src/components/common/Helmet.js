@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet";
 
 const CustomHelmet = ({
   title = "러브매치",
-  description = "커플/친구 사이의 다양한 궁합을 확인해보세요!",
+  description = "아이스브레이킹의 모든 것",
   keywords = "커플, 친구, 궁합, 사주, 궁합테스트, 궁합 테스트, 입맛, 장소",
   author = "박우림",
   url = "", // "/taste-match"
