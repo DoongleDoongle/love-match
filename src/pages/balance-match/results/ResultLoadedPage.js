@@ -11,6 +11,7 @@ import ResultBottomButtonGroup from "components/balance-match/result-page/Result
 import { fetchChoicesByPlatformName } from "apis/queries";
 import { getResultChoices } from "utils/functions/balance-match/results";
 import Footer from "components/common/Footer";
+import CoupangPartners from "components/common/advertisement/CoupangParters";
 
 const TopContentsWrapper = styled.div`
   display: flex;
@@ -68,6 +69,7 @@ const NavItemWrapper = styled.div`
 
 const ResultLoadedPage = ({ choiceTopic, allParticipants, participants }) => {
   const { platformName } = usePlatformNameData();
+  const [inviteCount, setInviteCount] = useState(0);
   const [allChoices, setAllChoices] = useState([]);
   const [activeParticipantNickname, setActiveParticipantNickname] = useState(
     participants[0].nickname
@@ -144,10 +146,15 @@ const ResultLoadedPage = ({ choiceTopic, allParticipants, participants }) => {
       </TopContentsWrapper>
 
       <BottomContentsWrapper>
-        <ResultIconGroup platformName={platformName} />
+        <ResultIconGroup
+          platformName={platformName}
+          inviteCount={inviteCount}
+          setInviteCount={setInviteCount}
+        />
         <ResultBottomButtonGroup />
       </BottomContentsWrapper>
 
+      <CoupangPartners />
       <Footer />
     </BaseContainer>
   );

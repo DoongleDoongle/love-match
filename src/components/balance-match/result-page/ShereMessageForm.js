@@ -33,7 +33,7 @@ const ShereBottomMessage = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
-const ShereMessageForm = ({ platformName, setInviteCount }) => {
+const ShereMessageForm = ({ platformName, setInviteCount = () => {} }) => {
   const { createInviteUrl } = useShareUrl();
 
   const inviteHandler = async () => {

@@ -9,6 +9,7 @@ import { fetchChoicesByPlatformName } from "apis/queries";
 import { getResultChoices } from "utils/functions/balance-match/results";
 import { calculateMainLayoutHeight } from "styles/functions";
 import Footer from "components/common/Footer";
+import CoupangPartners from "components/common/advertisement/CoupangParters";
 
 const Container = styled.div`
   display: flex;
@@ -105,6 +106,7 @@ const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
         <ResultBottomButtonGroup />
       </BottomContentsWrapper>
 
+      <CoupangPartners />
       <Footer />
     </Container>
   );

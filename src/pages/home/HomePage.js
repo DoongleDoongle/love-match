@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 
+import CoupangPartners from "components/common/advertisement/CoupangParters";
 import Footer from "components/common/Footer";
 
 const HomePage = () => {
@@ -88,6 +89,7 @@ const HomePage = () => {
         </CardList>
       </TopicAreaWrapper>
 
+      <CoupangPartners />
       <Footer />
     </Container>
   );
@@ -127,7 +129,6 @@ const Banner = styled.img`
 
 const TopicAreaWrapper = styled.div`
   padding: 30px 20px;
-  margin-bottom: 30px;
 `;
 
 const TopicTextWrapper = styled.div`
