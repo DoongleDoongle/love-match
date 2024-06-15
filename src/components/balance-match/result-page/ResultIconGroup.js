@@ -86,7 +86,10 @@ const ResultIconGroup = ({ platformName = "" }) => {
     const { platform, error } = await incrementShareCount(platformName);
     if (!error && platform !== null) {
       setShareCount(platform.share_count);
-      createShareUrl();
+      createShareUrl({
+        title: "러브매치",
+        description: "결과를 확인해주세요!",
+      });
     }
   };
 
