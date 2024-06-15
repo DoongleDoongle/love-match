@@ -39,7 +39,13 @@ const HomePage = () => {
       img: "/games/balance-match/취미_궁합_003.png",
       title: "취미 궁합 테스트",
       redirectUrl: "/hobby-match",
-      likes: 3826,
+      likes: 5826,
+    },
+    {
+      img: "/games/balance-match/성향_궁합_004.png",
+      title: "성향 궁합 테스트",
+      redirectUrl: "/propensity-match",
+      likes: 2432,
     },
   ];
 
