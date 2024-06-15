@@ -11,7 +11,14 @@ export const useShareUrl = () => {
     url.searchParams.delete("participantId");
     const targetUrl = `${url.origin}${basePath}${url.search}`;
 
-    shareUrl({ type, title, description, imageUrl, buttonTitle, targetUrl });
+    shareUrl({
+      type,
+      title,
+      description: "우리 사이, 이대로 괜찮을까?",
+      imageUrl,
+      buttonTitle: "테스트 바로가기",
+      targetUrl,
+    });
   };
 
   const createShareUrl = ({
@@ -27,9 +34,9 @@ export const useShareUrl = () => {
     shareUrl({
       type,
       title,
-      description,
+      description: "결과를 확인해보세요!",
       imageUrl,
-      buttonTitle,
+      buttonTitle: "결과 보러 가기",
       targetUrl,
     });
   };
@@ -62,7 +69,7 @@ const sendKakaoFeed = ({
   title = "러브 매치",
   description = "우리 사이, 이대로 괜찮을까?",
   targetUrl = "/",
-  imageUrl = "https://love-match.co.kr/banners/홈_배너_001.png",
+  imageUrl = "https://love-match.co.kr/banners/카카오_공유_배너_001.png",
   buttonTitle = "궁합 테스트 바로가기",
 } = {}) => {
   window.Kakao.Link.sendDefault({

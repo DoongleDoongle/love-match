@@ -1,6 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components";
 import CustomButton from "components/common/utils/CustomButton";
 import { useShareUrl } from "hooks/common/useShareUrl";
+import { incrementInviteCount } from "apis/queries";
 
 const ShereMessageContainer = styled.div`
   display: flex;
@@ -31,11 +33,15 @@ const ShereBottomMessage = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
 
-const ShereMessageForm = () => {
+const ShereMessageForm = ({ platformName, setInviteCount }) => {
   const { createInviteUrl } = useShareUrl();
 
-  const inviteHandler = () => {
-    createInviteUrl();
+  const inviteHandler = async () => {
+    const { platform, error } = await incrementInviteCount(platformName);
+    if (!error && platform !== null) {
+      setInviteCount(platform.invite_count);
+      createInviteUrl();
+    }
   };
 
   return (

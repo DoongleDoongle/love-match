@@ -44,6 +44,7 @@ const BottomContentsWrapper = styled.div`
 
 const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
   const { platformName } = usePlatformNameData();
+  const [inviteCount, setInviteCount] = useState(0);
   const [allChoices, setAllChoices] = useState([]);
 
   useEffect(() => {
@@ -88,12 +89,19 @@ const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
         {/* <Message>"오늘은 한식이 끌리는 날이군요 :D"</Message> */}
 
         <ShareMessageFormWrapper>
-          <ShereMessageForm />
+          <ShereMessageForm
+            platformName={platformName}
+            setInviteCount={setInviteCount}
+          />
         </ShareMessageFormWrapper>
       </TopContentsWrapper>
 
       <BottomContentsWrapper>
-        <ResultIconGroup platformName={platformName} />
+        <ResultIconGroup
+          platformName={platformName}
+          inviteCount={inviteCount}
+          setInviteCount={setInviteCount}
+        />
         <ResultBottomButtonGroup />
       </BottomContentsWrapper>
 

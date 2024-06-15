@@ -51,11 +51,14 @@ const IconLabel = styled.span`
 
 const Count = styled.div``;
 
-const ResultIconGroup = ({ platformName = "" }) => {
+const ResultIconGroup = ({
+  platformName = "",
+  inviteCount,
+  setInviteCount,
+}) => {
   const { createInviteUrl, createShareUrl } = useShareUrl();
   const [likeCount, setLikeCount] = useState(0);
   const [shareCount, setShareCount] = useState(0);
-  const [inviteCount, setInviteCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +73,7 @@ const ResultIconGroup = ({ platformName = "" }) => {
     if (platformName.length > 0) {
       fetchData();
     }
-  }, [platformName]);
+  }, [platformName, setInviteCount]);
 
   const IconSize = "lg"; // 2xs, xs, sm, lg, xl, 2xl, 1x, 2x, 3x, 4x, 5x, 6x, 7x, 8x, 9x, 10x
   const IconColor = theme.colors.primary;
@@ -86,10 +89,7 @@ const ResultIconGroup = ({ platformName = "" }) => {
     const { platform, error } = await incrementShareCount(platformName);
     if (!error && platform !== null) {
       setShareCount(platform.share_count);
-      createShareUrl({
-        title: "러브매치",
-        description: "결과를 확인해주세요!",
-      });
+      createShareUrl();
     }
   };
 
