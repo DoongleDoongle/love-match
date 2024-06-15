@@ -95,6 +95,19 @@ const App = () => {
               />
 
               <Route
+                path={"propensity-match"}
+                element={<StartPage platformTitle="성향 궁합 테스트" />}
+              />
+              <Route
+                path={"propensity-match/rooms/:roomId"}
+                element={<RoomPage />}
+              />
+              <Route
+                path={"propensity-match/rooms/:roomId/results"}
+                element={<ResultPage choiceTopic="성향" />}
+              />
+
+              <Route
                 path={"contacts/developer"}
                 element={
                   <DeveloperPage platformTitle="개발자에게 피드백주기" />
