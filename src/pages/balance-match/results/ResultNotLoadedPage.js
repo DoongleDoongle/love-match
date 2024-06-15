@@ -54,15 +54,17 @@ const ResultNotLoadedPage = ({ choiceTopic = "음식", participant = {} }) => {
         );
         if (!error) {
           setAllChoices(
-            choices.map(({ id, platform_id, group_id, choice, image_url }) => {
-              return {
-                id,
-                choice,
-                platformId: platform_id,
-                groupId: group_id,
-                imageUrl: image_url,
-              };
-            })
+            choices
+              .map(({ id, platform_id, group_id, choice, image_url }) => {
+                return {
+                  id,
+                  choice,
+                  platformId: platform_id,
+                  groupId: group_id,
+                  imageUrl: image_url,
+                };
+              })
+              .sort((a, b) => a.groupId - b.groupId)
           );
         }
       }
