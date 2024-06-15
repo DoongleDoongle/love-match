@@ -19,7 +19,7 @@ const CustomHelmet = ({
       <meta property="og:description" content={description} />
       <meta
         property="og:image"
-        content="https://love-match.co.kr/og-image.jpg"
+        content="https://love-match.co.kr/og-image.png"
       />
       <meta property="og:url" content={`https://love-match.co.kr/${url}`} />
       <meta property="og:type" content="website" />

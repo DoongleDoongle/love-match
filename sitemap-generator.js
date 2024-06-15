@@ -31,7 +31,7 @@ sitemap.write({
 
 // 정적 파일 URL 추가
 sitemap.write({ url: "/favicon.ico", changefreq: "yearly", priority: 0.1 });
-sitemap.write({ url: "/og-image.jpg", changefreq: "yearly", priority: 0.1 });
+sitemap.write({ url: "/og-image.png", changefreq: "yearly", priority: 0.1 });
 sitemap.write({
   url: "/banners/홈_배너_001.png",
   changefreq: "yearly",
