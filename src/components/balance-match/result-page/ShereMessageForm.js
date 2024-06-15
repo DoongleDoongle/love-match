@@ -1,8 +1,8 @@
-import { useState } from "react";
 import styled from "styled-components";
 import CustomButton from "components/common/utils/CustomButton";
 import { useShareUrl } from "hooks/common/useShareUrl";
 import { incrementInviteCount } from "apis/queries";
+import { translatePlatformNameToKorean } from "utils/functions/common";
 
 const ShereMessageContainer = styled.div`
   display: flex;
@@ -40,7 +40,11 @@ const ShereMessageForm = ({ platformName, setInviteCount }) => {
     const { platform, error } = await incrementInviteCount(platformName);
     if (!error && platform !== null) {
       setInviteCount(platform.invite_count);
-      createInviteUrl();
+      createInviteUrl({
+        title: `${translatePlatformNameToKorean(platformName)} - 러브매치`,
+        imageUrl: `/games/balance-match/${platformName}/index.png
+        `,
+      });
     }
   };
 
