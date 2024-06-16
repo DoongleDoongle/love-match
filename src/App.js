@@ -108,6 +108,16 @@ const App = () => {
               />
 
               <Route
+                path={"some-match"}
+                element={<StartPage platformTitle="썸 궁합 테스트" />}
+              />
+              <Route path={"some-match/rooms/:roomId"} element={<RoomPage />} />
+              <Route
+                path={"some-match/rooms/:roomId/results"}
+                element={<ResultPage choiceTopic="썸" />}
+              />
+
+              <Route
                 path={"contacts/developer"}
                 element={
                   <DeveloperPage platformTitle="개발자에게 피드백주기" />

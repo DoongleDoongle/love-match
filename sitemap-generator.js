@@ -29,6 +29,7 @@ sitemap.write({
   changefreq: "hourly",
   priority: 0.9,
 });
+sitemap.write({ url: "/some-match", changefreq: "hourly", priority: 0.9 });
 sitemap.write({
   url: "/contacts/developer",
   changefreq: "monthly",
