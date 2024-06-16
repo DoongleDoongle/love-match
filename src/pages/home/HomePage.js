@@ -48,6 +48,12 @@ const HomePage = () => {
       redirectUrl: "/propensity-match",
       likes: 2432,
     },
+    {
+      img: "/games/balance-match/some-match/index.png",
+      title: "썸 궁합 테스트",
+      redirectUrl: "/some-match",
+      likes: 428,
+    },
   ];
 
   const settings = {
