@@ -23,6 +23,12 @@ sitemap.pipe(writeStream);
 sitemap.write({ url: "/", changefreq: "daily", priority: 1 });
 sitemap.write({ url: "/taste-match", changefreq: "hourly", priority: 0.9 });
 sitemap.write({ url: "/place-match", changefreq: "hourly", priority: 0.9 });
+sitemap.write({ url: "/hobby-match", changefreq: "hourly", priority: 0.9 });
+sitemap.write({
+  url: "/propensity-match",
+  changefreq: "hourly",
+  priority: 0.9,
+});
 sitemap.write({
   url: "/contacts/developer",
   changefreq: "monthly",
