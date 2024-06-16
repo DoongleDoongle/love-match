@@ -26,6 +26,8 @@ export const translatePlatformNameToKorean = (platformName = "") => {
       return "취미 궁합 테스트";
     case "propensity-match":
       return "성향 궁합 테스트";
+    case "some-match":
+      return "썸 궁합 테스트";
     default:
       return "궁합 테스트";
   }
