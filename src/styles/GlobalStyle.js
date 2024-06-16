@@ -25,8 +25,8 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    color: ${(props) => props.theme.colors.text};
-    background-color: ${(props) => props.theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.background};
     overflow-y: auto; // root에 스크롤을 적용
   }
 `;
