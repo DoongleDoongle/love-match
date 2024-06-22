@@ -114,7 +114,7 @@ const App = () => {
               <Route path={"some-match/rooms/:roomId"} element={<RoomPage />} />
               <Route
                 path={"some-match/rooms/:roomId/results"}
-                element={<ResultPage choiceTopic="썸" />}
+                element={<ResultPage choiceTopic="연애 스타일" />}
               />
 
               <Route
