@@ -78,7 +78,7 @@ const HomePage = () => {
 
       <TopicAreaWrapper>
         <TopicTextWrapper>
-          <TopicTitle>궁합 테스트</TopicTitle>
+          <TopicTitle>밸런스 궁합 테스트</TopicTitle>
           <TopicDescription>우리 사이, 이대로 괜찮을까?</TopicDescription>
         </TopicTextWrapper>
 
@@ -93,6 +93,25 @@ const HomePage = () => {
             </Card>
           ))}
         </CardList>
+      </TopicAreaWrapper>
+
+      <TopicAreaWrapper>
+        <TopicTextWrapper>
+          <TopicTitle>아이스 브레이킹 게임</TopicTitle>
+          <TopicDescription>딱 적절하게 분위기를 깨워줄게요!</TopicDescription>
+        </TopicTextWrapper>
+
+        {/* <CardList>
+          {cards.map((card, index) => (
+            <Card key={index} onClick={() => navigate(card.redirectUrl)}>
+              <CardImage src={card.img} alt={card.title} />
+              <CardContent>
+                <CardTitle>{card.title}</CardTitle>
+                <CardLikes>❤️ {card.likes}</CardLikes>
+              </CardContent>
+            </Card>
+          ))}
+        </CardList> */}
       </TopicAreaWrapper>
 
       <CoupangPartners />

@@ -26,6 +26,7 @@ import {
   TASTE_MATCH_RESULTS_PATH,
 } from "configs/route/routeConfig";
 import HomePage from "pages/home/HomePage";
+import RandomPage from "pages/\bice-breaking-game/random-game/RandomPage";
 
 const App = () => {
   useViewportHeight();
@@ -116,6 +117,8 @@ const App = () => {
                 path={"some-match/rooms/:roomId/results"}
                 element={<ResultPage choiceTopic="연애 스타일" />}
               />
+
+              <Route path={"random-story-topic"} element={<RandomPage />} />
 
               <Route
                 path={"contacts/developer"}

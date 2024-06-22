@@ -43,7 +43,7 @@ const CustomSidebar = ({ isOpen, onClose }) => {
       <SidebarContainer isOpen={isOpen}>
         <StyledSidebar>
           <Menu>
-            <SubMenu label="❣️ 궁합 테스트" defaultOpen>
+            <SubMenu label="❣️ 밸런스 궁합 테스트" defaultOpen>
               <MenuItem
                 component={
                   <Link to={TASTE_MATCH_ROOT_PATH} onClick={onClose} />
@@ -72,6 +72,15 @@ const CustomSidebar = ({ isOpen, onClose }) => {
                 썸 궁합
               </MenuItem>
             </SubMenu>
+
+            <SubMenu label="❄️ 아이스 브레이킹 게임" defaultOpen>
+              <MenuItem
+                component={<Link to="random-story-topic" onClick={onClose} />}
+              >
+                랜덤 이야기 주제
+              </MenuItem>
+            </SubMenu>
+
             <MenuItem
               component={<Link to={"contacts/developer"} onClick={onClose} />}
             >

@@ -94,9 +94,9 @@ const Header = ({ title = "러브매치", onMenuClick }) => {
         />
       </StyledHeader>
 
-      <Toaster showIcon type="info" closable>
+      {/* <Toaster showIcon type="info" closable>
         [공지] 현재는 베타 서비스 기간입니다.
-      </Toaster>
+      </Toaster> */}
     </>
   );
 };
