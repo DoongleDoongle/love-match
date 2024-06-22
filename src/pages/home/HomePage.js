@@ -23,7 +23,7 @@ const HomePage = () => {
     },
   ];
 
-  const cards = [
+  const balanceMatches = [
     {
       img: "/games/balance-match/taste-match/index.png",
       title: "입맛 궁합 테스트",
@@ -56,6 +56,15 @@ const HomePage = () => {
     },
   ];
 
+  const iceBreakingGames = [
+    {
+      img: "/games/ice-breaking-game/random-game/random-story-topic/index.png",
+      title: "랜덤 이야기 주제",
+      redirectUrl: "/random-story-topic",
+      likes: 3897,
+    },
+  ];
+
   const settings = {
     dots: true,
     infinite: true,
@@ -83,7 +92,7 @@ const HomePage = () => {
         </TopicTextWrapper>
 
         <CardList>
-          {cards.map((card, index) => (
+          {balanceMatches.map((card, index) => (
             <Card key={index} onClick={() => navigate(card.redirectUrl)}>
               <CardImage src={card.img} alt={card.title} />
               <CardContent>
@@ -101,8 +110,8 @@ const HomePage = () => {
           <TopicDescription>딱 적절하게 분위기를 깨워줄게요!</TopicDescription>
         </TopicTextWrapper>
 
-        {/* <CardList>
-          {cards.map((card, index) => (
+        <CardList>
+          {iceBreakingGames.map((card, index) => (
             <Card key={index} onClick={() => navigate(card.redirectUrl)}>
               <CardImage src={card.img} alt={card.title} />
               <CardContent>
@@ -111,7 +120,7 @@ const HomePage = () => {
               </CardContent>
             </Card>
           ))}
-        </CardList> */}
+        </CardList>
       </TopicAreaWrapper>
 
       <CoupangPartners />
