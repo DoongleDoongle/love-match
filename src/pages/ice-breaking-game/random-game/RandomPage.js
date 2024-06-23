@@ -11,11 +11,19 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Title = styled.div`
+const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 100px;
-  color: ${({ theme }) => theme.colors.secondary};
-  font-weight: bold;
+`;
+
+const Title = styled.div`
+  color: ${({ theme, color }) => color || theme.colors.secondary};
+  font-weight: ${({ fontWeight }) => fontWeight || "none"};
+  font-size: ${({ fontSize }) => fontSize || "16px"};
 `;
 
 const MessageWrapper = styled.div`
@@ -87,7 +95,15 @@ const RandomPage = () => {
 
   return (
     <Container onClick={handleClick}>
-      <Title>화면을 터치해주세요.</Title>
+      <TitleWrapper>
+        <Title color="black" fontSize="13px">
+          화면을 터치하면 주제가 변경됩니다.
+        </Title>
+        <Title fontWeight="bold">경청과 리액션을 충분히 해주세요.</Title>
+        <Title fontWeight="bold">
+          꼬리를 이은 질문은 분위기를 좋게 만들어줍니다.
+        </Title>
+      </TitleWrapper>
       <MessageWrapper>
         {currentMessageIndex >= 0
           ? messages[currentMessageIndex].message
@@ -113,32 +129,41 @@ const messages = [
   },
   {
     message:
-      "여행: 가고 싶은 여행지, 여행 중 기억에 남는 에피소드, 추천 여행지",
+      "여행 좋아하세요?\n최근에 간 여행지는 어디인가요?\n국내 여행은 좋아하시나요?",
     isDisplayed: false,
   },
   {
-    message: "취미: 취미 생활, 새로운 취미 도전, 취미 관련 이야기",
+    message: "취미가 뭐에요?\n새로운 취미에 도전하는 것을 즐기시나요?",
     isDisplayed: false,
   },
   {
-    message: "영화/드라마: 최근 본 영화나 드라마, 추천 작품, 좋아하는 배우",
+    message:
+      "최근 본 영화나 드라마는?\n가장 좋아하는 배우가 누구에요?\n가장 좋아하는 장르는?",
     isDisplayed: false,
   },
   {
-    message: "음악: 좋아하는 음악 장르, 좋아하는 가수, 콘서트 경험",
+    message:
+      "좋아하는 음악은?\n좋아하는 음악 장르는?\n좋아하는 가수는?\n콘서트 가는 것도 즐기시나요?",
     isDisplayed: false,
   },
   {
-    message: "운동: 즐겨하는 운동, 운동 루틴, 스포츠 경기 관람",
-    isDisplayed: false,
-  },
-  { message: "책: 최근 읽은 책, 추천 책, 좋아하는 작가", isDisplayed: false },
-  {
-    message: "애완동물: 키우는 반려동물 이야기, 반려동물과의 추억, 동물 사랑",
+    message:
+      "운동 좋아하시나요?\n즐겨하는 운동은?\n운동 루틴이 있으신가요?\n스포츠 경기를 직접 보러도 가시나요?",
     isDisplayed: false,
   },
   {
-    message: "카페: 좋아하는 카페, 카페에서 즐겨 마시는 음료, 추천 카페",
+    message:
+      "독서 좋아하시나요?\n최근에 읽은 책이 뭐에요?\n추천해주실 만한 책 있으신가요?\n좋아하는 작가가 있으신가요?",
+    isDisplayed: false,
+  },
+  {
+    message:
+      "강아지/고양이 좋아하시나요?\n강아지/고양이 중에 어느 걸 더 선호하시나요?\n키우시는 반려동물 있으신가요?\n동물원/수족관은 즐겨 가는 편이신가요?",
+    isDisplayed: false,
+  },
+  {
+    message:
+      "커피 좋아하시나요?\n분좋카(분위기 좋은 카페) 가는 것 좋아하시나요?\n가 본 카페 중 가장 괜찮았던 곳은\n자주 즐겨드시는 커피나 음료는 무엇인가요?",
     isDisplayed: false,
   },
   {
