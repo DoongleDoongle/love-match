@@ -1,3 +1,5 @@
+// 랜덤 이야기 주제 컨텐츠를 위한 데이터 목록
+
 export const someItems = [
   {
     topic: "꿈과 목표",

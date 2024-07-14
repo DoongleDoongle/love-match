@@ -75,7 +75,7 @@ const CustomSidebar = ({ isOpen, onClose }) => {
 
             <SubMenu label="❄️ 아이스 브레이킹 게임" defaultOpen>
               <MenuItem
-                component={<Link to="random-story-topic" onClick={onClose} />}
+                component={<Link to="random-topic" onClick={onClose} />}
               >
                 랜덤 이야기 주제
               </MenuItem>

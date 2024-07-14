@@ -58,9 +58,9 @@ const HomePage = () => {
 
   const iceBreakingGames = [
     {
-      img: "/games/ice-breaking-game/random-game/random-story-topic/index.png",
+      img: "/games/ice-breaking-game/random-topic/index.png",
       title: "랜덤 이야기 주제",
-      redirectUrl: "/random-story-topic",
+      redirectUrl: "/random-topic/1",
       likes: 3897,
     },
   ];

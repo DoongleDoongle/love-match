@@ -1,88 +1,16 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { calculateMainLayoutHeight } from "styles/functions";
-import { someItems } from "apis/origin-data/ice-breaking-game/random-game/some-items";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ItemFactory from "utils/functions/ice-breaking-game/random-topic/ItemFactory";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: ${({ theme }) => calculateMainLayoutHeight(theme)};
-  position: relative;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 100px;
-`;
-
-const Title = styled.div`
-  color: ${({ theme, color }) => color || theme.colors.secondary};
-  font-weight: ${({ fontWeight }) => fontWeight || "none"};
-  font-size: ${({ fontSize }) => fontSize || "16px"};
-`;
-
-const Topic = styled.div`
-  margin: 10px 0;
-  padding: 0 0 2px 0;
-  color: ${({ theme, color }) => color || theme.colors.primary};
-  font-weight: bold;
-  width: 90%;
-  text-align: center;
-  border-bottom: dotted 1px black;
-`;
-
-const ContentsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 0 20px;
-  font-family: "Poor Story";
-  font-size: 24px;
-`;
-
-const Content = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  border: solid 1px black;
-  border-radius: 4px;
-  padding: 10px;
-  margin: 2px 0;
-  background-color: ${({ isChecked }) => (isChecked ? "black" : "white")};
-  color: ${({ isChecked }) => (isChecked ? "darkgray" : "black")};
-  text-decoration: ${({ isChecked }) => (isChecked ? "line-through" : "none")};
-  cursor: pointer;
-`;
-
-const ripple = keyframes`
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-`;
-
-const Ripple = styled.div`
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.1);
-  animation: ${ripple} 1s linear;
-  pointer-events: none;
-  width: 50px;
-  height: 50px;
-`;
+import {
+  Container,
+  TitleWrapper,
+  Title,
+  Topic,
+  ContentsWrapper,
+  Content,
+  Ripple,
+} from "components/ice-breaking-game/random-topic";
 
 const getRandomContentIndex = (items) => {
   const availableContents = items.filter((item) => !item.isDisplayed);
@@ -91,11 +19,17 @@ const getRandomContentIndex = (items) => {
 };
 
 const RandomPage = () => {
-  const [items, setItems] = useState(someItems);
-  const [currentContentIndex, setCurrentContentIndex] = useState(
-    getRandomContentIndex(items)
-  );
+  const { platformId } = useParams();
+  const [items, setItems] = useState([]);
+  const [currentContentIndex, setCurrentContentIndex] = useState(null);
   const [ripples, setRipples] = useState([]);
+
+  // 컴포넌트 마운트 시, platformId를 사용하여 items 초기화
+  useEffect(() => {
+    const initialItems = ItemFactory.getItemByPlatformId(platformId);
+    setItems(initialItems);
+    setCurrentContentIndex(getRandomContentIndex(initialItems));
+  }, [platformId]);
 
   const handleClickContainer = (event) => {
     const newIndex = getRandomContentIndex(items);
@@ -147,10 +81,10 @@ const RandomPage = () => {
         </Title>
       </TitleWrapper>
 
-      <Topic>{items[currentContentIndex].topic}</Topic>
+      <Topic>{items[currentContentIndex]?.topic}</Topic>
       <ContentsWrapper>
         {currentContentIndex >= 0 ? (
-          items[currentContentIndex].contents.map((content, index) => (
+          items[currentContentIndex]?.contents.map((content, index) => (
             <Content
               key={index}
               isChecked={content.isChecked}
