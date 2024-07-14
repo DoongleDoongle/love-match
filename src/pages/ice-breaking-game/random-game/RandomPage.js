@@ -28,7 +28,13 @@ const Title = styled.div`
 `;
 
 const Topic = styled.div`
-  color: ${({ theme, color }) => color || theme.colors.secondary};
+  margin: 10px 0;
+  padding: 0 0 2px 0;
+  color: ${({ theme, color }) => color || theme.colors.primary};
+  font-weight: bold;
+  width: 90%;
+  text-align: center;
+  border-bottom: dotted 1px black;
 `;
 
 const ContentsWrapper = styled.div`
@@ -36,7 +42,7 @@ const ContentsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px;
   font-family: "Poor Story";
   font-size: 24px;
 `;
@@ -141,7 +147,7 @@ const RandomPage = () => {
         </Title>
       </TitleWrapper>
 
-      {/* <Topic>{items[currentContentIndex].topic}</Topic> */}
+      <Topic>{items[currentContentIndex].topic}</Topic>
       <ContentsWrapper>
         {currentContentIndex >= 0 ? (
           items[currentContentIndex].contents.map((content, index) => (
