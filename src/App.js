@@ -53,7 +53,12 @@ const App = () => {
 
               <Route
                 path={TASTE_MATCH_ROOT_PATH}
-                element={<StartPage platformTitle="입맛 궁합 테스트" />}
+                element={
+                  <StartPage
+                    platformTitle="입맛 궁합 테스트"
+                    platformDescription="짜장 vs 짬뽕! 밸런스 궁합 테스트\n테스트 후, 친구를 초대해 궁합을 확인하세요!"
+                  />
+                }
               />
               <Route
                 path={`${TASTE_MATCH_ROOMS_PATH}/${$ROOM_ID_PATH}`}
@@ -70,6 +75,7 @@ const App = () => {
                   <StartPage
                     platformTitle="데이트 장소 궁합 테스트"
                     platformTitleSize="35px"
+                    platformDescription="산 vs 바다! 밸런스 궁합 테스트\n테스트 후, 친구를 초대해 궁합을 확인하세요!"
                   />
                 }
               />
@@ -84,7 +90,12 @@ const App = () => {
 
               <Route
                 path={"hobby-match"}
-                element={<StartPage platformTitle="취미 궁합 테스트" />}
+                element={
+                  <StartPage
+                    platformTitle="취미 궁합 테스트"
+                    platformDescription="넷플릭스 vs 유튜브! 밸런스 궁합 테스트\n테스트 후, 친구를 초대해 궁합을 확인하세요!"
+                  />
+                }
               />
               <Route
                 path={"hobby-match/rooms/:roomId"}
@@ -97,7 +108,12 @@ const App = () => {
 
               <Route
                 path={"propensity-match"}
-                element={<StartPage platformTitle="성향 궁합 테스트" />}
+                element={
+                  <StartPage
+                    platformTitle="성향 궁합 테스트"
+                    platformDescription="사랑 vs 우정! 밸런스 궁합 테스트\n테스트 후, 친구를 초대해 궁합을 확인하세요!"
+                  />
+                }
               />
               <Route
                 path={"propensity-match/rooms/:roomId"}
@@ -110,7 +126,12 @@ const App = () => {
 
               <Route
                 path={"some-match"}
-                element={<StartPage platformTitle="썸 궁합 테스트" />}
+                element={
+                  <StartPage
+                    platformTitle="썸 궁합 테스트"
+                    platformDescription="스킨십은? 천천히 vs 빠르게! 밸런스 궁합 테스트\n테스트 후, 친구를 초대해 궁합을 확인하세요!"
+                  />
+                }
               />
               <Route path={"some-match/rooms/:roomId"} element={<RoomPage />} />
               <Route

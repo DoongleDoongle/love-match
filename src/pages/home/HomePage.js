@@ -58,10 +58,16 @@ const HomePage = () => {
 
   const iceBreakingGames = [
     {
-      img: "/games/ice-breaking-game/random-topic/index.png",
-      title: "랜덤 이야기 주제",
+      img: "/games/ice-breaking-game/random-topic/some.png",
+      title: "썸, 랜덤 이야기 주제",
       redirectUrl: "/random-topic/1",
       likes: 3897,
+    },
+    {
+      img: "/games/ice-breaking-game/random-topic/drinking-party.png",
+      title: "술자리, 랜덤 이야기 주제",
+      redirectUrl: "/random-topic/2",
+      likes: 8592,
     },
   ];
 

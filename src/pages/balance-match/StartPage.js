@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CustomButton from "components/common/utils/CustomButton";
-import Image from "components/common/utils/Image";
 import Input from "components/common/utils/Input";
 import CustomModal from "components/common/utils/CustomModal";
 import CustomHelmet from "components/common/Helmet";
@@ -19,15 +18,28 @@ const Container = styled.div`
   height: ${({ theme }) => calculateMainLayoutHeight(theme)};
 `;
 
-const PlatformTitle = styled.div`
+const PlatformInfoWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: ${({ platformTitleSize }) => platformTitleSize};
   font-family: "Single Day";
-  color: ${({ theme }) => theme.colors.secondary};
   width: 100%;
   height: ${({ theme }) => `calc(${calculateMainLayoutHeight(theme)} - 30%)`};
+`;
+
+const PlatformTitle = styled.div`
+  font-size: ${({ platformTitleSize }) => platformTitleSize};
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
+const PlatformDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 100;
+  color: ${({ theme }) => theme.colors.darkGrey};
 `;
 
 const InputContainer = styled.div`
@@ -48,6 +60,7 @@ const InputList = styled.div`
 const StartPage = ({
   platformTitle = "플랫폼 타이틀",
   platformTitleSize = "40px",
+  platformDescription = "테스트 후, 친구를 초대해 궁합을 확인하세요!",
 }) => {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState(false);
@@ -88,9 +101,17 @@ const StartPage = ({
         show={modalShow}
       />
 
-      <PlatformTitle platformTitleSize={platformTitleSize}>
-        {platformTitle}
-      </PlatformTitle>
+      <PlatformInfoWrapper>
+        <PlatformTitle platformTitleSize={platformTitleSize}>
+          {platformTitle}
+        </PlatformTitle>
+
+        <PlatformDescription>
+          {platformDescription.split("\\n").map((el, index) => (
+            <div key={index}>{el}</div>
+          ))}
+        </PlatformDescription>
+      </PlatformInfoWrapper>
 
       {/* <Image src={tasteMatchImage} alt="Taste Match" /> */}
 
